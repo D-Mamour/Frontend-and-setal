@@ -1,7 +1,7 @@
 <div class="min-h-screen bg-white pb-28">
 
   <!-- En-tête / logo -->
-  <header class="flex items-center justify-center px-6 pb-8">
+  <header class="flex items-center justify-center px-6">
     <img src="images/logo.png" alt="Andë sétal" class="h-30 w-auto" />
   </header>
 
@@ -123,39 +123,5 @@
   </main>
 
   <!-- Barre de navigation basse -->
-  <nav class="fixed inset-x-0 bottom-0 z-20 mx-auto max-w-md">
-    <div class="relative flex h-16 items-center justify-between rounded-t-2xl border border-slate-100 bg-slate-50 px-8">
-      <a href="#" class="flex flex-col items-center gap-1 text-slate-400">
-        <i class="fa-solid fa-house text-lg" aria-hidden="true"></i>
-        <span class="text-[10px] font-bold">Accueil</span>
-      </a>
-
-      <a href="#" class="flex flex-col items-center gap-1 text-slate-400">
-        <i class="fa-solid fa-user-group text-lg" aria-hidden="true"></i>
-        <span class="text-[10px] font-bold">Communauté</span>
-      </a>
-
-      <!-- espace réservé sous le bouton flottant -->
-      <span class="w-14"></span>
-
-      <a href="#" class="flex flex-col items-center gap-1 text-slate-400">
-        <i class="fa-solid fa-chart-pie text-lg" aria-hidden="true"></i>
-        <span class="text-[10px] font-bold">Demande</span>
-      </a>
-
-      <a href="#" class="flex flex-col items-center gap-1 text-slate-400">
-        <i class="fa-solid fa-circle-user text-lg" aria-hidden="true"></i>
-        <span class="text-[10px] font-bold">Profil</span>
-      </a>
-    </div>
-
-    <!-- Bouton flottant : signaler rapidement -->
-    <a
-      href="#"
-      aria-label="Signaler un problème"
-      class="absolute left-1/2 top-0 flex size-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-green-700 shadow-lg shadow-green-700/40 ring-4 ring-white"
-    >
-      <i class="fa-solid fa-camera text-xl text-white" aria-hidden="true"></i>
-    </a>
-  </nav>
+  <app-navbar></app-navbar>
 </div>

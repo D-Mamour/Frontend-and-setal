@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { Navbar } from '../../navbar/navbar';
 
 @Component({
   selector: 'app-mes-signalement',
-  imports: [],
+  imports: [Navbar],
   templateUrl: './mes-signalement.html',
   styleUrl: './mes-signalement.css',
 })
