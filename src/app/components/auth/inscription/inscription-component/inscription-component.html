@@ -1,0 +1,27 @@
+<ng-container [ngSwitch]="currentStep">
+
+  <app-inscription-infos
+    *ngSwitchCase="1"
+    [step]="currentStep"
+    [totalSteps]="totalSteps"
+    (continuer)="suivant()"
+  />
+
+  <app-inscription-verification
+    *ngSwitchCase="2"
+    [step]="currentStep"
+    [totalSteps]="totalSteps"
+    (retour)="precedent()"
+    (verifier)="suivant()"
+    (renvoyer)="null"
+  />
+
+  <app-inscription-permissions
+    *ngSwitchCase="3"
+    [step]="currentStep"
+    [totalSteps]="totalSteps"
+    (autoriser)="terminerInscription()"
+    (plusTard)="terminerInscription()"
+  />
+
+</ng-container>

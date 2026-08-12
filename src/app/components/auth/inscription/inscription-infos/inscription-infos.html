@@ -1,0 +1,91 @@
+<div class="min-h-screen bg-white px-6 pb-10 pt-12">
+  <div class="mx-auto max-w-md">
+
+    <!-- En-tête -->
+    <div class="flex items-center justify-between">
+      <button type="button" (click)="retour.emit()" aria-label="Retour" class="flex size-12 items-center justify-center rounded-full bg-white shadow-md">
+        <i class="fa-solid fa-arrow-left text-[#A9663D]" aria-hidden="true"></i>
+      </button>
+
+      <h1 class="text-2xl font-extrabold tracking-tight text-[#A9663D]">Inscription</h1>
+
+      <span class="flex size-12 items-center justify-center rounded-2xl bg-white shadow-md">
+        <i class="fa-solid fa-user-plus text-green-700" aria-hidden="true"></i>
+      </span>
+    </div>
+
+    <!-- Sous-titre -->
+    <p class="mt-8 text-base font-medium leading-6 text-[#A9663D]/80">
+      Créez votre compte citoyen pour commencer.
+    </p>
+
+    <!-- Formulaire -->
+    <form class="mt-8 flex flex-col gap-6">
+
+      <div>
+        <label for="prenom" class="text-xs font-bold uppercase tracking-wide text-slate-600">Prénom</label>
+        <input
+          id="prenom"
+          type="text"
+          placeholder="Abdoulaye"
+          class="mt-2 w-full rounded-2xl bg-slate-100 px-5 py-4 text-base text-zinc-700 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-green-700/40"
+        />
+      </div>
+
+      <div>
+        <label for="nom" class="text-xs font-bold uppercase tracking-wide text-slate-600">Nom</label>
+        <input
+          id="nom"
+          type="text"
+          placeholder="Sow"
+          class="mt-2 w-full rounded-2xl bg-slate-100 px-5 py-4 text-base text-zinc-700 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-green-700/40"
+        />
+      </div>
+
+      <div>
+        <label for="telephone" class="text-xs font-bold uppercase tracking-wide text-slate-600">Numéro de téléphone</label>
+        <div class="mt-2 flex items-center gap-3 rounded-2xl bg-slate-100 px-5 py-4 focus-within:ring-2 focus-within:ring-green-700/40">
+          <span class="text-base font-bold text-zinc-800">+221</span>
+          <input
+            id="telephone"
+            type="tel"
+            placeholder="77 000 00 00"
+            class="w-full bg-transparent text-base text-zinc-400 placeholder:text-zinc-400 focus:outline-none"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label for="code-secret" class="text-xs font-bold uppercase tracking-wide text-slate-600">Code secret ( 4 chiffres )</label>
+        <input
+          id="code-secret"
+          type="password"
+          inputmode="numeric"
+          maxlength="4"
+          placeholder="••••"
+          class="mt-2 w-full rounded-2xl bg-slate-100 px-5 py-5 text-2xl tracking-[1em] text-zinc-400 placeholder:text-zinc-300 focus:outline-none focus:ring-2 focus:ring-green-700/40"
+        />
+      </div>
+    </form>
+
+    <!-- Bouton continuer -->
+    <button
+      type="button"
+      (click)="continuer.emit()"
+      class="mt-10 flex w-full items-center justify-center gap-2 rounded-full bg-[#2E7D32] py-4 text-base font-bold text-white shadow-lg shadow-[#2E7D32]/30"
+    >
+      Continuer
+      <i class="fa-solid fa-chevron-right text-sm" aria-hidden="true"></i>
+    </button>
+
+    <p class="text-center text-gray-400 text-sm mt-5">
+      Vous avez deja un compte ?
+      <a routerLink="/connexion" class="font-bold" style="color: #2E7D32;">Se connecter</a>
+    </p>
+
+    <!-- Pagination -->
+    <p class="mt-6 text-center text-sm text-[#A9663D]/70">
+      Étape <span class="font-bold text-[#A9663D]">{{ step }} sur {{ totalSteps }}</span>
+    </p>
+  </div>
+</div>

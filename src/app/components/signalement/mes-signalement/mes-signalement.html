@@ -1,0 +1,153 @@
+<div class="min-h-screen bg-white flex flex-col">
+  <!-- Header -->
+  <header class="flex items-center justify-between px-4 pt-6 pb-4">
+    <button
+      type="button"
+      (click)="goHome()"
+      aria-label="Retour"
+      class="w-10 h-10 flex items-center justify-center rounded-2xl bg-white shadow-sm active:scale-95 transition"
+    >
+      <i class="fa-solid fa-chevron-left text-gray-800"></i>
+    </button>
+
+    <h1 class="text-lg font-extrabold text-gray-900">Mes signalements</h1>
+
+    <button
+      type="button"
+      aria-label="Filtrer"
+      class="w-10 h-10 flex items-center justify-center rounded-2xl bg-white shadow-sm active:scale-95 transition"
+    >
+      <i class="fa-solid fa-sliders text-gray-800"></i>
+    </button>
+  </header>
+
+  <!-- Onglets -->
+  <nav class="px-4 border-b border-gray-100">
+    <ul class="flex items-center gap-6 text-sm font-semibold">
+      <li class="relative pb-3">
+        <a href="#" class="text-green-700">Tous</a>
+        <span class="absolute left-1/2 -translate-x-1/2 -bottom-[1px] w-1.5 h-1.5 rounded-full bg-green-700"></span>
+      </li>
+      <li class="pb-3">
+        <a href="#" class="text-gray-400">En attente</a>
+      </li>
+      <li class="pb-3">
+        <a href="#" class="text-gray-400">En cours</a>
+      </li>
+      <li class="pb-3">
+        <a href="#" class="text-gray-400">Résolus</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Liste des signalements -->
+  <main class="flex-1 px-4 pt-4 pb-28 space-y-4">
+    <!-- Carte 1 -->
+    <article class="bg-white rounded-3xl shadow-sm outline outline-1 outline-offset-[-1px] outline-white p-3 flex gap-3">
+      <img
+        src="https://images.unsplash.com/photo-1621452773781-0f992fd1f5cb?w=200&h=200&fit=crop"
+        alt="Dépôt sauvage"
+        class="w-20 h-20 rounded-2xl object-cover shrink-0"
+      />
+      <div class="flex-1 min-w-0 py-0.5">
+        <div class="flex items-center justify-between gap-2">
+          <h2 class="font-extrabold text-gray-900 truncate">Dépôt sauvage</h2>
+          <span class="shrink-0 bg-blue-100 text-blue-600 text-[11px] font-bold tracking-wide px-2.5 py-1 rounded-full">
+            EN COURS
+          </span>
+        </div>
+        <p class="flex items-center gap-1 text-gray-400 text-sm mt-1">
+          <i class="fa-solid fa-location-dot text-xs"></i>
+          Corniche Ouest
+        </p>
+        <div class="flex items-center justify-between mt-3">
+          <span class="text-gray-400 text-sm">Hier, 14:20</span>
+          <i class="fa-solid fa-arrow-right text-green-600 text-sm"></i>
+        </div>
+      </div>
+    </article>
+
+    <!-- Carte 2 -->
+    <article class="bg-white rounded-3xl shadow-sm outline outline-1 outline-offset-[-1px] outline-white p-3 flex gap-3">
+      <img
+        src="https://images.unsplash.com/photo-1594818379496-da1e345b0ded?w=200&h=200&fit=crop"
+        alt="Nid-de-poule"
+        class="w-20 h-20 rounded-2xl object-cover shrink-0"
+      />
+      <div class="flex-1 min-w-0 py-0.5">
+        <div class="flex items-center justify-between gap-2">
+          <h2 class="font-extrabold text-gray-900 truncate">Nid-de-poule</h2>
+          <span class="shrink-0 bg-green-100 text-green-700 text-[11px] font-bold tracking-wide px-2.5 py-1 rounded-full">
+            RÉSOLU
+          </span>
+        </div>
+        <p class="flex items-center gap-1 text-gray-400 text-sm mt-1">
+          <i class="fa-solid fa-location-dot text-xs"></i>
+          Place de l'indépendance
+        </p>
+        <div class="flex items-center justify-between mt-3">
+          <span class="text-gray-400 text-sm">12 Mai 2024</span>
+          <i class="fa-solid fa-arrow-right text-green-600 text-sm"></i>
+        </div>
+      </div>
+    </article>
+
+    <!-- Carte 3 -->
+    <article class="bg-white rounded-3xl shadow-sm outline outline-1 outline-offset-[-1px] outline-white p-3 flex gap-3">
+      <img
+        src="https://images.unsplash.com/photo-1542401886-65d6c61db217?w=200&h=200&fit=crop"
+        alt="Éclairage public"
+        class="w-20 h-20 rounded-2xl object-cover shrink-0"
+      />
+      <div class="flex-1 min-w-0 py-0.5">
+        <div class="flex items-center justify-between gap-2">
+          <h2 class="font-extrabold text-gray-900 truncate">Éclairage public</h2>
+          <span class="shrink-0 bg-orange-100 text-orange-600 text-[11px] font-bold tracking-wide px-2.5 py-1 rounded-full">
+            EN ATTENTE
+          </span>
+        </div>
+        <p class="flex items-center gap-1 text-gray-400 text-sm mt-1">
+          <i class="fa-solid fa-location-dot text-xs"></i>
+          Rue Jules Ferry
+        </p>
+        <div class="flex items-center justify-between mt-3">
+          <span class="text-gray-400 text-sm">10 Mai 2024</span>
+          <i class="fa-solid fa-arrow-right text-green-600 text-sm"></i>
+        </div>
+      </div>
+    </article>
+
+    <!-- Carte 4 -->
+    <article class="bg-white rounded-3xl shadow-sm outline outline-1 outline-offset-[-1px] outline-white p-3 flex gap-3">
+      <img
+        src="https://images.unsplash.com/photo-1591189863430-ab87e120f312?w=200&h=200&fit=crop"
+        alt="Canal bouché"
+        class="w-20 h-20 rounded-2xl object-cover shrink-0"
+      />
+      <div class="flex-1 min-w-0 py-0.5">
+        <div class="flex items-center justify-between gap-2">
+          <h2 class="font-extrabold text-gray-900 truncate">Canal bouché</h2>
+          <span class="shrink-0 bg-green-100 text-green-700 text-[11px] font-bold tracking-wide px-2.5 py-1 rounded-full">
+            RÉSOLU
+          </span>
+        </div>
+        <p class="flex items-center gap-1 text-gray-400 text-sm mt-1">
+          <i class="fa-solid fa-location-dot text-xs"></i>
+          Rue Abdoulaye Fadiga
+        </p>
+        <div class="flex items-center justify-between mt-3">
+          <span class="text-gray-400 text-sm">05 Mai 2024</span>
+          <i class="fa-solid fa-arrow-right text-green-600 text-sm"></i>
+        </div>
+      </div>
+    </article>
+
+    <!-- Fin de liste -->
+    <p class="text-center text-gray-300 text-sm pt-4">Fin de votre historique</p>
+  </main>
+
+  <!-- Barre de navigation basse -->
+  <nav class="fixed bottom-0 left-0 right-0 px-4 pb-6 pt-2">
+
+  </nav>
+</div>

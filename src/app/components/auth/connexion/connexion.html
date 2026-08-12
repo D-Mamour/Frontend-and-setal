@@ -1,0 +1,62 @@
+<div class="min-h-screen bg-white flex flex-col px-6 pt-12 pb-8">
+  <!-- Logo -->
+  <div class="flex items-center gap-2 mb-8">
+    <img src="images/logo.png" alt="Andë sétal" class="h-30 w-auto" />
+  </div>
+
+  <!-- Accroche -->
+  <p class="text-gray-400 text-lg leading-relaxed mb-8">
+    Accédez à votre espace citoyen pour un Dakar Plateau plus propre.
+  </p>
+
+  <h1 class="text-4xl font-extrabold text-gray-900 text-center mb-8">Connexion</h1>
+
+  <form class="flex flex-col gap-5">
+    <!-- Numéro -->
+    <div>
+      <label for="phoneNumber" class="block text-gray-500 font-bold text-sm tracking-wide uppercase mb-2">
+        Numéro
+      </label>
+      <input
+        id="phoneNumber"
+        type="tel"
+        name="phoneNumber"
+        placeholder="77 000 00 00"
+        class="w-full bg-gray-100 rounded-2xl px-5 py-4 text-gray-700 placeholder-gray-400 outline-none focus:ring-2 focus:ring-green-700"
+      />
+    </div>
+
+    <!-- Code -->
+    <div>
+      <label for="code" class="block text-gray-500 font-bold text-sm tracking-wide uppercase mb-2">
+        Code
+      </label>
+      <input
+        id="code"
+        type="text"
+        inputmode="numeric"
+        name="code"
+        placeholder="• • • •"
+        class="w-full bg-gray-100 rounded-2xl px-5 py-4 text-gray-700 placeholder-gray-400 outline-none focus:ring-2 focus:ring-green-700 tracking-[0.3em]"
+      />
+    </div>
+
+    <!-- Bouton connexion -->
+    <button
+      type="submit"
+      (click)="seConnecter()"
+      class="mt-2 w-full rounded-full text-white font-bold py-4 flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.99] transition"
+      style="background-color: #2E7D32;"
+    >
+        Connexion
+        <i class="fa-solid fa-arrow-right"></i>
+
+    </button>
+
+    <!-- Lien inscription -->
+    <p class="text-center text-gray-400 text-sm mt-2">
+      Vous n'avez pas de compte ?
+      <a routerLink="/inscription" class="font-bold" style="color: #2E7D32;">S'inscrire</a>
+    </p>
+  </form>
+</div>
