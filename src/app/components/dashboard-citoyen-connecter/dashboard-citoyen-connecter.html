@@ -1,1 +1,98 @@
-<p>dashboard-citoyen-connecter works!</p>
+<div class="min-h-screen bg-white pb-28">
+
+  <!-- En-tête / logo -->
+  <header class="flex items-center justify-center px-6  pb-6">
+    <img src="images/logo.png" alt="Andë sétal" class="h-30 w-auto" />
+  </header>
+
+  <main class="mx-auto flex max-w-md flex-col gap-4 px-6">
+
+    <!-- Notification : travaux terminés -->
+    <div class="rounded-[28px] border border-slate-100 bg-white p-5 shadow-sm">
+      <div class="flex items-start gap-4">
+        <span class="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-green-100">
+          <i class="fa-solid fa-check text-green-700" aria-hidden="true"></i>
+        </span>
+
+        <div class="min-w-0 flex-1">
+          <div class="flex items-center justify-between gap-2">
+            <p class="text-xs font-bold uppercase tracking-wide text-green-600">Travaux terminés</p>
+            <p class="shrink-0 text-xs text-slate-400">Il y a 2 min</p>
+          </div>
+          <p class="mt-1 text-base font-bold leading-6 text-zinc-900">
+            Le nid-de-poule à Plateau a été réparé
+          </p>
+          <div class="mt-2 flex items-center gap-2 text-xs text-slate-400">
+            <span class="size-1.5 rounded-full bg-green-500"></span>
+            Statut mis à jour par l'équipe technique
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Salutation -->
+    <div class="mt-4 text-center">
+      <p class="text-xs font-bold uppercase tracking-widest text-[#A9663D]">Bonjour, Ibrahima 👋</p>
+      <h1 class="mt-2 text-2xl font-extrabold leading-tight text-zinc-900">
+        Améliorons Dakar<br />
+        <span class="text-green-700">ensemble aujourd'hui</span>
+      </h1>
+    </div>
+
+    <!-- Cartes d'action -->
+    <div class="mt-2 flex items-center gap-5 rounded-3xl border border-green-200/50 bg-[#E8F5E9] p-6 shadow-[0px_8px_24px_0px_rgba(0,0,0,0.04)]">
+      <span class="flex size-16 shrink-0 items-center justify-center rounded-3xl bg-green-700 shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.10)]">
+        <i class="fa-solid fa-camera text-2xl text-white" aria-hidden="true"></i>
+      </span>
+      <div>
+        <p class="text-lg font-extrabold tracking-tight text-zinc-800">Signaler un problème</p>
+        <p class="mt-0.5 text-xs font-medium leading-5 tracking-tight text-zinc-800/70">
+          Prenez une photo d'un dépôt sauvage ou d'une dégradation
+        </p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-5 rounded-3xl border border-sky-200/50 bg-[#E3F2FD] p-6 shadow-[0px_8px_24px_0px_rgba(0,0,0,0.04)]">
+      <span class="flex size-16 shrink-0 items-center justify-center rounded-3xl bg-sky-500 shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.10)]">
+        <i class="fa-solid fa-clock-rotate-left text-2xl text-white" aria-hidden="true"></i>
+      </span>
+      <div>
+        <p class="text-lg font-extrabold tracking-tight text-zinc-800">Mes signalements</p>
+        <p class="mt-0.5 text-xs font-medium leading-5 tracking-tight text-zinc-800/70">
+          Suivez l'avancement de vos signalements en temps réel
+        </p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-5 rounded-3xl border border-stone-300/50 bg-[#E8DDBA] p-6 shadow-[0px_8px_24px_0px_rgba(0,0,0,0.04)]">
+      <span class="flex size-16 shrink-0 items-center justify-center rounded-3xl bg-[#A17354] shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.10)]">
+        <i class="fa-solid fa-users text-2xl text-white" aria-hidden="true"></i>
+      </span>
+      <div>
+        <p class="text-lg font-extrabold tracking-tight text-zinc-800">Initier un Set-Sétal</p>
+        <p class="mt-0.5 text-xs font-medium leading-5 tracking-tight text-zinc-800/70">
+          Organisez ou rejoignez un grand nettoyage citoyen
+        </p>
+      </div>
+    </div>
+
+    <!-- Mon impact -->
+    <section class="mt-4">
+      <h2 class="text-center text-xl font-extrabold text-zinc-900">Mon impact</h2>
+
+      <div class="mt-4 grid grid-cols-2 gap-4">
+        <div class="rounded-3xl border border-slate-100 bg-white p-6 text-center">
+          <p class="text-3xl font-extrabold text-green-600">0</p>
+          <p class="mt-1 text-sm font-semibold text-slate-500">Points signalés</p>
+        </div>
+        <div class="rounded-3xl border border-slate-100 bg-white p-6 text-center">
+          <p class="text-3xl font-extrabold text-sky-500">0</p>
+          <p class="mt-1 text-sm font-semibold text-slate-500">Set-Sétal rejoints</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Barre de navigation basse -->
+ <app-navbar></app-navbar>
+</div>

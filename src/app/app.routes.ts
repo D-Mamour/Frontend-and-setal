@@ -5,9 +5,11 @@ import { SignalerProbleme } from './components/signalement/signaler-probleme/sig
 import { SignalementSuccess } from './components/signalement/signalement-success/signalement-success';
 import { MesSignalement } from './components/signalement/mes-signalement/mes-signalement';
 import { Connexion } from './components/auth/connexion/connexion';
+import { DashboardCitoyenConnecter } from './components/dashboard-citoyen-connecter/dashboard-citoyen-connecter';
 
 export const routes: Routes = [
   {path: '', component: DashboardCitoyen},
+  {path: 'home', component: DashboardCitoyenConnecter},
   {path: 'inscription', component: InscriptionComponent},
   {path: 'connexion', component: Connexion},
   {path: 'signaler-probleme', component: SignalerProbleme},

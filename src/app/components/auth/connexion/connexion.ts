@@ -13,6 +13,6 @@ export class Connexion {
     router = inject(Router)
 
     seConnecter(){
-      this.router.navigate(['/signalements']);
+      this.router.navigate(['/home']);
     }
 }

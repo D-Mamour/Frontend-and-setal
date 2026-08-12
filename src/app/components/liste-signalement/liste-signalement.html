@@ -1,1 +1,380 @@
-<p>liste-signalement works!</p>
+<div
+  class="min-h-screen bg-white
+         px-5 pb-24 pt-5
+         md:px-8
+         lg:ml-64 lg:px-10 lg:pb-10 lg:pt-[120px]"
+>
+
+  <!-- CONTENU PRINCIPAL -->
+  <div class="mx-auto w-full max-w-7xl">
+
+
+    <!-- ================================================= -->
+    <!-- MAIRIE -->
+    <!-- ================================================= -->
+
+    <p
+      class="mb-5 text-xs font-medium
+             tracking-wide text-slate-500
+             md:text-sm"
+    >
+      Mairie DAKAR PLATEAU
+    </p>
+
+
+    <!-- ================================================= -->
+    <!-- DERNIER SIGNALEMENT -->
+    <!-- ================================================= -->
+
+    <section
+      class="mb-10 rounded-[28px]
+             border border-green-100
+             bg-green-50/60
+             p-5
+             md:p-6"
+    >
+
+      <div class="flex items-start gap-4">
+
+        <!-- ICONE -->
+        <div
+          class="flex h-12 w-12 shrink-0
+                 items-center justify-center
+                 rounded-2xl
+                 bg-green-700/15
+                 text-green-700"
+        >
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+
+
+        <!-- TEXTE -->
+        <div class="min-w-0">
+
+          <h2
+            class="text-lg font-bold
+                   text-green-700
+                   md:text-xl"
+          >
+            Dernier Signalement
+          </h2>
+
+          <p
+            class="mt-1 text-sm
+                   leading-5 text-slate-700
+                   md:text-base"
+          >
+            <span class="font-bold">
+              Zone critique détectée: Médina.
+            </span>
+
+            <br class="sm:hidden">
+
+            Augmentation de 15% des signalements cette semaine.
+            Intervention recommandée.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================================================= -->
+    <!-- STATISTIQUES -->
+    <!-- ================================================= -->
+
+    <section
+      class="mb-10 grid grid-cols-2 gap-4
+             md:max-w-2xl md:gap-5"
+    >
+
+      <!-- TOTAL -->
+      <div
+        class="rounded-[26px]
+               border border-slate-100
+               bg-white p-5
+               shadow-sm
+               md:p-6"
+      >
+
+        <p
+          class="text-[11px] font-bold
+                 uppercase leading-4
+                 tracking-[0.12em]
+                 text-slate-400
+                 md:text-xs"
+        >
+          Total<br class="sm:hidden">
+          Signalements
+        </p>
+
+        <p
+          class="mt-5 text-[30px]
+                 font-black tracking-tight
+                 text-slate-900
+                 md:text-4xl"
+        >
+          1,284
+        </p>
+
+        <div
+          class="mt-2 flex items-center gap-1
+                 text-xs font-bold text-green-700
+                 md:text-sm"
+        >
+          <i class="fa-solid fa-arrow-trend-up"></i>
+
+          <span>+12%</span>
+        </div>
+
+      </div>
+
+
+      <!-- TAUX DE RESOLUTION -->
+      <div
+        class="rounded-[26px]
+               border border-slate-100
+               bg-white p-5
+               shadow-sm
+               md:p-6"
+      >
+
+        <p
+          class="text-[11px] font-bold
+                 uppercase leading-4
+                 tracking-[0.12em]
+                 text-slate-400
+                 md:text-xs"
+        >
+          Taux résolution
+        </p>
+
+        <p
+          class="mt-5 text-[30px]
+                 font-black tracking-tight
+                 text-slate-900
+                 md:text-4xl"
+        >
+          86.4%
+        </p>
+
+        <div
+          class="mt-2 flex items-center gap-1
+                 text-xs font-bold text-green-700
+                 md:text-sm"
+        >
+          <i class="fa-regular fa-circle-check"></i>
+
+          <span>Optimisé</span>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================================================= -->
+    <!-- SIGNALEMENTS PAR QUARTIER -->
+    <!-- ================================================= -->
+
+    <section class="mb-10">
+
+      <h2
+        class="mb-5 text-[22px]
+               font-black tracking-tight
+               text-slate-900
+               md:text-2xl"
+      >
+        Signalements par Quartier
+      </h2>
+
+
+      <!-- GRAPH -->
+      <div
+        class="rounded-[30px]
+               border border-slate-100
+               bg-white
+               px-5 py-7
+               shadow-sm
+               md:px-8 md:py-8"
+      >
+
+        <div
+          class="flex h-[230px]
+                 items-end justify-between
+                 gap-3
+                 md:h-[280px]
+                 md:gap-6"
+        >
+
+          @for (quartier of quartiers; track quartier.nom) {
+
+            <div
+              class="flex h-full
+                     min-w-0 flex-1
+                     flex-col items-center
+                     justify-end"
+            >
+
+              <!-- VALEUR -->
+              <div
+                class="flex w-full
+                       flex-1 items-end
+                       justify-center"
+              >
+
+                <div
+                  class="w-full max-w-[52px]
+                         rounded-t-none
+                         bg-green-700
+                         transition-all
+                         duration-300
+                         md:max-w-[70px]"
+                  [style.height.%]="
+                    (quartier.valeur / hauteurMax) * 100
+                  "
+                ></div>
+
+              </div>
+
+
+              <!-- NOM -->
+              <span
+                class="mt-2 truncate
+                       text-[11px]
+                       text-slate-500
+                       md:text-xs"
+              >
+                {{ quartier.nom }}
+              </span>
+
+            </div>
+
+          }
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================================================= -->
+    <!-- SIGNALEMENTS -->
+    <!-- ================================================= -->
+
+    <section>
+
+      <!-- HEADER -->
+      <div
+        class="mb-5 flex items-center
+               justify-between"
+      >
+
+        <h2
+          class="text-[22px]
+                 font-black tracking-tight
+                 text-slate-900
+                 md:text-2xl"
+        >
+          Signalements
+        </h2>
+
+        <button
+          type="button"
+          class="text-sm font-bold
+                 text-green-700
+                 hover:text-green-800"
+        >
+          Voir tout
+        </button>
+
+      </div>
+
+
+      <!-- LISTE -->
+      <div class="space-y-4">
+
+        @for (
+          signalement of signalements;
+          track signalement.titre
+        ) {
+
+          <article
+            class="flex items-center gap-4
+                   rounded-[26px]
+                   border border-slate-100
+                   bg-white p-4
+                   shadow-sm
+                   md:p-5"
+          >
+
+            <!-- IMAGE -->
+            <img
+              [src]="signalement.image"
+              [alt]="signalement.titre"
+              class="h-16 w-16 shrink-0
+                     rounded-2xl
+                     object-cover
+                     md:h-20 md:w-20"
+            />
+
+
+            <!-- INFORMATIONS -->
+            <div class="min-w-0 flex-1">
+
+              <h3
+                class="text-sm font-bold
+                       text-slate-900
+                       md:text-base"
+              >
+                {{ signalement.titre }}
+              </h3>
+
+              <p
+                class="mt-1 text-xs
+                       text-slate-500
+                       md:text-sm"
+              >
+                {{ signalement.quartier }}
+                • {{ signalement.temps }}
+              </p>
+
+            </div>
+
+
+            <!-- PRIORITE -->
+            <span
+              class="shrink-0 rounded-xl
+                     px-3 py-2
+                     text-[10px] font-black
+                     md:text-xs"
+              [class.bg-orange-50]="
+                signalement.type === 'priorite'
+              "
+              [class.text-orange-600]="
+                signalement.type === 'priorite'
+              "
+              [class.bg-red-50]="
+                signalement.type === 'critique'
+              "
+              [class.text-red-600]="
+                signalement.type === 'critique'
+              "
+            >
+              {{ signalement.priorite }}
+            </span>
+
+          </article>
+
+        }
+
+      </div>
+
+    </section>
+
+  </div>
+
+</div>

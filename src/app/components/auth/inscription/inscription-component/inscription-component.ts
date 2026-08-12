@@ -32,6 +32,6 @@ export class InscriptionComponent {
 
   /** Appelé une fois la 3e étape validée ou passée — branche ici la redirection réelle */
   terminerInscription(): void {
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/home');
   }
 }

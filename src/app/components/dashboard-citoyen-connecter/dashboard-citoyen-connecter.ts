@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { Navbar } from '../navbar/navbar';
 
 @Component({
   selector: 'app-dashboard-citoyen-connecter',
-  imports: [],
+  imports: [Navbar],
   templateUrl: './dashboard-citoyen-connecter.html',
   styleUrl: './dashboard-citoyen-connecter.css',
 })
