@@ -1,0 +1,114 @@
+<header
+  class="fixed left-64 right-0 top-0 z-30
+         h-[100px] border-b border-slate-100
+         bg-white px-5"
+>
+
+  <div class="flex h-full items-center justify-between">
+
+    <!-- RECHERCHE -->
+    <div class="relative w-[492px]">
+
+      <fa-icon
+        [icon]="faMagnifyingGlass"
+        class="absolute left-5 top-1/2
+               -translate-y-1/2
+               text-[20px] text-slate-400"
+      ></fa-icon>
+
+      <input
+        type="text"
+        placeholder="Rechercher un signalement, une zone..."
+        class="h-12 w-full rounded-full
+               bg-slate-50
+               pl-16 pr-5
+               text-sm text-slate-600
+               outline-none
+               placeholder:text-slate-400
+               focus:ring-2 focus:ring-green-100"
+      />
+
+    </div>
+
+
+    <!-- PARTIE DROITE -->
+    <div class="flex h-full items-center">
+
+      <!-- DATE -->
+      <div
+        class="flex flex-col items-end
+               border-r border-slate-200
+               pr-7"
+      >
+
+        <span
+          class="text-sm font-medium
+                 uppercase text-slate-400"
+        >
+          AUJOURD'HUI
+        </span>
+
+        <span
+          class="mt-1 text-[17px]
+                 font-bold text-slate-700"
+        >
+         {{ currentDate }}
+        </span>
+
+      </div>
+
+
+      <!-- NOTIFICATION -->
+      <button
+        type="button"
+        class="relative mx-7
+               flex h-12 w-12
+               items-center justify-center
+               rounded-full bg-slate-50
+               text-slate-500"
+      >
+
+        <fa-icon
+          [icon]="faBell"
+          class="text-[19px]"
+        ></fa-icon>
+
+        <!-- POINT ROUGE -->
+        <span
+          class="absolute right-[11px] top-[9px]
+                 h-2 w-2 rounded-full
+                 bg-red-500
+                 ring-2 ring-white"
+        ></span>
+
+      </button>
+
+
+      <!-- UTILISATEUR -->
+      <div
+        class="flex flex-col items-center
+               min-w-[150px]"
+      >
+
+        <span
+          class="text-[18px]
+                 font-bold text-slate-800"
+        >
+          Moussa Diop
+        </span>
+
+        <span
+          class="mt-0.5 text-sm
+                 font-bold uppercase
+                 text-green-700"
+        >
+          ADMINISTRATEUR
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</header>
