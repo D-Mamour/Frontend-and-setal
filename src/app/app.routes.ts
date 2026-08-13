@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-import { AjouterMembre } from './components/ajouter-membre/ajouter-membre';
+import { AjouterMembre } from './components/admin/ajouter-membre/ajouter-membre';
 import { AdminSecurite } from './components/admin/admin-securite/admin-securite';
 import { AdminAnalyse } from './components/admin/admin-analyse/admin-analyse';
 import { Dashboard } from './components/admin/dashboard/dashboard';
@@ -38,8 +38,6 @@ export const routes: Routes = [
 
   // ESPACE ADMIN
   {path: 'admin/login', component: LoginAdmin},
-  {path: 'ajouter-membre', component: AjouterMembre},
-
   {
     path: 'admin', component: Layout,
     children: [

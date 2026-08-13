@@ -1,12 +1,8 @@
 <div class="min-h-screen bg-white flex flex-col">
   <!-- Header -->
   <header class="flex items-center gap-4 bg-gray-50 px-4 pt-6 pb-5 sticky top-0 z-10">
-    <button
-      type="button"
-      (click)="goBack()"
-      aria-label="Retour"
-      class="w-10 h-10 flex items-center justify-center rounded-2xl bg-white shadow-sm active:scale-95 transition"
-    >
+    <button type="button" (click)="goBack()" aria-label="Retour"
+      class="w-10 h-10 flex items-center justify-center rounded-2xl bg-white shadow-sm active:scale-95 transition">
       <i class="fa-solid fa-chevron-left text-gray-800"></i>
     </button>
     <h1 class="text-lg font-extrabold text-gray-900">Signaler un problème</h1>
@@ -15,22 +11,11 @@
   <main class="flex-1 px-4 pb-32 pt-4 space-y-6">
     <!-- Zone photo + analyse IA -->
     <section>
-      <input
-        #fileInput
-        type="file"
-        accept="image/*"
-        capture="environment"
-        class="hidden"
-        (change)="onFileSelected($event)"
-      />
+      <input type="file" accept="image/*" capture="environment" class="hidden" />
 
       <!-- Etat vide : pas encore de photo -->
-      <button
-        *ngIf="!imagePreviewUrl"
-        type="button"
-        (click)="openFilePicker()"
-        class="w-full h-56 rounded-3xl border-2 border-dashed border-gray-300 flex flex-col items-center justify-center gap-3 bg-gray-50 active:scale-[0.99] transition"
-      >
+      <button type="button"
+        class="w-full h-56 rounded-3xl border-2 border-dashed border-gray-300 flex flex-col items-center justify-center gap-3 bg-gray-50 active:scale-[0.99] transition">
         <span class="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center">
           <i class="fa-solid fa-camera text-green-700 text-xl"></i>
         </span>
@@ -38,54 +23,6 @@
           Cliquez pour ajouter une photo du problème
         </span>
       </button>
-
-      <!-- Etat rempli : photo + carte d'analyse IA -->
-      <div *ngIf="imagePreviewUrl" class="relative rounded-3xl overflow-hidden shadow-sm">
-        <img
-          [src]="imagePreviewUrl"
-          alt="Photo du problème signalé"
-          class="w-full h-56 object-cover"
-        />
-
-        <!-- Bouton reprendre la photo -->
-        <button
-          type="button"
-          (click)="retakePhoto()"
-          aria-label="Reprendre la photo"
-          class="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/60 backdrop-blur flex items-center justify-center active:scale-95 transition"
-        >
-          <i class="fa-solid fa-rotate-right text-white text-sm"></i>
-        </button>
-
-        <!-- Carte overlay : résultat de l'analyse IA -->
-        <div class="absolute bottom-3 left-3 right-3 bg-white/95 backdrop-blur rounded-2xl p-4 flex items-center gap-3 shadow-lg">
-          <div class="w-9 h-9 rounded-full bg-red-50 flex items-center justify-center shrink-0">
-            <i class="fa-solid fa-robot text-red-600 text-sm"></i>
-          </div>
-
-          <div class="flex-1 min-w-0">
-            <p class="text-[11px] font-bold text-red-600 tracking-wide uppercase">Analyse IA</p>
-
-            <ng-container *ngIf="isAnalyzing">
-              <p class="text-gray-500 text-sm font-medium flex items-center gap-2">
-                <i class="fa-solid fa-circle-notch fa-spin"></i>
-                Analyse en cours...
-              </p>
-            </ng-container>
-
-            <p *ngIf="!isAnalyzing && analysisResult" class="text-gray-900 font-extrabold leading-snug">
-              {{ analysisResult.label }}
-            </p>
-          </div>
-
-          <span
-            *ngIf="!isAnalyzing && analysisResult"
-            class="shrink-0 bg-red-600 text-white text-xs font-bold px-3 py-2 rounded-xl text-center leading-tight"
-          >
-            {{ analysisResult.matchPercent }}%<br />Match
-          </span>
-        </div>
-      </div>
     </section>
 
     <!-- Description -->
@@ -98,21 +35,10 @@
         </p>
 
         <div class="flex items-center gap-3">
-          <input
-            type="text"
-            name="description"
-            [(ngModel)]="description"
-            placeholder="ECRIRE"
-            class="flex-1 bg-white rounded-2xl px-4 py-3 text-sm text-gray-700 placeholder-gray-400 outline-none focus:ring-2 focus:ring-green-600"
-          />
-          <button
-            type="button"
-            (click)="toggleVoiceInput()"
-            aria-label="Dicter la description"
-            class="w-11 h-11 shrink-0 rounded-2xl flex items-center justify-center transition"
-            [class.bg-green-700]="!isRecording"
-            [class.bg-red-600]="isRecording"
-          >
+          <input type="text" name="description" placeholder="ECRIRE"
+            class="flex-1 bg-white rounded-2xl px-4 py-3 text-sm text-gray-700 placeholder-gray-400 outline-none focus:ring-2 focus:ring-green-600" />
+          <button type="button" aria-label="Dicter la description"
+            class="w-11 h-11 shrink-0 rounded-2xl flex items-center justify-center transition">
             <i class="fa-solid fa-microphone text-white"></i>
           </button>
         </div>
@@ -123,11 +49,7 @@
     <section>
       <div class="flex items-center justify-between mb-2">
         <h2 class="text-gray-500 font-semibold">Localisation</h2>
-        <button
-          type="button"
-          (click)="refreshLocation()"
-          class="flex items-center gap-1.5 text-green-700 font-semibold text-sm"
-        >
+        <button type="button" class="flex items-center gap-1.5 text-green-700 font-semibold text-sm">
           <i class="fa-solid fa-arrows-rotate text-xs"></i>
           Actualiser
         </button>
@@ -140,15 +62,11 @@
 
         <div class="flex-1 min-w-0">
           <p class="font-extrabold text-gray-900">Prise en charge</p>
-          <p class="text-gray-400 text-sm">{{ locationLabel }}</p>
+          <p class="text-gray-400 text-sm">Ma position</p>
         </div>
 
-        <button
-          type="button"
-          (click)="openMap()"
-          aria-label="Voir sur la carte"
-          class="w-11 h-11 shrink-0 rounded-2xl bg-white flex items-center justify-center"
-        >
+        <button type="button" aria-label="Voir sur la carte"
+          class="w-11 h-11 shrink-0 rounded-2xl bg-white flex items-center justify-center">
           <i class="fa-regular fa-map text-green-700"></i>
         </button>
       </div>
@@ -157,20 +75,11 @@
 
   <!-- Bouton d'envoi -->
   <div class="fixed bottom-0 left-0 right-0 px-4 pb-6 pt-3 bg-white">
-    <button
-      type="button"
-      [disabled]="!canSubmit"
-      (click)="onSubmit()"
-      class="w-full rounded-2xl bg-[#2E7D32] text-white font-bold py-4 flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.99] transition"
-    >
-      <ng-container *ngIf="!isSubmitting">
-        Envoyer le signalement
-        <i class="fa-solid fa-paper-plane"></i>
-      </ng-container>
-      <ng-container *ngIf="isSubmitting">
-        <i class="fa-solid fa-circle-notch fa-spin"></i>
-        Envoi en cours...
-      </ng-container>
+    <button type="button" (click)="onSubmit()"
+      class="w-full rounded-2xl bg-[#2E7D32] text-white font-bold py-4 flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.99] transition">
+
+      Envoyer le signalement
+      <i class="fa-solid fa-paper-plane"></i>
     </button>
   </div>
 </div>
