@@ -1,0 +1,104 @@
+<!-- OVERLAY / POPUP -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/30 px-4 py-6">
+  <!-- MODALE -->
+  <div
+    class="relative w-full max-w-[620px] max-h-[95vh] overflow-y-auto rounded-2xl bg-white px-6 py-8 shadow-2xl sm:px-10 sm:py-10 lg:px-12 lg:py-12"
+  >
+    <!-- BOUTON FERMER -->
+    <button
+      type="button"
+      class="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full text-2xl text-slate-400 transition hover:bg-slate-100 hover:text-slate-700"
+    >
+      &times;
+    </button>
+
+    <!-- TITRE -->
+    <div class="mb-8 pr-10">
+      <h2 class="text-2xl font-bold text-slate-800 sm:text-3xl">Ajouter un membre</h2>
+
+      <p class="mt-2 text-sm text-slate-400 sm:text-base">Créez un nouveau compte administrateur</p>
+    </div>
+
+    <!-- FORMULAIRE -->
+    <form class="space-y-6">
+      <!-- NOM -->
+      <div>
+        <label for="nom" class="mb-3 block text-lg font-semibold text-slate-800 sm:text-xl">
+          Nom
+        </label>
+
+        <input
+          id="nom"
+          type="text"
+          placeholder="Sarr"
+          class="h-[70px] w-full rounded-2xl bg-slate-200/80 px-7 text-lg text-slate-700 placeholder-slate-400 shadow-sm outline-none transition focus:ring-2 focus:ring-green-700/30 sm:h-[78px] sm:text-xl"
+        />
+      </div>
+
+      <!-- PRENOM -->
+      <div>
+        <label for="prenom" class="mb-3 block text-lg font-semibold text-slate-800 sm:text-xl">
+          Prenom
+        </label>
+
+        <input
+          id="prenom"
+          type="text"
+          placeholder="Sarr"
+          class="h-[70px] w-full rounded-2xl bg-slate-200/80 px-7 text-lg text-slate-700 placeholder-slate-400 shadow-sm outline-none transition focus:ring-2 focus:ring-green-700/30 sm:h-[78px] sm:text-xl"
+        />
+      </div>
+
+      <!-- POSTE -->
+      <div>
+        <label for="poste" class="mb-3 block text-lg font-semibold text-slate-800 sm:text-xl">
+          Poste
+        </label>
+
+        <div class="relative">
+          <select
+            id="poste"
+            class="h-[70px] w-full appearance-none rounded-2xl bg-slate-200/80 px-7 pr-14 text-lg text-slate-400 shadow-sm outline-none transition focus:ring-2 focus:ring-green-700/30 sm:h-[78px] sm:text-xl"
+          >
+            <option value="" selected disabled>choisir le role</option>
+
+            <option>Super Administrateur</option>
+            <option>Validateur</option>
+            <option>Agent</option>
+          </select>
+
+          <!-- CHEVRON -->
+          <div class="pointer-events-none absolute right-7 top-1/2 -translate-y-1/2">
+            <i class="fa-solid fa-chevron-down text-xl text-slate-700"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- EMAIL -->
+      <div>
+        <label for="email" class="mb-3 block text-lg font-semibold text-slate-800 sm:text-xl">
+          Email
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          placeholder="votre.email@exemple.com"
+          class="h-[70px] w-full rounded-2xl bg-slate-200/80 px-7 text-lg text-slate-700 placeholder-slate-400 shadow-sm outline-none transition focus:ring-2 focus:ring-green-700/30 sm:h-[78px] sm:text-xl"
+        />
+      </div>
+
+      <!-- BOUTON -->
+      <div class="pt-3">
+        <button
+          type="submit"
+          class="flex h-[90px] w-full items-center justify-center gap-4 rounded-2xl bg-green-700 text-xl font-semibold text-white shadow-[0_12px_25px_rgba(46,125,50,0.25)] transition hover:bg-green-800 active:scale-[0.99] sm:h-[100px] sm:text-2xl"
+        >
+          <span>Creer</span>
+
+          <i class="fa-solid fa-arrow-right text-xl sm:text-2xl"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
