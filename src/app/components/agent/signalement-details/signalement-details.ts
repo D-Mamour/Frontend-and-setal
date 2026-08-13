@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { Navbar } from "../../navbar/navbar";
 
 @Component({
   selector: 'app-signalement-details',
   standalone: true,
-  templateUrl: 'signalement-details.html'
+  templateUrl: 'signalement-details.html',
+  imports: [Navbar]
 })
 export class SignalementDetails {
 

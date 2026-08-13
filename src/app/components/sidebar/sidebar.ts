@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   faChartPie,
@@ -12,7 +13,7 @@ import {
 
 @Component({
   selector: 'app-sidebar',
-  imports: [FontAwesomeModule],
+  imports: [FontAwesomeModule, RouterLink, RouterLinkActive],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css',
 })

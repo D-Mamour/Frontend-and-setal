@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { Navbar } from "../../navbar/navbar";
 
 @Component({
   selector: 'app-signalement-map',
-  imports: [],
+  imports: [Navbar],
   templateUrl: './signalement-map.html',
   styleUrl: './signalement-map.css',
 })

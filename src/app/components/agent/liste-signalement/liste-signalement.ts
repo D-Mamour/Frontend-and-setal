@@ -6,11 +6,12 @@ import {
   faTriangleExclamation,
   faChartColumn
 } from '@fortawesome/free-solid-svg-icons';
+import { Navbar } from "../../navbar/navbar";
 
 @Component({
   selector: 'app-liste-signalement',
   standalone: true,
-  imports: [FontAwesomeModule],
+  imports: [FontAwesomeModule, Navbar],
   templateUrl: 'liste-signalement.html'
 })
 export class ListeSignalement {
