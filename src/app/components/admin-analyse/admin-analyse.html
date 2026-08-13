@@ -1,0 +1,449 @@
+<!-- analytics.component.html -->
+
+<div class="ml-64 min-h-screen bg-white">
+  <main class="px-5 sm:px-6 lg:px-8 xl:px-10 py-6">
+    <!-- ====================================================== -->
+    <!-- HEADER DE LA PAGE -->
+    <!-- ====================================================== -->
+
+    <div
+      class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 pb-5 border-b border-slate-100"
+    >
+      <div>
+        <h1 class="text-2xl lg:text-3xl font-bold text-slate-800">
+          Analytiques et Performance Urbaine
+        </h1>
+
+        <p class="mt-1 text-sm lg:text-base text-slate-400">
+          Visualisation en temps réel de l'impact citoyen
+        </p>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-4">
+        <!-- Période -->
+        <div class="flex items-center bg-slate-100 rounded-full p-1">
+          <button
+            class="px-5 py-2 rounded-full text-sm font-semibold text-slate-500 hover:text-slate-700"
+          >
+            Semaine
+          </button>
+
+          <button
+            class="px-5 py-2 rounded-full bg-white text-sm font-bold text-slate-800 shadow-sm"
+          >
+            Mois
+          </button>
+
+          <button class="px-5 py-2 rounded-full text-sm font-semibold text-slate-500">Année</button>
+        </div>
+
+        <!-- Export -->
+        <button
+          class="inline-flex items-center justify-center gap-3 px-6 py-3 rounded-full bg-green-700 hover:bg-green-800 text-white font-bold text-sm shadow-lg shadow-green-700/20 transition"
+        >
+          <i class="fa-solid fa-file-pdf"></i>
+
+          Exporter PDF
+        </button>
+      </div>
+    </div>
+
+    <!-- ====================================================== -->
+    <!-- KPI -->
+    <!-- ====================================================== -->
+
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-8 py-8">
+      <!-- TAUX DE RÉSOLUTION -->
+      <div
+        class="relative min-h-[136px] p-6 rounded-[28px] border border-slate-100 bg-white shadow-sm overflow-hidden"
+      >
+        <div class="flex items-start justify-between">
+          <div>
+            <p class="text-xs font-bold tracking-wider uppercase text-slate-400">
+              Taux de résolution
+            </p>
+
+            <div class="flex items-center gap-3 mt-2">
+              <span class="text-3xl font-bold text-slate-800"> 92.4% </span>
+
+              <span class="text-sm font-bold text-emerald-500"> ↑ +4.2% </span>
+            </div>
+          </div>
+
+          <div class="w-12 h-12 rounded-full bg-emerald-50 flex items-center justify-center">
+            <i class="fa-solid fa-check text-xl text-white bg-emerald-500 rounded-full p-2"> </i>
+          </div>
+        </div>
+
+        <!-- Progress -->
+        <div class="absolute bottom-7 left-6 right-6 h-1.5 rounded-full bg-slate-100">
+          <div class="h-full w-[92.4%] rounded-full bg-green-700"></div>
+        </div>
+      </div>
+
+      <!-- TEMPS MOYEN -->
+      <div
+        class="relative min-h-[136px] p-6 rounded-[28px] border border-slate-100 bg-white shadow-sm"
+      >
+        <div class="flex items-start justify-between">
+          <div>
+            <p class="text-xs font-bold tracking-wider uppercase text-slate-400">Temps moyen</p>
+
+            <div class="flex items-center gap-3 mt-2">
+              <span class="text-3xl font-bold text-slate-800"> 14.2h </span>
+
+              <span class="text-sm font-bold text-emerald-500"> ↓ -2.1h </span>
+            </div>
+          </div>
+
+          <div class="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center">
+            <i class="fa-solid fa-clock text-xl text-white bg-blue-400 rounded-full p-2"> </i>
+          </div>
+        </div>
+
+        <p class="absolute bottom-5 left-6 text-[11px] italic text-slate-400">
+          Traitement du signalement à l'action
+        </p>
+      </div>
+
+      <!-- CITOYENS ACTIFS -->
+      <div
+        class="relative min-h-[136px] p-6 rounded-[28px] border border-slate-100 bg-white shadow-sm"
+      >
+        <div class="flex items-start justify-between">
+          <div>
+            <p class="text-xs font-bold tracking-wider uppercase text-slate-400">Citoyens actifs</p>
+
+            <div class="flex items-center gap-3 mt-2">
+              <span class="text-3xl font-bold text-slate-800"> 12.8k </span>
+
+              <span class="text-sm font-bold text-orange-500"> ↑ +12% </span>
+            </div>
+          </div>
+
+          <div class="w-12 h-12 rounded-full bg-orange-50 flex items-center justify-center">
+            <i class="fa-solid fa-users text-xl text-orange-400"> </i>
+          </div>
+        </div>
+
+        <p class="absolute bottom-5 left-6 text-[11px] italic text-slate-400">
+          Moyenne mensuelle d'utilisateurs
+        </p>
+      </div>
+    </section>
+
+    <!-- ====================================================== -->
+    <!-- CARTE DAKAR PLATEAU -->
+    <!-- ====================================================== -->
+
+    <section class="rounded-[30px] border border-slate-100 overflow-hidden bg-white shadow-sm">
+      <!-- En-tête carte -->
+      <div
+        class="px-6 lg:px-7 py-6 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4"
+      >
+        <div>
+          <h2 class="text-xl lg:text-2xl font-bold text-slate-800">
+            Densité des Signalements — Dakar Plateau
+          </h2>
+
+          <p class="mt-1 text-sm text-slate-400">
+            Zones critiques identifiées par les rapports citoyens
+          </p>
+        </div>
+
+        <!-- Légende -->
+        <div class="flex items-center gap-5">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-red-500"> </span>
+
+            <span class="text-xs font-bold text-slate-500"> CRITIQUE </span>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-orange-500"> </span>
+
+            <span class="text-xs font-bold text-slate-500"> MOYEN </span>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-green-700"> </span>
+
+            <span class="text-xs font-bold text-slate-500"> SAIN </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Zone carte -->
+      <div class="relative h-[400px] lg:h-[500px] xl:h-[540px]">
+        <!-- Carte Dakar Plateau -->
+        <iframe
+          class="absolute inset-0 w-full h-full border-0"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=-17.455%2C14.650%2C-17.415%2C14.690&layer=mapnik&marker=14.6687%2C-17.4347"
+          loading="lazy"
+        >
+        </iframe>
+
+        <!-- Overlay léger -->
+        <div class="absolute inset-0 pointer-events-none bg-white/5"></div>
+
+        <!-- ================================================= -->
+        <!-- MARQUEURS -->
+        <!-- ================================================= -->
+
+        <!-- Critique -->
+        <div
+          class="absolute left-[44%] top-[35%] w-8 h-8 rounded-full bg-red-500 border-4 border-white shadow-lg shadow-red-500/30"
+        >
+          <span class="absolute -inset-3 rounded-full bg-red-500/20 animate-pulse"> </span>
+        </div>
+
+        <!-- Orange -->
+        <div
+          class="absolute left-[25%] top-[62%] w-7 h-7 rounded-full bg-orange-500 border-4 border-white shadow-lg"
+        ></div>
+
+        <!-- Vert -->
+        <div
+          class="absolute left-[70%] top-[28%] w-7 h-7 rounded-full bg-green-700 border-4 border-white shadow-lg"
+        ></div>
+
+        <!-- Vert -->
+        <div
+          class="absolute left-[75%] top-[58%] w-7 h-7 rounded-full bg-green-700 border-4 border-white shadow-lg"
+        ></div>
+
+        <!-- Orange -->
+        <div
+          class="absolute left-[48%] top-[70%] w-7 h-7 rounded-full bg-orange-500 border-4 border-white shadow-lg"
+        ></div>
+
+        <!-- ================================================= -->
+        <!-- STATISTIQUES DE ZONE -->
+        <!-- ================================================= -->
+
+        <div
+          class="absolute left-5 bottom-5 w-[270px] max-w-[calc(100%-40px)] p-5 rounded-3xl bg-white/95 backdrop-blur-md shadow-xl"
+        >
+          <h3 class="text-sm font-bold text-slate-700">Statistiques de Zone</h3>
+
+          <div class="flex items-center justify-between mt-4">
+            <span class="text-xs text-slate-500"> Signalements Total </span>
+
+            <strong class="text-sm text-slate-700"> 428 </strong>
+          </div>
+
+          <div class="flex items-center justify-between mt-3">
+            <span class="text-xs text-slate-500"> Taux d'Action </span>
+
+            <strong class="text-sm text-green-700"> 88% </strong>
+          </div>
+
+          <div class="mt-3 h-1 rounded-full bg-slate-100">
+            <div class="w-[88%] h-full rounded-full bg-green-700"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================== -->
+    <!-- GRAPHIQUES -->
+    <!-- ====================================================== -->
+
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
+      <!-- ================================================== -->
+      <!-- ÉVOLUTION -->
+      <!-- ================================================== -->
+
+      <div class="rounded-[30px] border border-slate-100 bg-white shadow-sm p-6 h-[390px]">
+        <h2 class="text-lg font-bold text-slate-800">Évolution des Signalements</h2>
+
+        <div class="relative mt-8 h-[280px]">
+          <!-- grille -->
+          <div class="absolute inset-x-8 top-4 bottom-8 flex flex-col justify-between">
+            <span class="border-t border-slate-100"></span>
+            <span class="border-t border-slate-100"></span>
+            <span class="border-t border-slate-100"></span>
+            <span class="border-t border-slate-100"></span>
+            <span class="border-t border-slate-100"></span>
+            <span class="border-t border-slate-100"></span>
+          </div>
+
+          <!-- valeurs -->
+          <div
+            class="absolute left-0 top-3 bottom-8 flex flex-col justify-between text-[10px] text-slate-400"
+          >
+            <span>60</span>
+            <span>50</span>
+            <span>40</span>
+            <span>30</span>
+            <span>20</span>
+            <span>10</span>
+            <span>0</span>
+          </div>
+
+          <!-- courbe -->
+          <svg
+            class="absolute left-8 right-0 top-4 w-[calc(100%-32px)] h-[240px]"
+            viewBox="0 0 500 240"
+            preserveAspectRatio="none"
+          >
+            <defs>
+              <linearGradient id="areaGradient" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="#2e7d32" stop-opacity="0.15" />
+
+                <stop offset="100%" stop-color="#2e7d32" stop-opacity="0" />
+              </linearGradient>
+            </defs>
+
+            <path
+              d="M0 150
+                 C35 120 60 105 90 120
+                 C120 135 140 180 165 145
+                 C190 110 200 30 225 35
+                 C250 40 260 115 285 125
+                 C315 140 340 95 365 80
+                 C395 65 425 115 450 135
+                 C470 150 485 140 500 125
+                 L500 240
+                 L0 240 Z"
+              fill="url(#areaGradient)"
+            ></path>
+
+            <path
+              d="M0 150
+                 C35 120 60 105 90 120
+                 C120 135 140 180 165 145
+                 C190 110 200 30 225 35
+                 C250 40 260 115 285 125
+                 C315 140 340 95 365 80
+                 C395 65 425 115 450 135
+                 C470 150 485 140 500 125"
+              fill="none"
+              stroke="#2e7d32"
+              stroke-width="4"
+              stroke-linecap="round"
+            ></path>
+          </svg>
+
+          <!-- dates -->
+          <div
+            class="absolute left-8 right-0 bottom-0 flex justify-between text-[10px] text-slate-400"
+          >
+            <span>01 Oct</span>
+            <span>05 Oct</span>
+            <span>10 Oct</span>
+            <span>15 Oct</span>
+            <span>20 Oct</span>
+            <span>25 Oct</span>
+            <span>30 Oct</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================================================== -->
+      <!-- DONUT -->
+      <!-- ================================================== -->
+
+      <div class="rounded-[30px] border border-slate-100 bg-white shadow-sm p-6 h-[390px]">
+        <h2 class="text-lg font-bold text-slate-800">Répartition par Catégorie</h2>
+
+        <div class="flex justify-center mt-6">
+          <div
+            class="relative w-52 h-52 rounded-full"
+            style="
+              background: conic-gradient(
+                #2e7d32 0deg 162deg,
+                #3b82f6 162deg 198deg,
+                #ef4444 198deg 270deg,
+                #f59e0b 270deg 360deg
+              );
+            "
+          >
+            <div class="absolute inset-[36px] rounded-full bg-white"></div>
+          </div>
+        </div>
+
+        <!-- Légende -->
+        <div class="grid grid-cols-2 gap-x-6 gap-y-3 mt-5 text-xs text-slate-500">
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 bg-green-700"> </span>
+            Dépôt sauvage
+          </div>
+
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 bg-orange-500"> </span>
+            Canal bouché
+          </div>
+
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 bg-red-500"> </span>
+            Éclairage
+          </div>
+
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 bg-blue-500"> </span>
+            Autres
+          </div>
+        </div>
+      </div>
+
+      <!-- ================================================== -->
+      <!-- PERFORMANCE QUARTIER -->
+      <!-- ================================================== -->
+
+      <div class="rounded-[30px] border border-slate-100 bg-white shadow-sm p-6 h-[390px]">
+        <h2 class="text-lg font-bold text-slate-800">Performance par Quartier</h2>
+
+        <div class="relative h-[280px] mt-7 pl-8">
+          <!-- lignes -->
+          <div class="absolute left-8 right-0 top-0 bottom-8 flex flex-col justify-between">
+            <span class="border-t border-slate-100"></span>
+            <span class="border-t border-slate-100"></span>
+            <span class="border-t border-slate-100"></span>
+            <span class="border-t border-slate-100"></span>
+            <span class="border-t border-slate-100"></span>
+            <span class="border-t border-slate-100"></span>
+          </div>
+
+          <!-- valeurs -->
+          <div
+            class="absolute left-0 top-0 bottom-8 flex flex-col justify-between text-[10px] text-slate-400"
+          >
+            <span>10</span>
+            <span>8</span>
+            <span>6</span>
+            <span>4</span>
+            <span>2</span>
+            <span>0</span>
+          </div>
+
+          <!-- barres -->
+          <div
+            class="absolute left-8 right-0 bottom-8 h-[245px] flex items-end justify-around gap-3"
+          >
+            <div class="w-10 h-[88%] bg-green-700"></div>
+
+            <div class="w-10 h-[72%] bg-orange-500"></div>
+
+            <div class="w-10 h-[65%] bg-orange-500"></div>
+
+            <div class="w-10 h-[91%] bg-green-700"></div>
+
+            <div class="w-10 h-[84%] bg-green-700"></div>
+          </div>
+
+          <!-- labels -->
+          <div
+            class="absolute left-8 right-0 bottom-0 flex justify-around text-[10px] text-slate-400"
+          >
+            <span>Plateau</span>
+            <span>Médina</span>
+            <span>Rebeuss</span>
+            <span>Fann</span>
+            <span>Point E</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
