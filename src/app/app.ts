@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ListeSignalement } from './components/liste-signalement/liste-signalement';
+import { SignalementDetailAdmin } from './components/signalement-detail-admin/signalement-detail-admin';
 
 @Component({
   selector: 'app-root',
