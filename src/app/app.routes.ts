@@ -14,10 +14,13 @@ import { SignalementSuccess } from './components/citoyen/signalement/signalement
 import { GestionSignalement } from './components/admin/gestion-signalement/gestion-signalement';
 import { Layout } from './components/admin/layout/layout';
 import { LoginAdmin } from './components/admin/login-admin/login-admin';
-import { SignalementDetailAdmin } from './components/admin/signalement-detail-admin/signalement-detail-admin';
-import { ListeSignalement } from './components/agent/liste-signalement/liste-signalement';
-import { SignalementMap } from './components/agent/signalement-map/signalement-map';
-import { SignalementDetails } from './components/agent/signalement-details/signalement-details';
+import { Dashboard } from './components/admin/dashboard/dashboard';
+import { DashboardCitoyenConnecter } from './components/citoyen/dashboard-citoyen-connecter/dashboard-citoyen-connecter';
+import { Layout } from './components/admin/layout/layout';
+import { GestionSignalement } from './components/gestion-signalement/gestion-signalement';
+import { AdminSecurite } from './components/admin-securite/admin-securite';
+import {AdminAnalyse} from './components/admin-analyse/admin-analyse';
+import { AjouterMembre } from './components/ajouter-membre/ajouter-membre';
 
 export const routes: Routes = [
 
