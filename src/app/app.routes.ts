@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-import { AjouterMembre } from './components/ajouter-membre/ajouter-membre';
+import { AjouterMembre } from './components/admin/ajouter-membre/ajouter-membre'; 
 import { AdminSecurite } from './components/admin/admin-securite/admin-securite';
 import { AdminAnalyse } from './components/admin/admin-analyse/admin-analyse';
 import { Dashboard } from './components/admin/dashboard/dashboard';
@@ -14,13 +14,10 @@ import { SignalementSuccess } from './components/citoyen/signalement/signalement
 import { GestionSignalement } from './components/admin/gestion-signalement/gestion-signalement';
 import { Layout } from './components/admin/layout/layout';
 import { LoginAdmin } from './components/admin/login-admin/login-admin';
-import { Dashboard } from './components/admin/dashboard/dashboard';
-import { DashboardCitoyenConnecter } from './components/citoyen/dashboard-citoyen-connecter/dashboard-citoyen-connecter';
-import { Layout } from './components/admin/layout/layout';
-import { GestionSignalement } from './components/gestion-signalement/gestion-signalement';
-import { AdminSecurite } from './components/admin-securite/admin-securite';
-import {AdminAnalyse} from './components/admin-analyse/admin-analyse';
-import { AjouterMembre } from './components/ajouter-membre/ajouter-membre';
+import { ListeSignalement } from './components/agent/liste-signalement/liste-signalement';
+import { SignalementDetails } from './components/agent/signalement-details/signalement-details';
+import { SignalementMap } from './components/agent/signalement-map/signalement-map';
+import { SignalementDetailAdmin } from './components/admin/signalement-detail-admin/signalement-detail-admin';
 
 export const routes: Routes = [
 
