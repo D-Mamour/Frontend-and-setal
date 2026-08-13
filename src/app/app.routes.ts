@@ -1,10 +1,4 @@
 import { Routes } from '@angular/router';
-
-<<<<<<< HEAD
-import { AjouterMembre } from './components/admin/ajouter-membre/ajouter-membre';
-=======
-import { AjouterMembre } from './components/admin/ajouter-membre/ajouter-membre'; 
->>>>>>> 02136ddfa711f519868d6b7359064398ef6f5f4a
 import { AdminSecurite } from './components/admin/admin-securite/admin-securite';
 import { AdminAnalyse } from './components/admin/admin-analyse/admin-analyse';
 import { Dashboard } from './components/admin/dashboard/dashboard';
