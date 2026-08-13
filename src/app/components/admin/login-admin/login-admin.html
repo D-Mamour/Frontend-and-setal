@@ -1,0 +1,72 @@
+<div class="flex min-h-screen items-center justify-center bg-slate-50 px-4 py-8 lg:px-8">
+  <div class="w-full max-w-6xl overflow-hidden rounded-3xl bg-white shadow-xl lg:flex">
+
+    <!-- Colonne formulaire -->
+    <div class="flex w-full flex-col justify-center px-6 py-10 sm:px-10 lg:w-[45%] lg:px-14 lg:py-14">
+
+      <h1 class="text-3xl font-extrabold text-zinc-900 lg:text-4xl">Connexion</h1>
+      <p class="mt-3 text-sm leading-6 text-slate-400 lg:text-base">
+        Accédez à votre espace citoyen pour un Dakar Plateau plus propre.
+      </p>
+
+      <form class="mt-8 flex flex-col gap-6">
+
+        <div>
+          <label for="email" class="text-sm font-bold text-zinc-900">Email</label>
+          <input
+            id="email"
+            type="email"
+            placeholder="votre.email@exemple.com"
+            class="mt-2 w-full rounded-2xl border border-slate-200 px-5 py-4 text-sm text-zinc-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-green-700/30"
+          />
+        </div>
+
+        <div>
+          <label for="mot-de-passe" class="text-sm font-bold text-zinc-900">Mot de passe</label>
+          <div class="mt-2 flex items-center rounded-2xl border border-slate-200 pr-4 focus-within:ring-2 focus-within:ring-green-700/30">
+            <input
+              id="mot-de-passe"
+              type="password"
+              placeholder="Entrez votre mot de passe"
+              class="w-full bg-transparent px-5 py-4 text-sm text-zinc-700 placeholder:text-slate-400 focus:outline-none"
+            />
+            <button type="button" aria-label="Afficher le mot de passe" class="shrink-0 text-slate-400">
+              <i class="fa-solid fa-eye-slash" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-3 text-sm">
+          <label class="flex items-center gap-2 text-zinc-700">
+            <input type="checkbox" class="size-4 rounded border-slate-300 text-green-700 focus:ring-green-700/30" />
+            Se souvenir de moi
+          </label>
+          <a href="#" class="font-medium text-slate-400 hover:text-slate-600">Mot de passe oublié ?</a>
+        </div>
+
+        <button
+          type="submit"
+          class="flex w-full items-center justify-center gap-2 rounded-2xl bg-[#2E7D32] py-4 text-base font-bold text-white shadow-lg shadow-[#2E7D32]/30"
+        >
+          Connexion
+          <i class="fa-solid fa-arrow-right text-sm" aria-hidden="true"></i>
+        </button>
+      </form>
+
+      <hr class="mt-8 border-slate-100" />
+
+      <a href="#" class="mt-6 text-sm text-slate-400 hover:text-slate-600">Besoin d'aide ?</a>
+    </div>
+
+    <!-- Colonne images (masquée sur mobile) -->
+    <div class="hidden lg:block lg:w-[55%] lg:p-4">
+
+        <img
+          src="images/login.png"
+          alt="Citoyens nettoyant une place publique"
+          class="h-full w-full rounded-3xl object-cover"
+        />
+
+    </div>
+  </div>
+</div>
