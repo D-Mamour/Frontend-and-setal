@@ -9,6 +9,9 @@ import { LoginAdmin } from './components/admin/login-admin/login-admin';
 import { Dashboard } from './components/admin/dashboard/dashboard';
 import { DashboardCitoyenConnecter } from './components/citoyen/dashboard-citoyen-connecter/dashboard-citoyen-connecter';
 import { Layout } from './components/admin/layout/layout';
+import { GestionSignalement } from './components/gestion-signalement/gestion-signalement';
+import { AdminSecurite } from './components/admin-securite/admin-securite';
+import {AdminAnalyse} from './components/admin-analyse/admin-analyse';
 
 export const routes: Routes = [
 
@@ -20,9 +23,12 @@ export const routes: Routes = [
   {path: 'signaler-probleme', component: SignalerProbleme},
   {path: 'signalement-success', component: SignalementSuccess},
   {path: 'signalements', component: MesSignalement},
-
+ 
   // ESPACE ADMIN
   {path: 'admin/login', component: LoginAdmin},
+  {path: 'gestion-signalement', component: GestionSignalement},
+  {path: 'admin-securite', component: AdminSecurite},
+  {path: 'admin-analyse', component: AdminAnalyse},
 
   {
     path: 'admin', component: Layout,

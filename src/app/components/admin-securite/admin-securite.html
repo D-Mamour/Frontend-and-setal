@@ -1,0 +1,1006 @@
+<!-- administration.component.html -->
+
+<div class="min-h-screen bg-slate-50">
+
+  <!-- ========================================================= -->
+  <!-- CONTENU PRINCIPAL : espace réservé au sidebar de 64 -->
+  <!-- ========================================================= -->
+  <main class="ml-64 min-h-screen bg-white px-6 lg:px-8 xl:px-10 py-8">
+
+    <!-- ========================================================= -->
+    <!-- TITRE -->
+    <!-- ========================================================= -->
+    <section class="border-b border-slate-100 pb-6">
+
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
+
+        <div>
+          <h1 class="text-2xl lg:text-3xl font-bold text-slate-800">
+            Administration et Sécurité
+          </h1>
+
+          <p class="mt-1 text-sm lg:text-base text-slate-400">
+            Contrôle des accès et surveillance du système
+          </p>
+        </div>
+
+        <div class="flex items-center gap-6">
+
+          <!-- Système sécurisé -->
+          <div
+            class="flex items-center gap-3 px-5 py-2.5
+                   rounded-full
+                   border border-emerald-100
+                   bg-emerald-50">
+
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+
+            <span class="text-sm font-bold text-emerald-700">
+              SYSTÈME SÉCURISÉ
+            </span>
+
+          </div>
+
+          <div class="hidden lg:block w-px h-10 bg-slate-200"></div>
+
+          <!-- Administrateur -->
+          <div class="text-right">
+            <p class="text-sm font-bold text-slate-800">
+              Moussa Diouf
+            </p>
+
+            <p class="text-xs text-slate-400">
+              Super Administrateur
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ========================================================= -->
+    <!-- STATISTIQUES -->
+    <!-- ========================================================= -->
+    <section
+      class="flex flex-col lg:flex-row
+             lg:items-center lg:justify-between
+             gap-6 py-8">
+
+      <!-- Tentatives suspectes -->
+      <div
+        class="w-full lg:w-64
+               min-h-[94px]
+               px-5 py-5
+               rounded-3xl
+               border border-slate-100
+               bg-white
+               shadow-sm
+               flex items-center gap-4">
+
+        <div
+          class="w-12 h-12 shrink-0
+                 rounded-2xl
+                 bg-orange-50
+                 flex items-center justify-center">
+
+          <i class="fa-solid fa-user-shield text-xl text-orange-500"></i>
+
+        </div>
+
+        <div>
+
+          <p class="text-[11px] font-bold tracking-wide text-slate-400 uppercase">
+            Tentatives suspectes
+          </p>
+
+          <p class="mt-1 text-2xl font-bold text-slate-800">
+            0
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- Dernière sauvegarde -->
+      <div
+        class="w-full lg:w-64
+               min-h-[94px]
+               px-5 py-5
+               rounded-3xl
+               border border-slate-100
+               bg-white
+               shadow-sm
+               flex items-center gap-4">
+
+        <div
+          class="w-12 h-12 shrink-0
+                 rounded-2xl
+                 bg-blue-50
+                 flex items-center justify-center">
+
+          <i class="fa-solid fa-chart-line text-lg text-slate-500"></i>
+
+        </div>
+
+        <div>
+
+          <p class="text-xl font-bold text-slate-800">
+            Il y a 2h
+          </p>
+
+          <p class="text-[11px] font-bold text-slate-400 uppercase">
+            Dernière sauvegarde
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ========================================================= -->
+    <!-- ONGLETS -->
+    <!-- ========================================================= -->
+    <section class="border-b border-slate-200">
+
+      <div class="flex items-center gap-10">
+
+        <!-- Actif -->
+        <button
+          class="relative flex items-center gap-3
+                 py-4
+                 text-sm font-bold
+                 text-green-700">
+
+          <i class="fa-solid fa-users-gear"></i>
+
+          <span>
+            Gestion des Gérants
+          </span>
+
+          <span
+            class="absolute left-0 right-0 bottom-0
+                   h-0.5 bg-green-700">
+          </span>
+
+        </button>
+
+
+        <!-- Audit -->
+        <button
+          class="flex items-center gap-3
+                 py-4
+                 text-sm font-semibold
+                 text-slate-400">
+
+          <i class="fa-solid fa-list-check"></i>
+
+          <span>
+            Journaux d'Audit
+          </span>
+
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- ========================================================= -->
+    <!-- GESTION DES GÉRANTS -->
+    <!-- ========================================================= -->
+    <section
+      class="mt-8
+             bg-white
+             border border-slate-100
+             rounded-[28px]
+             shadow-sm
+             overflow-hidden">
+
+      <!-- Header du tableau -->
+      <div
+        class="px-6 lg:px-7 py-6
+               flex flex-col md:flex-row
+               md:items-center
+               md:justify-between
+               gap-5">
+
+        <div>
+
+          <h2 class="text-xl font-bold text-slate-800">
+            Gestion des Gérants
+          </h2>
+
+          <p class="mt-1 text-sm text-slate-400">
+            12 gérants configurés dans le système
+          </p>
+
+        </div>
+
+
+        <!-- Ajouter -->
+        <button
+          class="inline-flex items-center justify-center gap-3
+                 px-6 py-3
+                 rounded-full
+                 bg-green-700
+                 hover:bg-green-800
+                 text-white
+                 text-sm font-bold
+                 shadow-lg shadow-green-700/20
+                 transition">
+
+          <i class="fa-solid fa-user-plus"></i>
+
+          Ajouter un nouveau membre
+
+        </button>
+
+      </div>
+
+
+      <!-- Tableau -->
+      <div class="overflow-x-auto">
+
+        <table class="w-full min-w-[850px]">
+
+          <thead>
+
+            <tr class="bg-slate-50 border-y border-slate-100">
+
+              <th
+                class="px-6 py-4 text-left
+                       text-[11px] font-bold
+                       tracking-wider
+                       text-slate-400 uppercase">
+                Utilisateur
+              </th>
+
+              <th
+                class="px-6 py-4 text-left
+                       text-[11px] font-bold
+                       tracking-wider
+                       text-slate-400 uppercase">
+                Rôle
+              </th>
+
+              <th
+                class="px-6 py-4 text-left
+                       text-[11px] font-bold
+                       tracking-wider
+                       text-slate-400 uppercase">
+                Dernière connexion
+              </th>
+
+              <th
+                class="px-6 py-4 text-left
+                       text-[11px] font-bold
+                       tracking-wider
+                       text-slate-400 uppercase">
+                Statut
+              </th>
+
+              <th
+                class="px-6 py-4 text-right
+                       text-[11px] font-bold
+                       tracking-wider
+                       text-slate-400 uppercase">
+                Actions
+              </th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody class="divide-y divide-slate-100">
+
+            <!-- Moussa -->
+            <tr class="hover:bg-slate-50 transition">
+
+              <td class="px-6 py-5">
+
+                <div>
+                  <p class="font-bold text-slate-700">
+                    Moussa Diouf
+                  </p>
+
+                  <p class="text-xs text-slate-400">
+                    m.diouf@andesetal.sn
+                  </p>
+                </div>
+
+              </td>
+
+
+              <td class="px-6 py-5">
+
+                <span
+                  class="inline-flex
+                         px-3 py-1
+                         rounded-full
+                         bg-purple-50
+                         border border-purple-100
+                         text-xs font-semibold
+                         text-purple-600">
+
+                  Super Admin
+
+                </span>
+
+              </td>
+
+
+              <td class="px-6 py-5">
+
+                <p class="text-sm text-slate-600">
+                  Aujourd'hui, 14:42
+                </p>
+
+                <p class="text-xs text-slate-400">
+                  IP: 197.234.xx.xx
+                </p>
+
+              </td>
+
+
+              <td class="px-6 py-5">
+
+                <div class="flex items-center gap-3">
+
+                  <span
+                    class="relative w-10 h-6
+                           rounded-full
+                           bg-emerald-500">
+
+                    <span
+                      class="absolute right-1 top-1
+                             w-4 h-4
+                             rounded-full
+                             bg-white">
+                    </span>
+
+                  </span>
+
+                  <span class="text-sm font-bold text-emerald-600">
+                    ACTIF
+                  </span>
+
+                </div>
+
+              </td>
+
+
+              <td class="px-6 py-5">
+
+                <div class="flex items-center justify-end gap-6">
+
+                  <button class="text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-key"></i>
+                  </button>
+
+                  <button class="text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                  </button>
+
+                </div>
+
+              </td>
+
+            </tr>
+
+
+            <!-- Fatou -->
+            <tr class="hover:bg-slate-50 transition">
+
+              <td class="px-6 py-5">
+
+                <div>
+                  <p class="font-bold text-slate-700">
+                    Fatou Sow
+                  </p>
+
+                  <p class="text-xs text-slate-400">
+                    f.sow@andesetal.sn
+                  </p>
+                </div>
+
+              </td>
+
+
+              <td class="px-6 py-5">
+
+                <span
+                  class="inline-flex
+                         px-3 py-1
+                         rounded-full
+                         bg-blue-50
+                         border border-blue-100
+                         text-xs font-semibold
+                         text-blue-600">
+
+                  Validateur
+
+                </span>
+
+              </td>
+
+
+              <td class="px-6 py-5">
+
+                <p class="text-sm text-slate-600">
+                  Hier, 18:15
+                </p>
+
+                <p class="text-xs text-slate-400">
+                  IP: 196.211.xx.xx
+                </p>
+
+              </td>
+
+
+              <td class="px-6 py-5">
+
+                <div class="flex items-center gap-3">
+
+                  <span
+                    class="relative w-10 h-6
+                           rounded-full
+                           bg-emerald-500">
+
+                    <span
+                      class="absolute right-1 top-1
+                             w-4 h-4
+                             rounded-full
+                             bg-white">
+                    </span>
+
+                  </span>
+
+                  <span class="text-sm font-bold text-emerald-600">
+                    ACTIF
+                  </span>
+
+                </div>
+
+              </td>
+
+
+              <td class="px-6 py-5">
+
+                <div class="flex items-center justify-end gap-6">
+
+                  <button class="text-slate-400">
+                    <i class="fa-solid fa-key"></i>
+                  </button>
+
+                  <button class="text-slate-400">
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                  </button>
+
+                </div>
+
+              </td>
+
+            </tr>
+
+
+            <!-- Omar -->
+            <tr class="hover:bg-slate-50 transition">
+
+              <td class="px-6 py-5">
+
+                <div>
+                  <p class="font-bold text-slate-700">
+                    Omar Sylla
+                  </p>
+
+                  <p class="text-xs text-slate-400">
+                    o.sylla@andesetal.sn
+                  </p>
+                </div>
+
+              </td>
+
+
+              <td class="px-6 py-5">
+
+                <span
+                  class="inline-flex
+                         px-3 py-1
+                         rounded-full
+                         bg-orange-50
+                         border border-orange-100
+                         text-xs font-semibold
+                         text-orange-500">
+
+                  Agent
+
+                </span>
+
+              </td>
+
+
+              <td class="px-6 py-5">
+
+                <p class="text-sm text-slate-600">
+                  12 Oct 2024, 09:30
+                </p>
+
+                <p class="text-xs text-slate-400">
+                  IP: 41.82.xx.xx
+                </p>
+
+              </td>
+
+
+              <td class="px-6 py-5">
+
+                <div class="flex items-center gap-3">
+
+                  <span
+                    class="relative w-10 h-6
+                           rounded-full
+                           bg-slate-200">
+
+                    <span
+                      class="absolute left-1 top-1
+                             w-4 h-4
+                             rounded-full
+                             bg-white">
+                    </span>
+
+                  </span>
+
+                  <span class="text-sm font-bold text-slate-400">
+                    INACTIF
+                  </span>
+
+                </div>
+
+              </td>
+
+
+              <td class="px-6 py-5">
+
+                <div class="flex items-center justify-end gap-6">
+
+                  <button class="text-slate-400">
+                    <i class="fa-solid fa-key"></i>
+                  </button>
+
+                  <button class="text-slate-400">
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                  </button>
+
+                </div>
+
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+    <!-- ========================================================= -->
+    <!-- JOURNAUX D'AUDIT -->
+    <!-- ========================================================= -->
+    <section
+      class="mt-8
+             bg-white
+             border border-slate-100
+             rounded-[28px]
+             shadow-sm
+             overflow-hidden">
+
+      <!-- Header -->
+      <div class="px-6 lg:px-7 pt-6">
+
+        <div
+          class="flex flex-col lg:flex-row
+                 lg:items-center
+                 lg:justify-between
+                 gap-5">
+
+          <div>
+
+            <h2 class="text-xl font-bold text-slate-800">
+              Journaux d'Audit
+            </h2>
+
+            <p class="mt-1 text-sm text-slate-400">
+              Traçabilité complète des actions administratives
+            </p>
+
+          </div>
+
+
+          <div class="flex items-center gap-3">
+
+            <button
+              class="inline-flex items-center gap-2
+                     px-4 py-2
+                     rounded-full
+                     border border-slate-200
+                     text-sm font-semibold
+                     text-slate-600
+                     hover:bg-slate-50">
+
+              <i class="fa-solid fa-download"></i>
+
+              Exporter CSV
+
+            </button>
+
+
+            <button
+              class="inline-flex items-center gap-2
+                     px-4 py-2
+                     rounded-full
+                     border border-slate-200
+                     text-sm font-semibold
+                     text-slate-600
+                     hover:bg-slate-50">
+
+              <i class="fa-solid fa-filter"></i>
+
+              Filtres avancés
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- Recherche -->
+        <div
+          class="mt-5
+                 h-12
+                 px-5
+                 rounded-full
+                 bg-slate-50
+                 flex items-center gap-3">
+
+          <i class="fa-solid fa-magnifying-glass text-slate-400"></i>
+
+          <input
+            type="text"
+            placeholder="Rechercher par utilisateur, action ou signalement..."
+            class="w-full bg-transparent outline-none
+                   text-sm text-slate-600
+                   placeholder:text-slate-400">
+
+        </div>
+
+      </div>
+
+
+      <!-- Audit table -->
+      <div class="mt-6 overflow-x-auto">
+
+        <table class="w-full min-w-[900px]">
+
+          <thead>
+
+            <tr class="bg-slate-50 border-y border-slate-100">
+
+              <th
+                class="px-6 py-4 text-left
+                       text-[11px] font-bold
+                       text-slate-400 uppercase">
+                Utilisateur
+              </th>
+
+              <th
+                class="px-6 py-4 text-left
+                       text-[11px] font-bold
+                       text-slate-400 uppercase">
+                Action effectuée
+              </th>
+
+              <th
+                class="px-6 py-4 text-left
+                       text-[11px] font-bold
+                       text-slate-400 uppercase">
+                Date et heure
+              </th>
+
+              <th
+                class="px-6 py-4 text-left
+                       text-[11px] font-bold
+                       text-slate-400 uppercase">
+                Adresse IP
+              </th>
+
+              <th
+                class="px-6 py-4 text-left
+                       text-[11px] font-bold
+                       text-slate-400 uppercase">
+                Localisation
+              </th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody class="divide-y divide-slate-100">
+
+            <!-- Audit 1 -->
+            <tr>
+
+              <td class="px-6 py-5">
+                <span class="text-sm font-semibold text-slate-700">
+                  Fatou Sow
+                </span>
+              </td>
+
+              <td class="px-6 py-5">
+
+                <div class="flex items-center gap-3">
+
+                  <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+
+                  <span class="text-sm text-slate-600">
+                    Modification du statut du signalement
+                    <strong class="text-green-700">
+                      #4829
+                    </strong>
+                  </span>
+
+                </div>
+
+              </td>
+
+              <td class="px-6 py-5 text-sm text-slate-400">
+                14 Oct 2024, 15:22:41
+              </td>
+
+              <td class="px-6 py-5">
+                <span class="font-mono text-xs text-slate-400">
+                  196.211.45.182
+                </span>
+              </td>
+
+              <td class="px-6 py-5 text-sm text-slate-500">
+
+                <i class="fa-solid fa-location-dot text-slate-300 mr-1"></i>
+
+                Dakar, SN
+
+              </td>
+
+            </tr>
+
+
+            <!-- Audit 2 -->
+            <tr>
+
+              <td class="px-6 py-5">
+                <span class="text-sm font-semibold text-slate-700">
+                  Moussa Diouf
+                </span>
+              </td>
+
+              <td class="px-6 py-5">
+
+                <div class="flex items-center gap-3">
+
+                  <span class="w-2 h-2 rounded-full bg-orange-400"></span>
+
+                  <span class="text-sm text-slate-600">
+                    Réinitialisation de mot de passe
+                    (Utilisateur: ID-104)
+                  </span>
+
+                </div>
+
+              </td>
+
+              <td class="px-6 py-5 text-sm text-slate-400">
+                14 Oct 2024, 14:55:02
+              </td>
+
+              <td class="px-6 py-5">
+                <span class="font-mono text-xs text-slate-400">
+                  197.234.12.09
+                </span>
+              </td>
+
+              <td class="px-6 py-5 text-sm text-slate-500">
+
+                <i class="fa-solid fa-location-dot text-slate-300 mr-1"></i>
+
+                Dakar, SN
+
+              </td>
+
+            </tr>
+
+
+            <!-- Audit 3 -->
+            <tr>
+
+              <td class="px-6 py-5">
+                <span class="text-sm font-semibold text-slate-700">
+                  Omar Sylla
+                </span>
+              </td>
+
+              <td class="px-6 py-5">
+
+                <div class="flex items-center gap-3">
+
+                  <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+
+                  <span class="text-sm text-slate-600">
+                    Clôture de l'opération
+                    <strong class="text-green-700">
+                      Set–Setal Grand Dakar
+                    </strong>
+                  </span>
+
+                </div>
+
+              </td>
+
+              <td class="px-6 py-5 text-sm text-slate-400">
+                14 Oct 2024, 11:10:15
+              </td>
+
+              <td class="px-6 py-5">
+                <span class="font-mono text-xs text-slate-400">
+                  41.82.190.22
+                </span>
+              </td>
+
+              <td class="px-6 py-5 text-sm text-slate-500">
+
+                <i class="fa-solid fa-location-dot text-slate-300 mr-1"></i>
+
+                Thiès, SN
+
+              </td>
+
+            </tr>
+
+
+            <!-- Audit 4 -->
+            <tr>
+
+              <td class="px-6 py-5">
+                <span class="text-sm font-semibold text-slate-700">
+                  System Bot
+                </span>
+              </td>
+
+              <td class="px-6 py-5">
+
+                <div class="flex items-center gap-3">
+
+                  <span class="w-2 h-2 rounded-full bg-purple-400"></span>
+
+                  <span class="text-sm text-slate-600">
+                    Sauvegarde automatique hebdomadaire réussie
+                  </span>
+
+                </div>
+
+              </td>
+
+              <td class="px-6 py-5 text-sm text-slate-400">
+                14 Oct 2024, 12:00:00
+              </td>
+
+              <td class="px-6 py-5">
+                <span class="font-mono text-xs text-slate-400">
+                  127.0.0.1
+                </span>
+              </td>
+
+              <td class="px-6 py-5 text-sm text-slate-500">
+
+                <i class="fa-solid fa-server text-slate-300 mr-1"></i>
+
+                Serveur Cloud
+
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+
+      <!-- Pagination -->
+      <div
+        class="px-6 py-5
+               border-t border-slate-100
+               flex flex-col sm:flex-row
+               items-center
+               justify-between
+               gap-4">
+
+        <p class="text-sm italic text-slate-400">
+          Affichage de 4 résultats sur 1,248 enregistrements
+        </p>
+
+
+        <div class="flex items-center gap-2">
+
+          <button
+            class="w-9 h-9 rounded-lg
+                   border border-slate-200
+                   text-slate-400">
+
+            <i class="fa-solid fa-chevron-left text-xs"></i>
+
+          </button>
+
+
+          <button
+            class="w-9 h-9 rounded-lg
+                   bg-green-700
+                   text-white
+                   text-sm font-bold">
+
+            1
+
+          </button>
+
+
+          <button
+            class="w-9 h-9 rounded-lg
+                   border border-slate-200
+                   text-slate-600
+                   text-sm">
+
+            2
+
+          </button>
+
+
+          <button
+            class="w-9 h-9 rounded-lg
+                   border border-slate-200
+                   text-slate-600
+                   text-sm">
+
+            3
+
+          </button>
+
+
+          <button
+            class="w-9 h-9 rounded-lg
+                   border border-slate-200
+                   text-slate-400">
+
+            <i class="fa-solid fa-chevron-right text-xs"></i>
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
