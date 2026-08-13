@@ -49,7 +49,7 @@ export class ListeSignalement {
       quartier: 'Plateau',
       temps: 'Il y a 5h',
       priorite: 'PRIORITÉ',
-      image: 'images/signalements/bac-tri.jpg',
+      image: 'images/telechargement.jpeg',
       type: 'priorite'
     },
     {
@@ -57,7 +57,7 @@ export class ListeSignalement {
       quartier: 'Médina',
       temps: 'Il y a 2h',
       priorite: 'CRITIQUE',
-      image: 'images/signalements/depot-sauvage.jpg',
+      image: 'images/telechargement.jpeg  ',
       type: 'critique'
     }
   ];

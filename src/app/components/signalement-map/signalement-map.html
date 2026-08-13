@@ -1,0 +1,777 @@
+<div class="relative min-h-screen w-full overflow-hidden bg-[#eef0ef]">
+
+  <!-- ====================================================== -->
+  <!-- DIV 1 : ZONE CARTE -->
+  <!-- ====================================================== -->
+
+  <div
+    class="
+      relative
+      h-screen
+      w-full
+      overflow-hidden
+    "
+  >
+
+    <!-- IMAGE DE LA CARTE -->
+
+    <img
+      src="/assets/images/map-dakar.png"
+      alt="Carte de Dakar"
+      class="
+        absolute
+        inset-0
+        h-full
+        w-full
+        object-cover
+      "
+    />
+
+
+    <!-- VOILE -->
+
+    <div
+      class="
+        absolute
+        inset-0
+        bg-white/10
+      "
+    ></div>
+
+
+    <!-- ================================================== -->
+    <!-- RECHERCHE -->
+    <!-- ================================================== -->
+
+    <div
+      class="
+        absolute
+        left-5
+        right-5
+        top-8
+        z-20
+
+        flex
+        items-center
+        gap-8
+
+        lg:left-10
+        lg:right-10
+      "
+    >
+
+      <!-- Input -->
+
+      <div
+        class="
+          flex
+          h-20
+          flex-1
+          items-center
+          gap-5
+
+          rounded-[27px]
+
+          bg-white
+
+          px-6
+
+          shadow-[0_8px_18px_rgba(0,0,0,0.15)]
+
+          lg:max-w-[700px]
+        "
+      >
+
+        <i
+          class="
+            fa-solid
+            fa-magnifying-glass
+
+            text-[27px]
+            text-[#91a0b6]
+          "
+        ></i>
+
+        <input
+          type="text"
+          placeholder="Rechercher à Dakar..."
+          class="
+            min-w-0
+            flex-1
+
+            bg-transparent
+
+            text-xl
+            text-[#52627a]
+
+            outline-none
+
+            placeholder:text-[#9ba6b7]
+          "
+        />
+
+      </div>
+
+
+      <!-- Microphone -->
+
+      <button
+        type="button"
+        class="
+          flex
+          h-20
+          w-20
+          shrink-0
+
+          items-center
+          justify-center
+
+          rounded-[27px]
+
+          bg-[#2e7d32]
+
+          text-white
+
+          shadow-[0_8px_18px_rgba(46,125,50,0.20)]
+        "
+      >
+
+        <i
+          class="
+            fa-solid
+            fa-microphone
+
+            text-[27px]
+          "
+        ></i>
+
+      </button>
+
+    </div>
+
+
+
+    <!-- ================================================== -->
+    <!-- FILTRES -->
+    <!-- ================================================== -->
+
+    <div
+      class="
+        absolute
+        left-10
+        top-52
+        z-20
+
+        flex
+        gap-6
+      "
+    >
+
+      <button
+        class="
+          rounded-full
+          bg-[#2e7d32]
+
+          px-5
+          py-3
+
+          text-lg
+          font-extrabold
+          text-white
+        "
+      >
+        derniers
+      </button>
+
+      <button
+        class="
+          rounded-full
+          bg-white
+
+          px-5
+          py-3
+
+          text-lg
+          font-extrabold
+          text-[#64748b]
+        "
+      >
+        critique
+      </button>
+
+      <button
+        class="
+          rounded-full
+          bg-white
+
+          px-5
+          py-3
+
+          text-lg
+          font-extrabold
+          text-[#64748b]
+        "
+      >
+        modéré
+      </button>
+
+      <button
+        class="
+          rounded-full
+          bg-white
+
+          px-5
+          py-3
+
+          text-lg
+          font-extrabold
+          text-[#64748b]
+        "
+      >
+        léger
+      </button>
+
+    </div>
+
+
+
+    <!-- ================================================== -->
+    <!-- MARQUEURS -->
+    <!-- ================================================== -->
+
+    <!-- Bleu -->
+
+    <div
+      class="
+        absolute
+        left-[34%]
+        top-[45%]
+
+        flex
+        h-14
+        w-14
+
+        -translate-x-1/2
+        -translate-y-1/2
+
+        items-center
+        justify-center
+
+        rounded-full
+        border-4
+        border-white
+
+        bg-blue-600
+
+        text-white
+
+        shadow-[0_0_0_12px_rgba(59,130,246,0.16)]
+      "
+    >
+
+      <i class="fa-solid fa-location-dot text-xl"></i>
+
+    </div>
+
+
+    <!-- Vert -->
+
+    <div
+      class="
+        absolute
+        left-[56%]
+        top-[45%]
+
+        flex
+        h-14
+        w-14
+
+        -translate-x-1/2
+        -translate-y-1/2
+
+        items-center
+        justify-center
+
+        rounded-full
+        border-4
+        border-white
+
+        bg-[#2e7d32]
+
+        text-white
+      "
+    >
+
+      <i class="fa-solid fa-lightbulb text-xl"></i>
+
+    </div>
+
+
+    <!-- Rouge -->
+
+    <div
+      class="
+        absolute
+        left-[87%]
+        top-[45%]
+
+        flex
+        h-14
+        w-14
+
+        -translate-x-1/2
+        -translate-y-1/2
+
+        items-center
+        justify-center
+
+        rounded-full
+        border-4
+        border-white
+
+        bg-[#d62828]
+
+        text-white
+      "
+    >
+
+      <i class="fa-solid fa-trash text-xl"></i>
+
+    </div>
+
+
+    <!-- Rouge gauche -->
+
+    <div
+      class="
+        absolute
+        left-[12%]
+        top-[60%]
+
+        flex
+        h-14
+        w-14
+
+        -translate-x-1/2
+        -translate-y-1/2
+
+        items-center
+        justify-center
+
+        rounded-full
+        border-4
+        border-white
+
+        bg-[#d62828]
+
+        text-white
+      "
+    >
+
+      <i class="fa-solid fa-trash text-xl"></i>
+
+    </div>
+
+
+    <!-- Orange -->
+
+    <div
+      class="
+        absolute
+        left-[71%]
+        top-[54%]
+
+        flex
+        h-14
+        w-14
+
+        -translate-x-1/2
+        -translate-y-1/2
+
+        items-center
+        justify-center
+
+        rounded-full
+        border-4
+        border-white
+
+        bg-orange-500
+
+        text-white
+      "
+    >
+
+      <i class="fa-solid fa-faucet-drip text-xl"></i>
+
+    </div>
+
+
+    <!-- Orange gauche -->
+
+    <div
+      class="
+        absolute
+        left-[24%]
+        top-[73%]
+
+        flex
+        h-14
+        w-14
+
+        -translate-x-1/2
+        -translate-y-1/2
+
+        items-center
+        justify-center
+
+        rounded-full
+        border-4
+        border-white
+
+        bg-orange-500
+
+        text-white
+      "
+    >
+
+      <i class="fa-solid fa-faucet-drip text-xl"></i>
+
+    </div>
+
+
+    <!-- ================================================== -->
+    <!-- CONTROLES CARTE -->
+    <!-- ================================================== -->
+
+    <div
+      class="
+        absolute
+        right-5
+        top-[570px]
+
+        flex
+        flex-col
+        gap-5
+
+        lg:right-8
+        lg:top-[430px]
+      "
+    >
+
+      <button
+        class="
+          flex
+          h-20
+          w-20
+
+          items-center
+          justify-center
+
+          rounded-[25px]
+
+          bg-white
+
+          text-[#334155]
+
+          shadow-lg
+        "
+      >
+
+        <i class="fa-solid fa-crosshairs text-2xl"></i>
+
+      </button>
+
+
+      <button
+        class="
+          flex
+          h-20
+          w-20
+
+          items-center
+          justify-center
+
+          rounded-[25px]
+
+          bg-white
+
+          text-[#334155]
+
+          shadow-lg
+        "
+      >
+
+        <i class="fa-solid fa-layer-group text-2xl"></i>
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- ====================================================== -->
+  <!-- DIV 2 : À PROXIMITÉ -->
+  <!-- ====================================================== -->
+
+  <div
+    class="
+      relative
+      z-30
+
+      -mt-10
+
+      w-full
+
+      rounded-t-[40px]
+
+      bg-white
+
+      px-5
+      pb-10
+      pt-5
+
+      shadow-[0_-5px_25px_rgba(15,23,42,0.08)]
+
+      sm:px-8
+
+      lg:mx-auto
+      lg:-mt-16
+      lg:w-[610px]
+      lg:rounded-[40px]
+    "
+  >
+
+    <!-- HANDLE -->
+
+    <div
+      class="
+        mx-auto
+        mb-5
+
+        h-2.5
+        w-20
+
+        rounded-full
+
+        bg-[#e0e6ed]
+
+        lg:hidden
+      "
+    ></div>
+
+
+    <!-- TITRE -->
+
+    <h2
+      class="
+        text-[30px]
+        font-black
+        leading-9
+        tracking-tight
+
+        text-[#111827]
+      "
+    >
+      À proximité
+    </h2>
+
+
+    <p
+      class="
+        mt-1
+
+        text-xl
+        font-medium
+
+        text-[#657792]
+      "
+    >
+      3 signalements urgents trouvés
+    </p>
+
+
+
+    <!-- ================================================== -->
+    <!-- CARTE SIGNALement -->
+    <!-- ================================================== -->
+
+    <div
+      class="
+        mt-12
+
+        overflow-hidden
+
+        rounded-[38px]
+
+        border
+        border-[#edf1f4]
+
+        bg-white
+
+        shadow-[0_2px_7px_rgba(15,23,42,0.06)]
+      "
+    >
+
+      <!-- IMAGE -->
+
+      <div
+        class="
+          relative
+          h-[370px]
+          w-full
+        "
+      >
+
+        <img
+          src="/assets/images/signalements/dechets-port.jpg"
+          alt="Nettoyage Rue du port"
+          class="
+            h-full
+            w-full
+            object-cover
+          "
+        />
+
+
+        <!-- DATE -->
+
+        <div
+          class="
+            absolute
+            left-10
+            top-6
+
+            rounded-full
+
+            bg-white
+
+            px-7
+            py-3
+
+            text-[17px]
+            font-black
+
+            text-[#2e7d32]
+          "
+        >
+          05 MAI 2026 13H05
+        </div>
+
+      </div>
+
+
+      <!-- CONTENU -->
+
+      <div class="px-9 pb-8 pt-8">
+
+        <!-- TITRE -->
+
+        <div
+          class="
+            flex
+            items-start
+            justify-between
+            gap-5
+          "
+        >
+
+          <h3
+            class="
+              text-[28px]
+              font-black
+              leading-9
+
+              text-[#111827]
+            "
+          >
+            Nettoyage Rue du port
+          </h3>
+
+
+          <button
+            type="button"
+            class="shrink-0 text-[#91a4bc]"
+          >
+
+            <i
+              class="
+                fa-regular
+                fa-bookmark
+
+                text-[27px]
+              "
+            ></i>
+
+          </button>
+
+        </div>
+
+
+        <!-- LOCALISATION -->
+
+        <div
+          class="
+            mt-4
+
+            flex
+            items-center
+            gap-3
+          "
+        >
+
+          <i
+            class="
+              fa-solid
+              fa-location-dot
+
+              text-[22px]
+              text-[#2e7d32]
+            "
+          ></i>
+
+          <span
+            class="
+              text-xl
+              font-medium
+              text-[#657792]
+            "
+          >
+            Boulevard de la Plage
+          </span>
+
+        </div>
+
+
+        <!-- BOUTON -->
+
+        <button
+          type="button"
+          class="
+            mt-9
+
+            h-[74px]
+            w-full
+
+            rounded-[27px]
+
+            bg-[#2e7d32]
+
+            text-[21px]
+            font-extrabold
+            text-white
+
+            shadow-[0_12px_25px_rgba(46,125,50,0.22)]
+          "
+        >
+          Plus d’info
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
