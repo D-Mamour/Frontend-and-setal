@@ -3,7 +3,7 @@
 
     <!-- En-tête -->
     <div class="flex items-center justify-between">
-      <button type="button" (click)="retour.emit()" aria-label="Retour" class="flex size-12 items-center justify-center rounded-full bg-white shadow-md">
+      <button type="button" aria-label="Retour" class="flex size-12 items-center justify-center rounded-full bg-white shadow-md">
         <i class="fa-solid fa-arrow-left text-[#A9663D]" aria-hidden="true"></i>
       </button>
 
@@ -20,13 +20,31 @@
     </p>
 
     <!-- Formulaire -->
-    <form class="mt-8 flex flex-col gap-6">
+    <form [formGroup]="form" class="mt-8 flex flex-col gap-6">
+
+      <div>
+        <label
+          for="username"
+          class="text-xs font-bold uppercase tracking-wide text-slate-600"
+        >
+          Nom d'utilisateur
+        </label>
+
+        <input
+          id="username"
+          type="text"
+          formControlName="username"
+          placeholder="aliou"
+          class="mt-2 w-full rounded-2xl bg-slate-100 px-5 py-4 text-base text-zinc-700 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-green-700/40"
+        />
+      </div>
 
       <div>
         <label for="prenom" class="text-xs font-bold uppercase tracking-wide text-slate-600">Prénom</label>
         <input
           id="prenom"
           type="text"
+          formControlName="first_name"
           placeholder="Abdoulaye"
           class="mt-2 w-full rounded-2xl bg-slate-100 px-5 py-4 text-base text-zinc-700 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-green-700/40"
         />
@@ -37,7 +55,25 @@
         <input
           id="nom"
           type="text"
+          formControlName="last_name"
           placeholder="Sow"
+          class="mt-2 w-full rounded-2xl bg-slate-100 px-5 py-4 text-base text-zinc-700 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-green-700/40"
+        />
+      </div>
+
+      <div>
+        <label
+          for="email"
+          class="text-xs font-bold uppercase tracking-wide text-slate-600"
+        >
+          Adresse email
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="exemple@email.com"
           class="mt-2 w-full rounded-2xl bg-slate-100 px-5 py-4 text-base text-zinc-700 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-green-700/40"
         />
       </div>
@@ -49,6 +85,7 @@
           <input
             id="telephone"
             type="tel"
+            formControlName="telephone"
             placeholder="77 000 00 00"
             class="w-full bg-transparent text-base text-zinc-400 placeholder:text-zinc-400 focus:outline-none"
           />
@@ -56,16 +93,17 @@
       </div>
 
       <div>
-        <label for="code-secret" class="text-xs font-bold uppercase tracking-wide text-slate-600">Code secret ( 4 chiffres )</label>
+        <label for="password" class="text-xs font-bold uppercase tracking-wide text-slate-600">Mot de passe</label>
         <input
-          id="code-secret"
+          id="password"
           type="password"
-          inputmode="numeric"
-          maxlength="4"
           placeholder="••••"
+          formControlName="password"
           class="mt-2 w-full rounded-2xl bg-slate-100 px-5 py-5 text-2xl tracking-[1em] text-zinc-400 placeholder:text-zinc-300 focus:outline-none focus:ring-2 focus:ring-green-700/40"
         />
       </div>
+
+
     </form>
 
     <!-- Bouton continuer -->
