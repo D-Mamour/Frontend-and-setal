@@ -27,7 +27,7 @@ export class AuthService {
    */
   register(data: RegisterRequest): Observable<unknown> {
 
-    return this.httpClient.post(`${this.baseUrl}/auth/comptes/inscription`,data);
+    return this.httpClient.post(`${this.baseUrl}/comptes/inscription/`,data);
   }
 
 
@@ -36,7 +36,7 @@ export class AuthService {
    */
   verifyOtp(data: OtpRequest): Observable<unknown> {
 
-    return this.httpClient.post(`${this.baseUrl}/auth/comptes/verification-otp`,data);
+    return this.httpClient.post(`${this.baseUrl}/comptes/verification-otp/`,data);
   }
 
 
@@ -45,7 +45,7 @@ export class AuthService {
    */
   login(data: LoginRequest): Observable<AuthResponse> {
 
-    return this.httpClient.post<AuthResponse>(`${this.baseUrl}/token`,data)
+    return this.httpClient.post<AuthResponse>(`${this.baseUrl}/token/`,data)
       .pipe(
         tap((response) => {
           this.saveTokens(
