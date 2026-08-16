@@ -1,33 +1,56 @@
-<ng-container [ngSwitch]="currentStep">
+<ng-container [ngSwitch]="currentStep()">
 
   <!-- ÉTAPE 1 -->
+
   <app-inscription-infos
     *ngSwitchCase="1"
-    [step]="currentStep"
+
+    [step]="currentStep()"
+
     [totalSteps]="totalSteps"
+
     [form]="inscriptionForm"
-    [loading]="loading"
-    (continuer)="suivant()"
+
+    [loading]="loading()"
+
+    [errorMessage]="errorMessage()"
+
+    (continuer)="inscription()"
   />
+
 
   <!-- ÉTAPE 2 -->
+
   <app-inscription-verification
     *ngSwitchCase="2"
-    [step]="currentStep"
+
+    [step]="currentStep()"
+
     [totalSteps]="totalSteps"
+
     [email]="inscriptionForm.controls.email.value"
-    [loading]="loading"
+
+    [loading]="loading()"
+
+    [errorMessage]="errorMessage()"
+
     (retour)="precedent()"
-    (verifier)="otpCode = $event; suivant()"
-    (renvoyer)="null"
+
+    (verifier)="verifierOtp($event)"
   />
 
+
   <!-- ÉTAPE 3 -->
+
   <app-inscription-permissions
     *ngSwitchCase="3"
-    [step]="currentStep"
+
+    [step]="currentStep()"
+
     [totalSteps]="totalSteps"
+
     (autoriser)="terminerInscription()"
+
     (plusTard)="terminerInscription()"
   />
 

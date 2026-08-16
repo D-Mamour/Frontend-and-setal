@@ -3,7 +3,6 @@ import { AdminSecurite } from './components/admin/admin-securite/admin-securite'
 import { AdminAnalyse } from './components/admin/admin-analyse/admin-analyse';
 import { Dashboard } from './components/admin/dashboard/dashboard';
 import { DashboardCitoyen } from './components/citoyen/dashboard-citoyen/dashboard-citoyen';
-import { DashboardCitoyenConnecter } from './components/citoyen/dashboard-citoyen-connecter/dashboard-citoyen-connecter';
 import { Connexion } from './components/citoyen/auth/connexion/connexion';
 import { InscriptionComponent } from './components/citoyen/auth/inscription/inscription-component/inscription-component';
 import { MesSignalement } from './components/citoyen/signalement/mes-signalement/mes-signalement';
@@ -16,22 +15,31 @@ import { ListeSignalement } from './components/agent/liste-signalement/liste-sig
 import { SignalementDetails } from './components/agent/signalement-details/signalement-details';
 import { SignalementMap } from './components/agent/signalement-map/signalement-map';
 import { SignalementDetailAdmin } from './components/admin/signalement-detail-admin/signalement-detail-admin';
+import { authGuard } from './guards/auth.guard';
+import { roleGuard } from './guards/role.guard';
 
 export const routes: Routes = [
 
   // ESPACE CITOYEN
   {path: '', component: DashboardCitoyen},
-  {path: 'home', component: DashboardCitoyenConnecter},
   {path: 'inscription', component: InscriptionComponent},
   {path: 'connexion', component: Connexion},
   {path: 'signaler-probleme', component: SignalerProbleme},
   {path: 'signalement-success', component: SignalementSuccess},
-  {path: 'signalements', component: MesSignalement},
+  {path: 'signalements', component: MesSignalement,
+    canActivate: [authGuard, roleGuard], data: { roles: ['citoyen']
+  }},
 
   //ESPACE AGENT
-  {path: 'agent/signalements', component: ListeSignalement},
-  {path: 'agent/signalements/detail', component: SignalementDetails},
-  {path: 'agent/signalements/map', component: SignalementMap},
+  {path: 'agent/dashboard', component: ListeSignalement,
+    canActivate: [authGuard, roleGuard], data: { roles: ['agent']}
+  },
+  {path: 'agent/signalements/detail', component: SignalementDetails,
+    canActivate: [authGuard, roleGuard], data: { roles: ['agent']}
+  },
+  {path: 'agent/signalements/map', component: SignalementMap,
+    canActivate: [authGuard, roleGuard], data: { roles: ['agent']}
+  },
 
 
   // ESPACE ADMIN

@@ -16,6 +16,7 @@ export class InscriptionInfos {
   form!: FormGroup;
 
   @Input() loading = false;
+  @Input() errorMessage = '';
 
   @Output() continuer = new EventEmitter<void>();
 }

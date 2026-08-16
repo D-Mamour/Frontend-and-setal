@@ -10,19 +10,13 @@ import { FormsModule } from '@angular/forms';
 export class InscriptionVerification {
 
   @Input() step = 2;
-
   @Input() totalSteps = 3;
-
   @Input() email = '';
-
   @Input() loading = false;
-
+  @Input() errorMessage = '';
   @Output() verifier = new EventEmitter<string>();
-
   @Output() renvoyer = new EventEmitter<void>();
-
   @Output() retour = new EventEmitter<void>();
-
   code = '';
 
 
