@@ -44,9 +44,10 @@ export class AuthService {
   /**
    * Connexion
    */
-  login(data: LoginRequest): Observable<AuthResponse> {
+  login(email: string, password: string): Observable<AuthResponse> {
+    const data = { email, password };
 
-    return this.httpClient.post<AuthResponse>(`${this.baseUrl}/token/`, data)
+    return this.httpClient.post<AuthResponse>(`${this.baseUrl}/token`,data)
       .pipe(
         tap((response) => {
           this.saveTokens(
