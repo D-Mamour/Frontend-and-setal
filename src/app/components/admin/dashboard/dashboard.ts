@@ -47,25 +47,31 @@ export class Dashboard implements OnInit {
     });
 
     // Déclenchement de l'appel des signalements
-    this.adminService.statistique().subscribe({
+    this.adminService.incident().subscribe({
       error: (err) => console.error("Erreur de récupération des signalements", err)
     });
   }
 
 
-    private initMap(): void {
-    // Centre la carte sur Dakar (Latitude: 14.7167, Longitude: -17.4677)
-    this.map = L.map('map-container').setView([14.7167, -17.4677], 12);
+private initMap(): void {
+  // 1. Initialisation de la carte sur Dakar
+  this.map = L.map('map-container').setView([14.7167, -17.4677], 12);
 
-    // Chargement des tuiles de la carte OpenStreetMap
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(this.map);
+  // 2. Chargement des tuiles
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(this.map);
 
-    // Groupe pour vider/remplir les marqueurs facilement
-    this.markerGroup = L.layerGroup().addTo(this.map);
-  }
+  this.markerGroup = L.layerGroup().addTo(this.map);
+
+  // 🚀 LA CORRECTION : Force Leaflet à recalculer sa taille après 100ms
+  setTimeout(() => {
+    if (this.map) {
+      this.map.invalidateSize();
+    }
+  }, 100);
+}
 
 
   private mettreAjourMarqueurs(incidents: any[]): void {
