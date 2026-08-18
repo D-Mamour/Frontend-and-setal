@@ -18,8 +18,10 @@ export class AgentService  {
     return this.http.get<Incident[]>(`${this.baseUrl}/incidents/tous/`);
   }
 
-  getIncidentById(id: number):Observable<Incident>{
-    return this.http.get<Incident>(`${this.baseUrl}/incidents/${id}/`);
+  getIncidentById(id: number): Observable<Incident> {
+    const url = `${this.baseUrl}/incidents/${id}/`;
+    console.log('GET incident by id URL =', url);
+    return this.http.get<Incident>(url);
   }
 
 

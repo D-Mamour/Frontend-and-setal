@@ -16,7 +16,7 @@ import { CommonModule } from '@angular/common';
 export class SignalementDetails implements OnInit{
 
   signalement= signal<Incident | null>(null)
-  estEnChargement=signal<boolean>(true);
+  estEnChargement=signal<boolean>(false);
   messageErreur=signal<string>('');
 
 
