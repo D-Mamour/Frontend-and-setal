@@ -8,29 +8,37 @@
     <h1 class="mt-8 text-2xl font-extrabold tracking-tight text-[#A9663D]">Vérification</h1>
 
     <p class="mt-3 text-base leading-6 text-[#A9663D]/80">
-      Nous avons envoyé un code de confirmation
-      au <span class="font-bold text-zinc-800">+221 77 ●●● ●● 89</span>
+      Nous avons envoyé un code de confirmation au
+      <span class="font-bold text-zinc-800">
+        {{ email }}
+      </span>
     </p>
+
+    @if(errorMessage){
+      <p class="mt-5 text-md text-red-600">{{ errorMessage }}</p>
+    }
 
     <!-- Champs OTP -->
     <div class="mt-8 flex justify-between gap-4">
-      <div class="flex size-16 items-center justify-center rounded-2xl border border-slate-200 text-2xl font-bold text-zinc-800">4</div>
-      <div class="flex size-16 items-center justify-center rounded-2xl border border-slate-200 text-2xl font-bold text-zinc-800">8</div>
-      <div class="flex size-16 items-center justify-center rounded-2xl border border-slate-200">
-        <span class="size-2.5 rounded-full bg-slate-300"></span>
-      </div>
-      <div class="flex size-16 items-center justify-center rounded-2xl border border-slate-200">
-        <span class="size-2.5 rounded-full bg-slate-300"></span>
-      </div>
+        <input
+          type="text"
+          [(ngModel)]="code"
+          maxlength="4"
+          inputmode="numeric"
+          autocomplete="one-time-code"
+          placeholder="Code OTP"
+          class="w-full rounded-2xl border border-slate-200 px-5 py-4 text-center text-2xl font-bold tracking-[0.5em] focus:outline-none focus:ring-2 focus:ring-green-700/40"
+        />
     </div>
 
     <button
-      type="button"
-      (click)="verifier.emit()"
-      class="mt-8 w-full rounded-2xl bg-[#2E7D32] py-4 text-base font-bold text-white shadow-lg shadow-[#2E7D32]/30"
-    >
-      Vérifier le code
-    </button>
+        type="button"
+        (click)="verifierCode()"
+        [disabled]="loading"
+        class="mt-8 w-full rounded-2xl bg-[#2E7D32] py-4 text-base font-bold text-white shadow-lg shadow-[#2E7D32]/30 disabled:opacity-50"
+      >
+        {{ loading ? 'Vérification...' : 'Vérifier le code' }}
+      </button>
 
     <div class="mt-6 text-center">
       <button type="button" (click)="renvoyer.emit()" class="text-base font-bold text-green-700">

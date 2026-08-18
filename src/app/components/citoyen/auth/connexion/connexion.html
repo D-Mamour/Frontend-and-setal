@@ -11,46 +11,76 @@
 
   <h1 class="text-4xl font-extrabold text-gray-900 text-center mb-8">Connexion</h1>
 
-  <form class="flex flex-col gap-5">
+    @if(errorMessage()){
+      <p class="py-5 text-md text-red-600">{{ errorMessage() }}</p>
+    }
+
+  <form [formGroup]="loginForm" (ngSubmit)="seConnecter()" class="flex flex-col gap-5">
     <!-- Numéro -->
     <div>
-      <label for="phoneNumber" class="block text-gray-500 font-bold text-sm tracking-wide uppercase mb-2">
-        Numéro
+      <label for="email" class="block text-gray-500 font-bold text-sm tracking-wide uppercase mb-2">
+        Email
       </label>
       <input
-        id="phoneNumber"
-        type="tel"
-        name="phoneNumber"
-        placeholder="77 000 00 00"
+        id="email"
+        type="email"
+        formControlName="email"
+        placeholder="exemple@email.com"
+        autocomplete="email"
         class="w-full bg-gray-100 rounded-2xl px-5 py-4 text-gray-700 placeholder-gray-400 outline-none focus:ring-2 focus:ring-green-700"
       />
+      @if (loginForm.get('email')?.invalid &&loginForm.get('email')?.touched) {
+
+        <p class="mt-1 text-xs text-red-600">
+          @if (loginForm.get('email')?.hasError('required')) {
+            L'adresse email est obligatoire.
+          }
+          @if (loginForm.get('email')?.hasError('email')) {
+            Veuillez saisir une adresse email valide.
+          }
+        </p>
+      }
     </div>
 
     <!-- Code -->
     <div>
-      <label for="code" class="block text-gray-500 font-bold text-sm tracking-wide uppercase mb-2">
-        Code
+      <label for="password" class="block text-gray-500 font-bold text-sm tracking-wide uppercase mb-2">
+        Mot de passe
       </label>
       <input
-        id="code"
-        type="text"
-        inputmode="numeric"
-        name="code"
-        placeholder="• • • •"
-        class="w-full bg-gray-100 rounded-2xl px-5 py-4 text-gray-700 placeholder-gray-400 outline-none focus:ring-2 focus:ring-green-700 tracking-[0.3em]"
+        id="password"
+        type="password"
+        formControlName="password"
+        placeholder="Votre mot de passe"
+        autocomplete="current-password"
+        class="w-full bg-gray-100 rounded-2xl px-5 py-4 text-gray-700 placeholder-gray-400 outline-none focus:ring-2 focus:ring-green-700"
       />
+      @if (loginForm.get('password')?.invalid &&loginForm.get('password')?.touched) {
+
+        <p class="mt-1 text-xs text-red-600">
+          @if (loginForm.get('password')?.hasError('required')) {
+            Mot de passe est obligatoire.
+          }
+          @if (loginForm.get('password')?.hasError('minlength')) {
+            Minimum 8 caracteres.
+          }
+        </p>
+      }
     </div>
 
     <!-- Bouton connexion -->
     <button
       type="submit"
-      (click)="seConnecter()"
+      [disabled]="loading()"
       class="mt-2 w-full rounded-2xl text-white font-bold py-4 flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.99] transition"
-      style="background-color: #2E7D32;"
-    >
+      style="background-color: #2E7D32;">
+      @if (loading()) {
+        <i class="fa-solid fa-spinner fa-spin"></i>
+        Connexion en cours
+      } @else {
         Connexion
         <i class="fa-solid fa-arrow-right"></i>
-
+      }
     </button>
 
     <!-- Lien inscription -->

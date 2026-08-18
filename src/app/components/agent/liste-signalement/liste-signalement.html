@@ -17,6 +17,23 @@
       Mairie DAKAR PLATEAU
     </p>
 
+    <!-- Déconnexion -->
+  @if (authService.isAuthenticated()) {
+
+    <button
+      type="button"
+      (click)="deconnexion()"
+      class="flex size-11 items-center justify-center rounded-full bg-red-50 text-red-600 transition hover:bg-red-100 active:scale-95"
+      aria-label="Se déconnecter"
+      title="Se déconnecter"
+    >
+      <i
+        class="fa-solid fa-right-from-bracket"
+        aria-hidden="true"
+      ></i>
+    </button>
+  }
+
 
     <!-- ================================================= -->
     <!-- DERNIER SIGNALEMENT -->
@@ -243,12 +260,21 @@
 
 
       <!-- LISTE -->
-      <div class="space-y-4">
 
-        @for (
-        signalement of signalements;
-        track signalement.titre
-        ) {
+
+
+
+      <div class="space-y-4">
+        @if (estEnChargement) {
+        <p class="text-sm text-slate-500">Chargement des signalements...</p>
+        } @else if (messageErreur) {
+        <p class="text-sm text-red-600">{{ messageErreur }}</p>
+        } @else if (signalements.length === 0) {
+        <p class="text-sm text-slate-500">Aucun signalement trouvé.</p>
+        } @else {
+
+        @for (signalement of signalements;track signalement.id)
+        {
 
         <article class="flex items-center gap-4
                    rounded-[26px]
@@ -258,7 +284,7 @@
                    md:p-5">
 
           <!-- IMAGE -->
-          <img [src]="signalement.image" [alt]="signalement.titre" class="h-16 w-16 shrink-0
+          <img [src]="signalement.urlImage" [alt]="" class="h-16 w-16 shrink-0
                      rounded-2xl
                      object-cover
                      md:h-20 md:w-20" />
@@ -270,38 +296,30 @@
             <h3 class="text-sm font-bold
                        text-slate-900
                        md:text-base">
-              {{ signalement.titre }}
+              le titre de l'IA ICI....
             </h3>
 
             <p class="mt-1 text-xs
                        text-slate-500
                        md:text-sm">
-              {{ signalement.quartier }}
-              • {{ signalement.temps }}
+              {{ signalement.statut }}
+              • {{ formatTemps(signalement.dateCreation)}}
             </p>
 
           </div>
 
 
           <!-- PRIORITE -->
-          <span class="shrink-0 rounded-xl
-                     px-3 py-2
-                     text-[10px] font-black
-                     md:text-xs" [class.bg-orange-50]="
-                signalement.type === 'priorite'
-              " [class.text-orange-600]="
-                signalement.type === 'priorite'
-              " [class.bg-red-50]="
-                signalement.type === 'critique'
-              " [class.text-red-600]="
-                signalement.type === 'critique'
-              ">
+          <span
+            class="shrink-0 rounded-xl px-3 py-2 text-[10px] font-black md:text-xs"
+            [ngClass]="[classePriorite(signalement.priorite).bg, classePriorite(signalement.priorite).text]">
             {{ signalement.priorite }}
           </span>
 
         </article>
 
         }
+      }
 
       </div>
 
