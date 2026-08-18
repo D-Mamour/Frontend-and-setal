@@ -10,7 +10,6 @@ import {
   faChartColumn
 } from '@fortawesome/free-solid-svg-icons';
 import { Navbar } from "../../navbar/navbar";
-import { AuthService } from '../../../Services/auth-citoyen-service';
 import { Router } from '@angular/router';
 import { Incident } from '../../../Models/infos/incident';
 
