@@ -1,12 +1,14 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../../Services/auth-citoyen.service';
 import { UserRole } from '../../../../Models/auth/utilisateur';
 
 @Component({
   selector: 'app-connexion',
-  imports: [RouterLink, ReactiveFormsModule],
+  standalone: true,
+  imports: [RouterLink, ReactiveFormsModule, CommonModule],
   templateUrl: './connexion.html',
   styleUrl: './connexion.css',
 })
@@ -109,5 +111,9 @@ private redirectByRole(role: UserRole): void {
     }
 
     this.errorMessage.set('Une erreur est survenue lors de la connexion.');
+  }
+
+  goHome(){
+    this.router.navigate(['/']);
   }
 }

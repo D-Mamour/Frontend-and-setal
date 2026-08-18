@@ -1,0 +1,12 @@
+/* 🚀 OBLIGATOIRE : Force Leaflet à occuper tout l'espace du conteneur parent */
+#map-container {
+  height: 450px !important;
+  width: 100% !important;
+  display: block;
+}
+
+/* Optionnel : Assure-vous que les tuiles de la carte s'alignent bien */
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}

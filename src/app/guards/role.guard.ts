@@ -1,34 +1,35 @@
-import { inject } from "@angular/core";
-import { AuthService } from "../Services/auth-citoyen.service";
-import { CanActivateFn, Router } from "@angular/router";
-import { UserRole } from "../Models/auth/utilisateur";
+import { inject } from '@angular/core';
+import {
+  CanActivateFn,
+  Router
+} from '@angular/router';
+
+import { AuthService } from '../Services/auth-citoyen.service';
+import { UserRole } from '../Models/auth/utilisateur';
+import { catchError, map, of } from 'rxjs';
 
 export const roleGuard: CanActivateFn = (route) => {
-
   const authService = inject(AuthService);
   const router = inject(Router);
-
-  // Récupérer les rôles autorisés définis dans la route
   const allowedRoles = route.data['roles'] as UserRole[];
 
-   // Récupérer l'utilisateur connecté
+  if (!authService.isAuthenticated()) {
+    return router.createUrlTree(['/connexion']);
+  }
+
   const currentUser = authService.currentUser();
 
-  // Aucun utilisateur connecté
   if (!currentUser) {
-    return router.createUrlTree(['/connexion']);
-
+    // Token présent mais profil pas encore chargé -> on le récupère au lieu de rediriger
+    return authService.getProfil().pipe(
+      map(user => allowedRoles.includes(user.role)
+        ? true
+        : router.createUrlTree(['/acces-interdit'])),
+      catchError(() => of(router.createUrlTree(['/connexion'])))
+    );
   }
 
-  // Vérifier si le rôle de l'utilisateur
-  // fait partie des rôles autorisés
-  if (allowedRoles.includes(currentUser.role)) {
-
-    return true;
-
-  }
-
-  // L'utilisateur est connecté
-  // mais n'a pas le bon rôle
-  return router.createUrlTree(['/acces-interdit']);
+  return allowedRoles.includes(currentUser.role)
+    ? true
+    : router.createUrlTree(['/acces-interdit']);
 };

@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { AjouterMembre } from '../ajouter-membre/ajouter-membre';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-admin-securite',
-  imports: [AjouterMembre],
+  standalone: true,
+  imports: [AjouterMembre, CommonModule],
   templateUrl: './admin-securite.html',
   styleUrl: './admin-securite.css',
 })

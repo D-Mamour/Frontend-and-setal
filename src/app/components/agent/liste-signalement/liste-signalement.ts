@@ -30,6 +30,7 @@ export class ListeSignalement implements OnInit {
   signalements = signal<Incident[]>([]);
   estEnChargement = signal<boolean>(false);
   messageErreur = signal<string>('');
+  titre = signal<string>('le Reciclage des verres sur mermoz - Rue22'); 
 
   quartiers = [
     { nom: 'Médina', valeur: 450 },
@@ -75,8 +76,10 @@ export class ListeSignalement implements OnInit {
   agentService = inject(AgentService);
   router = inject(Router);
 
+
   ngOnInit(): void {
     this.chargerProfil();
+    this.chargerSignalements();
     this.chargerSignalements();
   }
 

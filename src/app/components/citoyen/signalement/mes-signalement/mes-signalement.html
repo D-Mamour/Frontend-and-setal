@@ -1,154 +1,185 @@
 <div class="min-h-screen bg-white flex flex-col">
+
   <!-- Header -->
+
   <header class="flex items-center justify-between px-4 pt-6 pb-4">
-    <button
-      type="button"
-      (click)="goHome()"
-      aria-label="Retour"
-      class="w-10 h-10 flex items-center justify-center rounded-2xl bg-white shadow-sm active:scale-95 transition"
-    >
+
+    <button type="button" (click)="goHome()" aria-label="Retour"
+      class="w-10 h-10 flex items-center justify-center rounded-2xl bg-white shadow-sm active:scale-95 transition">
       <i class="fa-solid fa-chevron-left text-gray-800"></i>
     </button>
 
-    <h1 class="text-lg font-extrabold text-gray-900">Mes signalements</h1>
 
-    <button
-      type="button"
-      aria-label="Filtrer"
-      class="w-10 h-10 flex items-center justify-center rounded-2xl bg-white shadow-sm active:scale-95 transition"
-    >
+    <h1 class="text-lg font-extrabold text-gray-900">
+      Mes signalements
+    </h1>
+
+
+    <button type="button" aria-label="Filtrer"
+      class="w-10 h-10 flex items-center justify-center rounded-2xl bg-white shadow-sm active:scale-95 transition">
       <i class="fa-solid fa-sliders text-gray-800"></i>
     </button>
+
   </header>
 
-  <!-- Onglets -->
+
+  <!-- ============================================ -->
+  <!-- ONGLET -->
+  <!-- ============================================ -->
+
   <nav class="px-4 border-b border-gray-100">
+
     <ul class="flex items-center gap-6 text-sm font-semibold">
+
+      <!-- Tous -->
+
       <li class="relative pb-3">
-        <a href="#" class="text-green-700">Tous</a>
-        <span class="absolute left-1/2 -translate-x-1/2 -bottom-[1px] w-1.5 h-1.5 rounded-full bg-green-700"></span>
+
+        <button type="button" (click)="setFilter('tous')" [class.text-green-700]="activeFilter() === 'tous'"
+          [class.text-gray-400]="activeFilter() !== 'tous'">
+          Tous
+        </button>
+
+
+        <span *ngIf="activeFilter() === 'tous'" class="absolute left-1/2 -translate-x-1/2 -bottom-[1px] w-1.5 h-1.5 rounded-full bg-green-700"></span>
+
       </li>
-      <li class="pb-3">
-        <a href="#" class="text-gray-400">En attente</a>
+
+
+      <!-- En attente -->
+
+      <li class="relative pb-3">
+
+        <button type="button" (click)="setFilter('en_attente')" [class.text-green-700]="activeFilter() === 'en_attente'"
+          [class.text-gray-400]="activeFilter() !== 'en_attente'">
+          En attente
+        </button>
+
+
+        <span *ngIf="activeFilter() === 'en_attente'" class="absolute left-1/2 -translate-x-1/2 -bottom-[1px] w-1.5 h-1.5 rounded-full bg-green-700"></span>
+
       </li>
-      <li class="pb-3">
-        <a href="#" class="text-gray-400">En cours</a>
+
+
+      <!-- En cours -->
+
+      <li class="relative pb-3">
+
+        <button type="button" (click)="setFilter('en_cours')" [class.text-green-700]="activeFilter() === 'en_cours'"
+          [class.text-gray-400]="activeFilter() !== 'en_cours'">
+          En cours
+        </button>
+
+
+        <span *ngIf="activeFilter() === 'en_cours'" class="absolute left-1/2 -translate-x-1/2 -bottom-[1px] w-1.5 h-1.5 rounded-full bg-green-700"></span>
+
       </li>
-      <li class="pb-3">
-        <a href="#" class="text-gray-400">Résolus</a>
+
+
+      <!-- Résolus -->
+
+      <li class="relative pb-3">
+
+        <button type="button" (click)="setFilter('resolu')" [class.text-green-700]="activeFilter() === 'resolu'"
+          [class.text-gray-400]="activeFilter() !== 'resolu'">
+          Résolus
+        </button>
+
+
+        <span *ngIf="activeFilter() === 'resolu'" class="absolute left-1/2 -translate-x-1/2 -bottom-[1px] w-1.5 h-1.5 rounded-full bg-green-700"></span>
+
       </li>
+
     </ul>
+
   </nav>
 
-  <!-- Liste des signalements -->
+
+  <!-- ============================================ -->
+  <!-- LISTE -->
+  <!-- ============================================ -->
+
   <main class="flex-1 px-4 pt-4 pb-28 space-y-4">
-    <!-- Carte 1 -->
-    <article class="bg-white rounded-3xl shadow-sm outline outline-1 outline-offset-[-1px] outline-white p-3 flex gap-3">
-      <img
-        src="https://images.unsplash.com/photo-1621452773781-0f992fd1f5cb?w=200&h=200&fit=crop"
-        alt="Dépôt sauvage"
-        class="w-20 h-20 rounded-2xl object-cover shrink-0"
-      />
-      <div class="flex-1 min-w-0 py-0.5">
-        <div class="flex items-center justify-between gap-2">
-          <h2 class="font-extrabold text-gray-900 truncate">Dépôt sauvage</h2>
-          <span class="shrink-0 bg-blue-100 text-blue-600 text-[11px] font-bold tracking-wide px-2.5 py-1 rounded-full">
-            EN COURS
-          </span>
-        </div>
-        <p class="flex items-center gap-1 text-gray-400 text-sm mt-1">
-          <i class="fa-solid fa-location-dot text-xs"></i>
-          Corniche Ouest
-        </p>
-        <div class="flex items-center justify-between mt-3">
-          <span class="text-gray-400 text-sm">Hier, 14:20</span>
-          <i class="fa-solid fa-arrow-right text-green-600 text-sm"></i>
-        </div>
-      </div>
-    </article>
 
-    <!-- Carte 2 -->
-    <article class="bg-white rounded-3xl shadow-sm outline outline-1 outline-offset-[-1px] outline-white p-3 flex gap-3">
-      <img
-        src="https://images.unsplash.com/photo-1594818379496-da1e345b0ded?w=200&h=200&fit=crop"
-        alt="Nid-de-poule"
-        class="w-20 h-20 rounded-2xl object-cover shrink-0"
-      />
-      <div class="flex-1 min-w-0 py-0.5">
-        <div class="flex items-center justify-between gap-2">
-          <h2 class="font-extrabold text-gray-900 truncate">Nid-de-poule</h2>
-          <span class="shrink-0 bg-green-100 text-green-700 text-[11px] font-bold tracking-wide px-2.5 py-1 rounded-full">
-            RÉSOLU
-          </span>
-        </div>
-        <p class="flex items-center gap-1 text-gray-400 text-sm mt-1">
-          <i class="fa-solid fa-location-dot text-xs"></i>
-          Place de l'indépendance
-        </p>
-        <div class="flex items-center justify-between mt-3">
-          <span class="text-gray-400 text-sm">12 Mai 2024</span>
-          <i class="fa-solid fa-arrow-right text-green-600 text-sm"></i>
-        </div>
-      </div>
-    </article>
 
-    <!-- Carte 3 -->
-    <article class="bg-white rounded-3xl shadow-sm outline outline-1 outline-offset-[-1px] outline-white p-3 flex gap-3">
-      <img
-        src="https://images.unsplash.com/photo-1542401886-65d6c61db217?w=200&h=200&fit=crop"
-        alt="Éclairage public"
-        class="w-20 h-20 rounded-2xl object-cover shrink-0"
-      />
-      <div class="flex-1 min-w-0 py-0.5">
-        <div class="flex items-center justify-between gap-2">
-          <h2 class="font-extrabold text-gray-900 truncate">Éclairage public</h2>
-          <span class="shrink-0 bg-orange-100 text-orange-600 text-[11px] font-bold tracking-wide px-2.5 py-1 rounded-full">
-            EN ATTENTE
-          </span>
-        </div>
-        <p class="flex items-center gap-1 text-gray-400 text-sm mt-1">
-          <i class="fa-solid fa-location-dot text-xs"></i>
-          Rue Jules Ferry
-        </p>
-        <div class="flex items-center justify-between mt-3">
-          <span class="text-gray-400 text-sm">10 Mai 2024</span>
-          <i class="fa-solid fa-arrow-right text-green-600 text-sm"></i>
-        </div>
-      </div>
-    </article>
+    <!-- Chargement -->
 
-    <!-- Carte 4 -->
-    <article class="bg-white rounded-3xl shadow-sm outline outline-1 outline-offset-[-1px] outline-white p-3 flex gap-3">
-      <img
-        src="https://images.unsplash.com/photo-1591189863430-ab87e120f312?w=200&h=200&fit=crop"
-        alt="Canal bouché"
-        class="w-20 h-20 rounded-2xl object-cover shrink-0"
-      />
-      <div class="flex-1 min-w-0 py-0.5">
-        <div class="flex items-center justify-between gap-2">
-          <h2 class="font-extrabold text-gray-900 truncate">Canal bouché</h2>
-          <span class="shrink-0 bg-green-100 text-green-700 text-[11px] font-bold tracking-wide px-2.5 py-1 rounded-full">
-            RÉSOLU
-          </span>
-        </div>
-        <p class="flex items-center gap-1 text-gray-400 text-sm mt-1">
-          <i class="fa-solid fa-location-dot text-xs"></i>
-          Rue Abdoulaye Fadiga
-        </p>
-        <div class="flex items-center justify-between mt-3">
-          <span class="text-gray-400 text-sm">05 Mai 2024</span>
-          <i class="fa-solid fa-arrow-right text-green-600 text-sm"></i>
-        </div>
+    <ng-container *ngIf="loading(); else notLoading">
+      <div class="flex flex-col items-center justify-center py-20">
+        <i class="fa-solid fa-spinner fa-spin text-green-700 text-2xl"></i>
+        <p class="mt-3 text-sm text-gray-500">Chargement de vos signalements...</p>
       </div>
-    </article>
+    </ng-container>
 
-    <!-- Fin de liste -->
-    <p class="text-center text-gray-300 text-sm pt-4">Fin de votre historique</p>
+    <ng-template #notLoading>
+      <ng-container *ngIf="error() as errorMessage; else checkResults">
+        <div class="rounded-2xl bg-red-50 border border-red-100 p-4">
+          <div class="flex items-center gap-3 text-red-700">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <p class="text-sm">{{ errorMessage }}</p>
+          </div>
+        </div>
+      </ng-container>
+    </ng-template>
+
+    <ng-template #checkResults>
+      <ng-container *ngIf="filteredIncidents().length === 0; else listResults">
+        <div class="flex flex-col items-center justify-center py-20 text-center">
+          <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
+            <i class="fa-solid fa-clipboard-list text-green-700 text-xl"></i>
+          </div>
+          <h2 class="mt-4 text-lg font-bold text-gray-900">Aucun signalement</h2>
+          <p class="mt-2 text-sm text-gray-500">Aucun signalement ne correspond à ce filtre.</p>
+        </div>
+      </ng-container>
+    </ng-template>
+
+    <ng-template #listResults>
+      <ng-container *ngFor="let incident of filteredIncidents()">
+        <article class="bg-white rounded-3xl shadow-sm outline outline-1 outline-offset-[-1px] outline-white p-3 flex gap-3">
+          <img [src]="incident.urlImage" alt="Photo du signalement" class="w-20 h-20 rounded-2xl object-cover shrink-0" />
+          <div class="flex-1 min-w-0 py-0.5">
+            <div class="flex items-center justify-between gap-2">
+              <h2 class="font-extrabold text-gray-900 truncate">Signalement #{{ incident.id }}
+                Priorite:
+                <span class="shrink-0 text-[11px] font-bold tracking-wide px-2.5 py-1 rounded-full" [ngClass]="{
+                        'bg-red-100 text-red-700': incident.priorite === 'haute',
+                        'bg-amber-100 text-amber-700': incident.priorite === 'moyenne',
+                        'bg-blue-100 text-blue-700': incident.priorite === 'faible'
+                      }">{{ incident.priorite }}</span>
+              </h2>
+              <span class="shrink-0 text-[11px] font-bold tracking-wide px-2.5 py-1 rounded-full" [ngClass]="{
+                      'bg-amber-100 text-amber-700': incident.statut === 'en_attente',
+                      'bg-blue-100 text-blue-600': incident.statut === 'en_cours',
+                      'bg-green-100 text-green-700': incident.statut === 'resolu'
+                    }">{{ incident.statut }}</span>
+            </div>
+            <ng-container *ngIf="incident.description">
+              <p class="text-gray-400 text-sm mt-1 truncate">{{ incident.description }}</p>
+            </ng-container>
+            <p class="flex items-center gap-1 text-gray-400 text-sm mt-1">
+              <i class="fa-solid fa-location-dot text-xs"></i>
+              {{ incident.latitude | number:'1.4-6' }}, {{ incident.longitude | number:'1.4-6' }}
+            </p>
+            <div class="flex items-center justify-between mt-3">
+              <span class="text-gray-400 text-sm">{{ incident.dateCreation | date:'dd MMM yyyy, HH:mm' }}</span>
+              <i class="fa-solid fa-arrow-right text-green-600 text-sm"></i>
+            </div>
+          </div>
+        </article>
+      </ng-container>
+    </ng-template>
+
+
+    <!-- Fin -->
+
+    <p *ngIf="!loading() && !error() && filteredIncidents().length > 0" class="text-center text-gray-300 text-sm pt-4">Fin de votre historique</p>
+
   </main>
 
-  <app-navbar></app-navbar>
-  <!-- Barre de navigation basse -->
-  <nav class="fixed bottom-0 left-0 right-0 px-4 pb-6 pt-2">
 
-  </nav>
+  <!-- Navigation -->
+
+  <app-navbar></app-navbar>
+
 </div>

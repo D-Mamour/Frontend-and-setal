@@ -12,12 +12,15 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   templateUrl: 'signalement-details.html',
   imports: [Navbar, FontAwesomeModule, CommonModule]
+
 })
+
 export class SignalementDetails implements OnInit{
 
   signalement= signal<Incident | null>(null)
   estEnChargement=signal<boolean>(false);
   messageErreur=signal<string>('');
+  titre = signal<string>('le Reciclage des verres sur mermoz- Rue22');
 
 
   //Injection des services

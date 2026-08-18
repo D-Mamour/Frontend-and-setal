@@ -1,143 +1,262 @@
 <div class="min-h-screen bg-white pb-28">
 
-  <!-- En-tête / logo -->
-  <header class="flex items-center justify-center px-6">
+  <!-- EN-TÊTE -->
+
+  <header class="flex items-center justify-center px-6 relative">
+
     <img src="images/logo.png" alt="Andë sétal" class="h-30 w-auto" />
 
-  <!-- Déconnexion -->
-  @if (authService.isAuthenticated()) {
+    <!-- Déconnexion -->
+    <ng-container *ngIf="authService.isAuthenticated()">
+      <button type="button" (click)="deconnexion()" class="absolute right-5 top-8 flex size-11 items-center justify-center rounded-full bg-red-50 text-red-600 transition hover:bg-red-100 active:scale-95" aria-label="Se déconnecter" title="Se déconnecter">
+        <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
+      </button>
+    </ng-container>
 
-    <button
-      type="button"
-      (click)="deconnexion()"
-      class="flex size-11 items-center justify-center rounded-full bg-red-50 text-red-600 transition hover:bg-red-100 active:scale-95"
-      aria-label="Se déconnecter"
-      title="Se déconnecter"
-    >
-      <i
-        class="fa-solid fa-right-from-bracket"
-        aria-hidden="true"
-      ></i>
-    </button>
-  }
   </header>
 
+
   <main class="mx-auto flex max-w-md flex-col gap-4 px-6">
-    <!-- Bannière : rejoindre la communauté -->
-    <div class="relative flex items-center justify-between gap-4 overflow-hidden rounded-3xl bg-red-200 p-5 shadow-2xl">
+
+    <!-- VISITEUR CONNECTÉ -->
+    <ng-container *ngIf="authService.currentUser() as user; else guest">
+      <section class="mt-4 text-center">
+        <p class="text-xs font-bold uppercase tracking-widest text-[#A9663D]">Bonjour, {{ user.first_name }} 👋</p>
+        <h1 class="mt-2 text-2xl font-extrabold leading-tight text-zinc-900">Améliorons Dakar<br /><span class="text-green-700">ensemble aujourd'hui</span></h1>
+      </section>
+    </ng-container>
+    <ng-template #guest>
+      <section class="mt-4 text-center">
+        <p class="text-xs font-bold uppercase tracking-widest text-[#A9663D]">Bienvenue 👋</p>
+        <h1 class="mt-2 text-2xl font-extrabold leading-tight text-zinc-900">Améliorons Dakar<br /><span class="text-green-700">ensemble aujourd'hui</span></h1>
+      </section>
+    </ng-template>
+
+    <!-- BANNIÈRE COMMUNAUTÉ -->
+    <div class="relative flex items-center justify-between gap-4 overflow-hidden rounded-3xl bg-red-200 p-5 shadow-sm">
+
       <span class="pointer-events-none absolute -top-6 right-14 size-24 rounded-full bg-[#FFB6C1] blur-md"></span>
 
+
       <div class="relative z-10 max-w-56">
-        <p class="text-sm font-bold leading-5 text-zinc-800">Rejoignez la communauté</p>
+
+        <p class="text-sm font-bold leading-5 text-zinc-800">
+          Rejoignez la communauté
+        </p>
+
         <p class="mt-1 text-xs font-medium leading-4 text-zinc-800/80">
           Inscrivez-vous afin de rejoindre notre communauté
         </p>
+
       </div>
 
-      <span class="relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full bg-white shadow-sm">
-        <i class="fa-solid fa-arrow-right text-red-300" aria-hidden="true"></i>
-      </span>
+
+      <ng-container *ngIf="!authService.isAuthenticated()">
+        <button type="button" routerLink="/inscription" class="relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full bg-white shadow-sm transition active:scale-95" aria-label="S'inscrire">
+          <i class="fa-solid fa-arrow-right text-red-300" aria-hidden="true"></i>
+        </button>
+      </ng-container>
+
     </div>
 
-    <!-- Notification : travaux terminés -->
 
-    <!-- <div class="rounded-[28px] border border-slate-100 bg-white p-5 shadow-sm">
+
+    <!-- INFORMATION VISITEUR -->
+
+    <ng-container *ngIf="!authService.isAuthenticated()">
+      <section class="rounded-3xl border border-slate-100 bg-white p-5 shadow-sm">
+
       <div class="flex items-start gap-4">
+
         <span class="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-green-100">
-          <i class="fa-solid fa-check text-green-700" aria-hidden="true"></i>
+          <i class="fa-solid fa-circle-info text-green-700" aria-hidden="true"></i>
         </span>
 
-        <div class="min-w-0 flex-1">
-          <div class="flex items-center justify-between gap-2">
-            <p class="text-xs font-bold uppercase tracking-wide text-green-600">Travaux terminés</p>
-            <p class="shrink-0 text-xs text-slate-400">Il y a 2 min</p>
-          </div>
-          <p class="mt-1 text-base font-bold leading-6 text-zinc-900">
-            Le nid-de-poule à Plateau a été réparé
+
+        <div class="min-w-0">
+
+          <h2 class="text-sm font-extrabold text-zinc-900">
+            Signalez sans compte
+          </h2>
+
+          <p class="mt-1 text-xs leading-5 text-slate-500">
+            Vous pouvez signaler un problème sans créer de
+            compte. Pour suivre vos signalements, recevoir des
+            notifications et consulter votre impact citoyen,
+            créez votre compte.
           </p>
-          <div class="mt-2 flex items-center gap-2 text-xs text-slate-400">
-            <span class="size-1.5 rounded-full bg-green-500"></span>
-            Statut mis à jour par l'équipe technique
-          </div>
+
         </div>
-      </div>
-    </div> -->
 
-    @if (authService.currentUser(); as user) {
-      <!-- Salutation -->
-      <div class="mt-4 text-center">
-        <p class="text-xs font-bold uppercase tracking-widest text-[#A9663D]">Bonjour, {{ user.first_name }} 👋</p>
-        <h1 class="mt-2 text-2xl font-extrabold leading-tight text-zinc-900">
-          Améliorons Dakar<br />
-          <span class="text-green-700">ensemble aujourd'hui</span>
-        </h1>
       </div>
 
-    }
 
-    <!-- Carte : Signaler un problème -->
+      <!-- Actions -->
+
+      <div class="mt-4 grid grid-cols-2 gap-3">
+
+        <button type="button" routerLink="/inscription"
+          class="rounded-2xl bg-green-700 px-4 py-3 text-sm font-bold text-white transition hover:bg-green-800 active:scale-[0.98]">
+          S'inscrire
+        </button>
+
+
+        <button type="button" routerLink="/connexion"
+          class="rounded-2xl border border-green-700 bg-white px-4 py-3 text-sm font-bold text-green-700 transition hover:bg-green-50 active:scale-[0.98]">
+          Se connecter
+        </button>
+
+      </div>
+
+    </section>
+
+    </ng-container>
+
+
+    <!-- SIGNALER UN PROBLÈME -->
     <a routerLink="/signaler-probleme">
-        <div class="flex items-center gap-5 rounded-3xl border border-green-200/50 bg-[#E8F5E9] p-6 shadow-[0px_8px_24px_0px_rgba(0,0,0,0.04)]">
-        <span class="flex size-16 shrink-0 items-center justify-center rounded-3xl bg-green-700 shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.10)]">
+
+      <div
+        class="flex items-center gap-5 rounded-3xl border border-green-200/50 bg-[#E8F5E9] p-6 shadow-[0px_8px_24px_0px_rgba(0,0,0,0.04)]">
+
+        <span
+          class="flex size-16 shrink-0 items-center justify-center rounded-3xl bg-green-700 shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.10)]">
           <i class="fa-solid fa-camera text-2xl text-white" aria-hidden="true"></i>
         </span>
+
+
         <div>
-          <p class="text-lg font-extrabold tracking-tight text-zinc-800">Signaler un problème</p>
-          <p class="mt-0.5 text-xs font-medium leading-5 tracking-tight text-zinc-800/70">
-            Prenez une photo d'un dépôt sauvage ou d'une dégradation
+
+          <p class="text-lg font-extrabold tracking-tight text-zinc-800">
+            Signaler un problème
           </p>
+
+          <p class="mt-0.5 text-xs font-medium leading-5 tracking-tight text-zinc-800/70">
+            Prenez une photo d'un dépôt sauvage ou d'une
+            dégradation
+          </p>
+
         </div>
+
       </div>
+
     </a>
 
-    <!-- Carte : Mes signalements -->
-    <a routerLink="/signalements">
-        <div class="flex items-center gap-5 rounded-3xl border border-sky-200/50 bg-[#E3F2FD] p-6 shadow-[0px_8px_24px_0px_rgba(0,0,0,0.04)]">
-        <span class="flex size-16 shrink-0 items-center justify-center rounded-3xl bg-sky-500 shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.10)]">
+
+
+    <!-- MES SIGNALEMENTS : CONNECTÉ UNIQUEMENT -->
+
+    <ng-container *ngIf="authService.isAuthenticated()">
+      <a routerLink="/signalements">
+
+      <div
+        class="flex items-center gap-5 rounded-3xl border border-sky-200/50 bg-[#E3F2FD] p-6 shadow-[0px_8px_24px_0px_rgba(0,0,0,0.04)]">
+
+        <span
+          class="flex size-16 shrink-0 items-center justify-center rounded-3xl bg-sky-500 shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.10)]">
           <i class="fa-solid fa-clock-rotate-left text-2xl text-white" aria-hidden="true"></i>
         </span>
+
+
         <div>
-          <p class="text-lg font-extrabold tracking-tight text-zinc-800">Mes signalements</p>
+
+          <p class="text-lg font-extrabold tracking-tight text-zinc-800">
+            Mes signalements
+          </p>
+
           <p class="mt-0.5 text-xs font-medium leading-5 tracking-tight text-zinc-800/70">
             Suivez l'avancement de vos signalements en temps réel
           </p>
+
         </div>
-    </div>
+
+      </div>
+
     </a>
 
-    <!-- Carte : Initier un Set-Sétal -->
-    <div class="flex items-center gap-5 rounded-3xl border border-stone-300/50 bg-[#E8DDBA] p-6 shadow-[0px_8px_24px_0px_rgba(0,0,0,0.04)]">
-      <span class="flex size-16 shrink-0 items-center justify-center rounded-3xl bg-[#A17354] shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.10)]">
+    <!-- SET-SÉTAL -->
+    <div
+      class="flex items-center gap-5 rounded-3xl border border-stone-300/50 bg-[#E8DDBA] p-6 shadow-[0px_8px_24px_0px_rgba(0,0,0,0.04)]">
+
+      <span
+        class="flex size-16 shrink-0 items-center justify-center rounded-3xl bg-[#A17354] shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.10)]">
         <i class="fa-solid fa-users text-2xl text-white" aria-hidden="true"></i>
       </span>
+
+
       <div>
-        <p class="text-lg font-extrabold tracking-tight text-zinc-800">Initier un Set-Sétal</p>
+
+        <p class="text-lg font-extrabold tracking-tight text-zinc-800">
+          Initier un Set-Sétal
+        </p>
+
         <p class="mt-0.5 text-xs font-medium leading-5 tracking-tight text-zinc-800/70">
           Organisez ou rejoignez un grand nettoyage citoyen
         </p>
+
       </div>
+
     </div>
 
-    <!-- Impact communautaire -->
-    <section class="mt-2">
+    <!-- MON IMPACT : CONNECTÉ UNIQUEMENT -->
+    <section class="mt-4">
+
       <div class="flex items-center justify-between">
-        <h2 class="text-base font-bold tracking-tight text-stone-500">Impact communautaire</h2>
-        <span class="text-xs font-bold uppercase tracking-wide text-stone-400">Cette année</span>
+
+        <h2 class="text-xl font-extrabold text-zinc-900">
+          Mon impact
+        </h2>
+
+        <span class="text-xs font-bold uppercase tracking-wide text-slate-400">
+          Cette année
+        </span>
+
       </div>
+
 
       <div class="mt-4 grid grid-cols-2 gap-4">
-        <div class="rounded-[20px] border border-gray-100 bg-white p-5 shadow-[0px_8px_24px_0px_rgba(0,0,0,0.06)]">
-          <p class="text-2xl font-extrabold leading-8 text-green-500">1 204</p>
-          <p class="mt-1 text-xs font-semibold text-stone-400">Problèmes résolus</p>
+
+        <!-- Points signalés -->
+
+        <div class="rounded-3xl border border-slate-100 bg-white p-6 text-center">
+
+          <p class="text-3xl font-extrabold text-sky-500">
+            {{ nombreSignalements() }}
+          </p>
+
+          <p class="mt-1 text-sm font-semibold text-slate-500">
+            Points signalés
+          </p>
+
         </div>
-        <div class="rounded-[20px] border border-gray-100 bg-white p-5 shadow-[0px_8px_24px_0px_rgba(0,0,0,0.06)]">
-          <p class="text-2xl font-extrabold leading-8 text-sky-500">85</p>
-          <p class="mt-1 text-xs font-semibold text-stone-400">Set-Sétal réalisés</p>
+
+
+        <!-- Problèmes résolus -->
+
+        <div class="rounded-3xl border border-slate-100 bg-white p-6 text-center">
+
+          <p class="text-3xl font-extrabold text-green-600">
+            {{ nombreProblemesResolus() }}
+          </p>
+
+          <p class="mt-1 text-sm font-semibold text-slate-500">
+            Problèmes résolus
+          </p>
+
         </div>
+
       </div>
-    </section>
+
+      </section>
+
+    </ng-container>
+
+
   </main>
 
-  <!-- Barre de navigation basse -->
+
+  <!-- NAVIGATION -->
+
   <app-navbar></app-navbar>
+
 </div>

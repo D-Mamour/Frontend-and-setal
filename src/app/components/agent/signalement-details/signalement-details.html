@@ -1,6 +1,6 @@
 <div class="min-h-screen bg-[#f5f7f7]">
 
-  @if (estEnChargement()) {
+  <ng-container *ngIf="estEnChargement(); else notLoading">
 
     <!-- ========================================================= -->
     <!-- CHARGEMENT -->
@@ -9,23 +9,28 @@
       <p class="text-sm font-medium text-slate-500">Chargement du signalement...</p>
     </div>
 
-  } @else if (messageErreur()) {
+  </ng-container>
 
-    <!-- ========================================================= -->
-    <!-- ERREUR -->
-    <!-- ========================================================= -->
-    <div class="flex min-h-screen flex-col items-center justify-center gap-4 px-6 text-center">
-      <p class="text-sm font-medium text-red-600">{{ messageErreur() }}</p>
-      <button
-        type="button"
-        (click)="goBack()"
-        class="rounded-full bg-green-700 px-5 py-2 text-sm font-bold text-white transition hover:bg-green-800"
-      >
-        Retour
-      </button>
-    </div>
+  <ng-template #notLoading>
+    <ng-container *ngIf="messageErreur(); else hasSignalement">
+      <!-- ========================================================= -->
+      <!-- ERREUR -->
+      <!-- ========================================================= -->
+      <div class="flex min-h-screen flex-col items-center justify-center gap-4 px-6 text-center">
+        <p class="text-sm font-medium text-red-600">{{ messageErreur() }}</p>
+        <button
+          type="button"
+          (click)="goBack()"
+          class="rounded-full bg-green-700 px-5 py-2 text-sm font-bold text-white transition hover:bg-green-800"
+        >
+          Retour
+        </button>
+      </div>
+    </ng-container>
+  </ng-template>
 
-  } @else if (signalement(); as s) {
+  <ng-template #hasSignalement>
+    <ng-container *ngIf="signalement() as s; else notFound">
 
     <!-- ========================================================= -->
     <!-- HERO -->
@@ -106,25 +111,18 @@
       <!-- ANALYSE IA -->
       <!-- ======================================================= -->
 
-      @if (s.AnalyseAI) {
+      <ng-container *ngIf="s.AnalyseAI">
         <div class="absolute right-[34px] top-[286px] z-20 flex flex-col items-center lg:right-12">
           <span class="text-[12px] font-extrabold uppercase tracking-wide text-red-600">
             ANALYSE IA
           </span>
 
-          <div
-            class="mt-1 flex h-[48px] w-[84px] flex-col items-center justify-center rounded-[12px] bg-[#c62828] text-white shadow-lg"
-          >
-            <span class="text-[12px] font-bold">
-              {{ s.AnalyseAI.type_incident }}
-            </span>
-
-            <span class="text-[11px] font-semibold">
-              {{ s.AnalyseAI.niveau_urgence }}
-            </span>
+          <div class="mt-1 flex h-[48px] w-[84px] flex-col items-center justify-center rounded-[12px] bg-[#c62828] text-white shadow-lg">
+            <span class="text-[12px] font-bold">{{ s.AnalyseAI.type_incident }}</span>
+            <span class="text-[11px] font-semibold">{{ s.AnalyseAI.niveau_urgence }}</span>
           </div>
         </div>
-      }
+      </ng-container>
 
       <!-- ======================================================= -->
       <!-- TITRE -->
@@ -136,7 +134,7 @@
         <h1
           class="text-[38px] font-black leading-[1.05] tracking-[-1.5px] text-white drop-shadow-[0_2px_3px_rgba(0,0,0,0.5)] sm:text-[42px] lg:text-[48px]"
         >
-          {{ s.description || 'Signalement #' + s.id }}
+          {{ titre() || 'Signalement #' + s.id }} 
         </h1>
       </div>
 
@@ -231,65 +229,46 @@
 
             <!-- ETAPES -->
 
-            @for (step of timeline(); track step.titre) {
-              <div class="relative flex gap-5 [&+div]:mt-[38px]">
-                <!-- ICONE -->
+            <div *ngFor="let step of timeline()" class="relative flex gap-5 [&+div]:mt-[38px]">
+              <!-- ICONE -->
 
-                @if (step.statut === 'termine') {
-                  <div
-                    class="relative z-10 flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full border-[5px] border-[#dff1e1] bg-green-700 text-white"
-                  >
-                    <i class="fa-solid fa-check text-[13px]"></i>
-                  </div>
-                }
-
-                @if (step.statut === 'actuel') {
-                  <div
-                    class="relative z-10 flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full bg-orange-500 text-white shadow-[0_0_0_6px_rgba(249,115,22,0.10)]"
-                  >
-                    <i class="fa-solid fa-truck text-[13px]"></i>
-                  </div>
-                }
-
-                @if (step.statut === 'attente') {
-                  <div
-                    class="relative z-10 flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full bg-[#e5edf6] text-[#9aaac0]"
-                  >
-                    <i class="fa-solid fa-flag-checkered text-[13px]"></i>
-                  </div>
-                }
-
-                <!-- CONTENU -->
-
-                <div class="pt-[3px]">
-                  <h3
-                    class="text-[17px] font-extrabold leading-5 lg:text-[18px]"
-                    [class.text-[#111827]]="step.statut !== 'attente'"
-                    [class.text-[#9aaac0]]="step.statut === 'attente'"
-                  >
-                    {{ step.titre }}
-                  </h3>
-
-                  @if (step.date) {
-                    <p class="mt-1 text-[14px] text-[#718096]">
-                      {{ step.date | date: 'dd/MM/yyyy à HH:mm' }}
-                    </p>
-                  }
-
-                  @if (step.description) {
-                    <p class="mt-1 max-w-[300px] text-[14px] leading-5 text-[#718096]">
-                      {{ step.description }}
-                    </p>
-                  }
-
-                  @if (step.label) {
-                    <span class="mt-1 block text-[12px] font-extrabold tracking-wide text-orange-500">
-                      {{ step.label }}
-                    </span>
-                  }
+              <ng-container *ngIf="step.statut === 'termine'">
+                <div class="relative z-10 flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full border-[5px] border-[#dff1e1] bg-green-700 text-white">
+                  <i class="fa-solid fa-check text-[13px]"></i>
                 </div>
+              </ng-container>
+
+              <ng-container *ngIf="step.statut === 'actuel'">
+                <div class="relative z-10 flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full bg-orange-500 text-white shadow-[0_0_0_6px_rgba(249,115,22,0.10)]">
+                  <i class="fa-solid fa-truck text-[13px]"></i>
+                </div>
+              </ng-container>
+
+              <ng-container *ngIf="step.statut === 'attente'">
+                <div class="relative z-10 flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full bg-[#e5edf6] text-[#9aaac0]">
+                  <i class="fa-solid fa-flag-checkered text-[13px]"></i>
+                </div>
+              </ng-container>
+
+              <!-- CONTENU -->
+              <div class="pt-[3px]">
+                <h3 class="text-[17px] font-extrabold leading-5 lg:text-[18px]" [class.text-[#111827]]="step.statut !== 'attente'" [class.text-[#9aaac0]]="step.statut === 'attente'">
+                  {{ step.titre }}
+                </h3>
+
+                <ng-container *ngIf="step.date">
+                  <p class="mt-1 text-[14px] text-[#718096]">{{ step.date | date: 'dd/MM/yyyy à HH:mm' }}</p>
+                </ng-container>
+
+                <ng-container *ngIf="step.description">
+                  <p class="mt-1 max-w-[300px] text-[14px] leading-5 text-[#718096]">{{ step.description }}</p>
+                </ng-container>
+
+                <ng-container *ngIf="step.label">
+                  <span class="mt-1 block text-[12px] font-extrabold tracking-wide text-orange-500">{{ step.label }}</span>
+                </ng-container>
               </div>
-            }
+            </div>
           </div>
         </section>
 
@@ -325,16 +304,17 @@
       </div>
     </main>
 
-  } @else {
+      </ng-container>
+    </ng-template>
 
-    <!-- ========================================================= -->
-    <!-- INTROUVABLE -->
-    <!-- ========================================================= -->
-    <div class="flex min-h-screen items-center justify-center">
-      <p class="text-sm font-medium text-slate-500">Signalement introuvable.</p>
-    </div>
-
-  }
+    <ng-template #notFound>
+      <!-- ========================================================= -->
+      <!-- INTROUVABLE -->
+      <!-- ========================================================= -->
+      <div class="flex min-h-screen items-center justify-center">
+        <p class="text-sm font-medium text-slate-500">Signalement introuvable.</p>
+      </div>
+    </ng-template>
 
   <app-navbar></app-navbar>
 </div>

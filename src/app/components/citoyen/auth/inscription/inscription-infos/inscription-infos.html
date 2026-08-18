@@ -3,7 +3,7 @@
 
     <!-- En-tête -->
     <div class="flex items-center justify-between">
-      <button type="button" aria-label="Retour" class="flex size-12 items-center justify-center rounded-full bg-white shadow-md">
+      <button type="button" (click)="goHome()" aria-label="Retour" class="flex size-12 items-center justify-center rounded-full bg-white shadow-md">
         <i class="fa-solid fa-arrow-left text-[#A9663D]" aria-hidden="true"></i>
       </button>
 
@@ -19,9 +19,9 @@
       Créez votre compte citoyen pour commencer.
     </p>
 
-    @if(errorMessage){
+    <ng-container *ngIf="errorMessage">
       <p class="mt-5 text-md text-red-600">{{ errorMessage }}</p>
-    }
+    </ng-container>
 
     <!-- Formulaire -->
     <form [formGroup]="form" class="mt-8 flex flex-col gap-6">
@@ -38,17 +38,12 @@
           placeholder="aliou"
           class="mt-2 w-full rounded-2xl bg-slate-100 px-5 py-4 text-base text-zinc-700 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-green-700/40"
         />
-        @if (form.get('username')?.invalid &&form.get('username')?.touched) {
-
+        <ng-container *ngIf="form.get('username')?.invalid && form.get('username')?.touched">
           <p class="mt-1 text-xs text-red-600">
-            @if (form.get('username')?.hasError('required')) {
-              Nom utilisateur est obligatoire.
-            }
-            @if (form.get('email')?.hasError('email')) {
-              Veuillez saisir une adresse email valide.
-            }
+            <span *ngIf="form.get('username')?.hasError('required')">Nom utilisateur est obligatoire.</span>
+            <span *ngIf="form.get('email')?.hasError('email')">Veuillez saisir une adresse email valide.</span>
           </p>
-        }
+        </ng-container>
       </div>
 
       <div>
@@ -60,14 +55,11 @@
           placeholder="Abdoulaye"
           class="mt-2 w-full rounded-2xl bg-slate-100 px-5 py-4 text-base text-zinc-700 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-green-700/40"
         />
-        @if (form.get('first_name')?.invalid &&form.get('first_name')?.touched) {
-
+        <ng-container *ngIf="form.get('first_name')?.invalid && form.get('first_name')?.touched">
           <p class="mt-1 text-xs text-red-600">
-            @if (form.get('first_name')?.hasError('required')) {
-              prenom est obligatoire.
-            }
+            <span *ngIf="form.get('first_name')?.hasError('required')">prenom est obligatoire.</span>
           </p>
-        }
+        </ng-container>
       </div>
 
       <div>
@@ -79,14 +71,11 @@
           placeholder="Sow"
           class="mt-2 w-full rounded-2xl bg-slate-100 px-5 py-4 text-base text-zinc-700 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-green-700/40"
         />
-        @if (form.get('last_name')?.invalid &&form.get('last_name')?.touched) {
-
+        <ng-container *ngIf="form.get('last_name')?.invalid && form.get('last_name')?.touched">
           <p class="mt-1 text-xs text-red-600">
-            @if (form.get('last_name')?.hasError('required')) {
-              nom est obligatoire.
-            }
+            <span *ngIf="form.get('last_name')?.hasError('required')">nom est obligatoire.</span>
           </p>
-        }
+        </ng-container>
       </div>
 
       <div>
@@ -101,17 +90,12 @@
           placeholder="exemple@email.com"
           class="mt-2 w-full rounded-2xl bg-slate-100 px-5 py-4 text-base text-zinc-700 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-green-700/40"
         />
-        @if (form.get('email')?.invalid &&form.get('email')?.touched) {
-
+        <ng-container *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
           <p class="mt-1 text-xs text-red-600">
-            @if (form.get('email')?.hasError('required')) {
-              L'adresse email est obligatoire.
-            }
-            @if (form.get('email')?.hasError('email')) {
-              Veuillez saisir une adresse email valide.
-            }
+            <span *ngIf="form.get('email')?.hasError('required')">L'adresse email est obligatoire.</span>
+            <span *ngIf="form.get('email')?.hasError('email')">Veuillez saisir une adresse email valide.</span>
           </p>
-        }
+        </ng-container>
       </div>
 
       <div>
@@ -126,14 +110,11 @@
             class="w-full bg-transparent text-base text-zinc-400 placeholder:text-zinc-400 focus:outline-none"
           />
         </div>
-        @if (form.get('telephone')?.invalid &&form.get('telephone')?.touched) {
-
-            <p class="mt-1 text-xs text-red-600">
-              @if (form.get('telephone')?.hasError('required')) {
-                Telephone est obligatoire.
-              }
-            </p>
-          }
+        <ng-container *ngIf="form.get('telephone')?.invalid && form.get('telephone')?.touched">
+          <p class="mt-1 text-xs text-red-600">
+            <span *ngIf="form.get('telephone')?.hasError('required')">Telephone est obligatoire.</span>
+          </p>
+        </ng-container>
       </div>
 
       <div>
@@ -145,37 +126,27 @@
           formControlName="password"
           class="mt-2 w-full rounded-2xl bg-slate-100 px-5 py-5 text-2xl text-zinc-400 placeholder:text-zinc-300 focus:outline-none focus:ring-2 focus:ring-green-700/40"
         />
-        @if (form.get('password')?.invalid &&form.get('password')?.touched) {
-
+        <ng-container *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
           <p class="mt-1 text-xs text-red-600">
-            @if (form.get('password')?.hasError('required')) {
-              Mot de passe est obligatoire.
-            }
-            @if (form.get('password')?.hasError('minlength')) {
-              Minimum 8 caracteres.
-            }
+            <span *ngIf="form.get('password')?.hasError('required')">Mot de passe est obligatoire.</span>
+            <span *ngIf="form.get('password')?.hasError('minlength')">Minimum 8 caracteres.</span>
           </p>
-        }
+        </ng-container>
       </div>
 
 
     </form>
 
     <!-- Bouton continuer -->
-    <button
-      type="button"
-      [disabled]="loading"
-      (click)="continuer.emit()"
-      class="mt-10 flex w-full items-center justify-center gap-2 rounded-2xl bg-[#2E7D32] py-4 text-base font-bold text-white shadow-lg shadow-[#2E7D32]/30">
-      @if(loading){
+    <button type="button" [disabled]="loading" (click)="continuer.emit()" class="mt-10 flex w-full items-center justify-center gap-2 rounded-2xl bg-[#2E7D32] py-4 text-base font-bold text-white shadow-lg shadow-[#2E7D32]/30">
+      <ng-container *ngIf="loading; else notLoading">
         Inscription en cours
         <i class="fa-solid fa-spinner text-sm" aria-hidden="true"></i>
-      }
-      @else{
-
+      </ng-container>
+      <ng-template #notLoading>
         Continuer
         <i class="fa-solid fa-chevron-right text-sm" aria-hidden="true"></i>
-      }
+      </ng-template>
     </button>
 
     <p class="text-center text-gray-400 text-sm mt-5">

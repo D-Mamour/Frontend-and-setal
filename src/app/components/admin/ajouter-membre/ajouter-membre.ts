@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-ajouter-membre',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './ajouter-membre.html',
   styleUrl: './ajouter-membre.css',
