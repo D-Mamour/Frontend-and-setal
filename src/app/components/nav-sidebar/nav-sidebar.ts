@@ -4,6 +4,8 @@ import {
   faMagnifyingGlass,
   faBell
 } from '@fortawesome/free-solid-svg-icons';
+import { AdminprofilService } from '../../Services/admin-dashboard-service';
+import { inject } from '@angular/core';
 
 @Component({
   selector: 'app-nav-sidebar',
@@ -26,6 +28,12 @@ export class NavSidebar {
       year: 'numeric'
     }).format(this.today);
   }
+
+    // On injecte le service pour récupérer directement son Signal
+  private readonly adminService = inject(AdminprofilService);
+
+  // On crée un raccourci public pour le fichier HTML
+  readonly userConnecte = this.adminService.adminuser;
 
 }
 

@@ -79,16 +79,18 @@
 
 
       <!-- UTILISATEUR -->
+         @if(userConnecte()){
       <div
         class="flex flex-col items-center
                min-w-[150px]"
       >
 
+
         <span
           class="text-[18px]
                  font-bold text-slate-800"
         >
-          Moussa Diop
+          {{userConnecte()?.first_name}}{{userConnecte()?.last_name}}
         </span>
 
         <span
@@ -96,11 +98,11 @@
                  font-bold uppercase
                  text-green-700"
         >
-          ADMINISTRATEUR
+          {{userConnecte()?.role}}
         </span>
 
       </div>
-
+    }
     </div>
 
   </div>
