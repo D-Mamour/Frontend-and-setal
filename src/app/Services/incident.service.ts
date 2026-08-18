@@ -11,11 +11,9 @@ import { Incident } from '../Models/incident.model';
 export class IncidentService {
 
   private readonly httpClient = inject(HttpClient);
-
   private readonly baseUrl = environment.apiUrl;
 
   createIncident(formData: FormData): Observable<Incident> {
-
     return this.httpClient.post<Incident>(`${this.baseUrl}/incidents/`, formData);
   }
 
