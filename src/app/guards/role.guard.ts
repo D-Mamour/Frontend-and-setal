@@ -1,5 +1,5 @@
 import { inject } from "@angular/core";
-import { AuthService } from "../Services/auth-citoyen-service";
+import { AuthService } from "../Services/auth-citoyen.service";
 import { CanActivateFn, Router } from "@angular/router";
 import { UserRole } from "../Models/auth/utilisateur";
 

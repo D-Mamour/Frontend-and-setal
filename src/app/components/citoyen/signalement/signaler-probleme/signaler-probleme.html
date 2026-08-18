@@ -1,111 +1,203 @@
 <div class="min-h-screen bg-white flex flex-col">
-  <!-- Header -->
+  <!-- HEADER -->
+
   <header class="flex items-center gap-4 bg-gray-50 px-4 pt-6 pb-5 sticky top-0 z-10">
-    <button type="button" (click)="goBack()" aria-label="Retour"
-      class="w-10 h-10 flex items-center justify-center rounded-2xl bg-white shadow-sm active:scale-95 transition">
+    <button
+      type="button"
+      (click)="goBack()"
+      aria-label="Retour"
+      class="w-10 h-10 flex items-center justify-center rounded-2xl bg-white shadow-sm active:scale-95 transition"
+    >
       <i class="fa-solid fa-chevron-left text-gray-800"></i>
     </button>
+
     <h1 class="text-lg font-extrabold text-gray-900">Signaler un problème</h1>
   </header>
 
-  <main class="flex-1 px-4 pb-32 pt-4 space-y-6">
-    <!-- Zone photo + analyse IA -->
-    <section>
-      <input type="file" accept="image/*" capture="environment" class="hidden" />
+  <!-- CONTENU -->
 
-      <!-- Etat vide : pas encore de photo -->
-      <button type="button"
-        class="w-full h-56 rounded-3xl border-2 border-dashed border-gray-300 flex flex-col items-center justify-center gap-3 bg-gray-50 active:scale-[0.99] transition">
-        <span class="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center">
-          <i class="fa-solid fa-camera text-green-700 text-xl"></i>
-        </span>
-        <span class="text-gray-500 font-medium text-sm px-6 text-center">
-          Cliquez pour ajouter une photo du problème
-        </span>
-      </button>
+  <main class="flex-1 px-4 pb-32 pt-4 space-y-6">
+    <!-- IMAGE -->
+
+    <section>
+      <input
+        #imageInput
+        type="file"
+        accept="image/*"
+        capture="environment"
+        class="hidden"
+        (change)="onImageSelected($event)"
+      />
+
+      @if (imagePreview(); as preview) {
+        <!-- Image sélectionnée -->
+
+        <button
+          type="button"
+          (click)="imageInput.click()"
+          class="relative w-full h-56 overflow-hidden rounded-3xl"
+        >
+          <img [src]="preview" alt="Aperçu du signalement" class="w-full h-full object-cover" />
+
+          <div class="absolute bottom-0 left-0 right-0 bg-black/50 px-4 py-3 text-left">
+            <p class="text-white text-sm font-semibold">Cliquez pour modifier la photo</p>
+          </div>
+        </button>
+
+      } @else {
+        <!-- Pas encore d'image -->
+
+        <button
+          type="button"
+          (click)="imageInput.click()"
+          class="w-full h-56 rounded-3xl border-2 border-dashed border-gray-300 flex flex-col items-center justify-center gap-3 bg-gray-50 active:scale-[0.99] transition"
+        >
+          <span class="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center">
+            <i class="fa-solid fa-camera text-green-700 text-xl"></i>
+          </span>
+
+          <span class="text-gray-500 font-medium text-sm px-6 text-center">
+            Cliquez pour ajouter une photo du problème
+          </span>
+        </button>
+      }
     </section>
 
-    <!-- Description -->
+    <!-- DESCRIPTION -->
+
     <section>
       <h2 class="text-gray-500 font-semibold mb-2">Description</h2>
+
       <div class="rounded-2xl bg-gray-50 p-4">
-        <p class="flex items-center gap-2 text-green-700 text-xs font-bold tracking-wide uppercase mb-3">
+        <p
+          class="flex items-center gap-2 text-green-700 text-xs font-bold tracking-wide uppercase mb-3"
+        >
           <i class="fa-solid fa-leaf"></i>
+
           Détails
         </p>
 
         <div class="flex items-center gap-3">
-          <input type="text" name="description" placeholder="ECRIRE"
-            class="flex-1 bg-white rounded-2xl px-4 py-3 text-sm text-gray-700 placeholder-gray-400 outline-none focus:ring-2 focus:ring-green-600" />
-          <button type="button" aria-label="Dicter la description"
-            class="w-11 h-11 shrink-0 rounded-2xl flex items-center justify-center bg-green-700">
+          <input
+            type="text"
+            name="description"
+            [ngModel]="description()"
+            (ngModelChange)="description.set($event)"
+            placeholder="Décrivez le problème"
+            class="flex-1 bg-white rounded-2xl px-4 py-3 text-sm text-gray-700 placeholder-gray-400 outline-none focus:ring-2 focus:ring-green-600"
+          />
+
+          <!--
+          Bouton vocal conservé pour une future fonctionnalité.
+          messageVocal sera ajouté lorsque le backend et
+          l'enregistrement audio seront intégrés.
+          -->
+
+          <button
+            type="button"
+            aria-label="Dicter la description"
+            class="w-11 h-11 shrink-0 rounded-2xl flex items-center justify-center bg-green-700"
+          >
             <i class="fa-solid fa-microphone text-white"></i>
           </button>
         </div>
       </div>
     </section>
 
-    <!-- Localisation -->
+    <!-- LOCALISATION -->
+
     <section>
       <div class="flex items-center justify-between mb-2">
         <h2 class="text-gray-500 font-semibold">Localisation</h2>
-        <button type="button" (click)="demanderPosition()"
-          class="flex items-center gap-1.5 text-green-700 font-semibold text-sm">
+
+        <button
+          type="button"
+          (click)="getLocation()"
+          [disabled]="locationLoading()"
+          class="flex items-center gap-1.5 text-green-700 font-semibold text-sm disabled:opacity-50"
+        >
           <i class="fa-solid fa-arrows-rotate text-xs"></i>
-          Actualiser
+
+          @if (locationLoading()) {
+            Localisation...
+          } @else {
+            Actualiser
+          }
         </button>
       </div>
 
-      <!-- En cours -->
-      <div *ngIf="etatLocalisation === 'chargement'" class="rounded-2xl bg-gray-50 p-4 flex items-center gap-3">
-        <i class="fa-solid fa-spinner fa-spin text-green-700"></i>
-        <p class="text-gray-500 text-sm font-medium">Localisation en cours...</p>
-      </div>
-
-      <!-- Position obtenue -->
-      <div *ngIf="etatLocalisation === 'obtenue' && position"
-        class="rounded-2xl bg-gray-50 p-3 flex items-center gap-3">
-        <div class="w-14 h-14 rounded-xl bg-amber-100 overflow-hidden flex items-center justify-center shrink-0">
+      <div class="rounded-2xl bg-gray-50 p-3 flex items-center gap-3">
+        <div
+          class="w-14 h-14 rounded-xl bg-amber-100 overflow-hidden flex items-center justify-center shrink-0"
+        >
           <i class="fa-solid fa-location-dot text-red-600 text-xl"></i>
         </div>
 
         <div class="flex-1 min-w-0">
-          <p class="font-extrabold text-gray-900">Prise en charge</p>
-          <p class="text-gray-400 text-sm">
-            {{ position.latitude | number: '1.5-5' }}, {{ position.longitude | number: '1.5-5' }}
-          </p>
+          @if (latitude() !== null && longitude() !== null) {
+            <p class="font-extrabold text-gray-900">Position récupérée</p>
+
+            <p class="text-gray-400 text-sm">
+              {{ latitude() | number: '1.4-6' }},
+              {{ longitude() | number: '1.4-6' }}
+            </p>
+
+          } @else {
+            <p class="font-extrabold text-gray-900">Position non récupérée</p>
+
+            <p class="text-gray-400 text-sm">Activez votre localisation</p>
+          }
         </div>
 
-        <button type="button" aria-label="Voir sur la carte"
-          class="w-11 h-11 shrink-0 rounded-2xl bg-white flex items-center justify-center">
+        <button
+          type="button"
+          aria-label="Voir sur la carte"
+          class="w-11 h-11 shrink-0 rounded-2xl bg-white flex items-center justify-center"
+        >
           <i class="fa-regular fa-map text-green-700"></i>
         </button>
       </div>
 
-      <!-- Permission refusée -->
-      <div *ngIf="etatLocalisation === 'refusee'" class="rounded-2xl bg-red-50 p-4 flex items-start gap-3">
-        <i class="fa-solid fa-triangle-exclamation text-red-500 mt-0.5"></i>
-        <p class="text-red-700 text-sm font-medium">
-          Localisation refusée — active-la dans les réglages de ton navigateur pour continuer.
+      @if (locationError(); as error) {
+        <p class="mt-2 text-xs text-red-600">
+          {{ error }}
         </p>
-      </div>
-
-      <!-- Indisponible / timeout -->
-      <div *ngIf="etatLocalisation === 'indisponible'" class="rounded-2xl bg-amber-50 p-4 flex items-start gap-3">
-        <i class="fa-solid fa-triangle-exclamation text-amber-500 mt-0.5"></i>
-        <p class="text-amber-700 text-sm font-medium">
-          {{ messageErreurLocalisation || 'Impossible de récupérer votre position.' }} Réessaie via "Actualiser".
-        </p>
-      </div>
+      }
     </section>
+
+    <!-- ERREUR ENVOI -->
+
+    @if (submitError(); as error) {
+      <div class="rounded-2xl bg-red-50 border border-red-100 p-4 text-sm text-red-700">
+        <div class="flex items-start gap-3">
+          <i class="fa-solid fa-circle-exclamation mt-0.5"></i>
+
+          <p>
+            {{ error }}
+          </p>
+        </div>
+      </div>
+    }
   </main>
 
-  <!-- Bouton d'envoi -->
+  <!-- BOUTON ENVOI -->
+
   <div class="fixed bottom-0 left-0 right-0 px-4 pb-6 pt-3 bg-white">
-    <button type="button" (click)="onSubmit()" [disabled]="!position"
-      class="w-full rounded-2xl bg-[#2E7D32] text-white font-bold py-4 flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.99] transition">
-      Envoyer le signalement
-      <i class="fa-solid fa-paper-plane"></i>
+    <button
+      type="button"
+      (click)="onSubmit()"
+      [disabled]="!canSubmit()"
+      class="w-full rounded-2xl bg-[#2E7D32] text-white font-bold py-4 flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.99] transition"
+    >
+      @if (isSubmitting()) {
+        <i class="fa-solid fa-spinner fa-spin"></i>
+
+        Envoi en cours...
+      } @else {
+        Envoyer le signalement
+
+        <i class="fa-solid fa-paper-plane"></i>
+      }
     </button>
   </div>
 </div>
