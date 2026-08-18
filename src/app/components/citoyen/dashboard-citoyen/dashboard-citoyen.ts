@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterLink } from "@angular/router";
 import { Navbar } from '../../navbar/navbar';
-import { AuthService } from '../../../Services/auth-citoyen-service';
+import { AuthService } from '../../../Services/auth-citoyen.service';
 
 @Component({
   selector: 'app-dashboard-citoyen',

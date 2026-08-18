@@ -5,7 +5,7 @@ import { InscriptionPermissions } from '../inscription-permissions/inscription-p
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService } from '../../../../../Services/auth-citoyen-service';
+import { AuthService } from '../../../../../Services/auth-citoyen.service';
 
 @Component({
   selector: 'app-inscription-component',
