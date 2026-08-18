@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../../Services/auth-citoyen-service';
+import { AuthService } from '../../../Services/auth-citoyen.service';
 import { Router } from '@angular/router';
 import { emailValidator, passwordValidator } from '../../../Services/login-validation';
 
@@ -44,9 +44,9 @@ export class LoginAdmin {
       this.errorMessage = '';
       this.successMessage = '';
 
-      const { email, password } = this.loginForm.value;
+      const connexion = this.loginForm.value;
 
-      this.authService.login(email, password).subscribe({
+      this.authService.login(connexion).subscribe({
         next: (response) => {
           this.isLoading = false;
           this.successMessage = 'Connexion réussie ! Redirection...';
