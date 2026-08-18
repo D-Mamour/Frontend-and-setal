@@ -77,34 +77,22 @@
 
       </button>
 
+     <!-- UTILISATEUR -->
+      @if (userConnecte()) {
+        <div class="flex flex-col items-center min-w-[150px]">
+          <!-- Prénom et Nom avec un espace intermédiaire -->
+          <span class="text-[18px] font-bold text-slate-800">
+            {{ userConnecte()?.first_name }} {{ userConnecte()?.last_name }}
+          </span>
 
-      <!-- UTILISATEUR -->
-         @if(userConnecte()){
-      <div
-        class="flex flex-col items-center
-               min-w-[150px]"
-      >
+          <!-- Rôle avec couleur fixe ou Tailwind basique pour éliminer les erreurs de compilation -->
+          <span class="mt-0.5 text-sm font-bold uppercase text-red-600">
+            {{ userConnecte()?.role }}
+          </span>
+        </div>
+      }
 
-
-        <span
-          class="text-[18px]
-                 font-bold text-slate-800"
-        >
-          {{userConnecte()?.first_name}}{{userConnecte()?.last_name}}
-        </span>
-
-        <span
-          class="mt-0.5 text-sm
-                 font-bold uppercase
-                 text-green-700"
-        >
-          {{userConnecte()?.role}}
-        </span>
-
-      </div>
-    }
-    </div>
-
-  </div>
+    </div> <!-- Fermeture de PARTIE DROITE -->
+  </div> <!-- Fermeture du container principal -->
 
 </header>
