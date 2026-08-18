@@ -1,13 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Navbar } from "../../navbar/navbar";
+import { AuthService } from '../../../Services/auth-citoyen.service';
+import { AgentService } from '../../../Services/agent.service';
+import { Incident } from '../../../Models/infos/incident';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-signalement-details',
   standalone: true,
   templateUrl: 'signalement-details.html',
-  imports: [Navbar]
+  imports: [Navbar, FontAwesomeModule, CommonModule]
 })
-export class SignalementDetails {
+export class SignalementDetails implements OnInit{
 
   signalement = {
     titre: 'Dépôt sauvage - Rue 22',
@@ -55,6 +61,22 @@ export class SignalementDetails {
       icon: 'fa-solid fa-flag-checkered'
     }
   ];
+
+  signalements : Incident[] = [];
+  estEnChargement: boolean = true;
+  messageErreur: string= '';
+
+
+  //Injection des services
+  authService = inject(AuthService);
+  agentService = inject(AgentService);
+  router = inject(Router);
+
+
+  ngOnInit(): void {
+
+     
+  }
 
 
   goBack(): void {

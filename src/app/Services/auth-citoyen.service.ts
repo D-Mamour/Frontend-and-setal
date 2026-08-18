@@ -57,7 +57,6 @@ export class AuthService {
    * Connexion
    */
   login(data: LoginRequest): Observable<AuthResponse> {
-
     return this.httpClient.post<AuthResponse>(`${this.baseUrl}/token/`, data)
       .pipe(
         tap((response) => {
