@@ -110,4 +110,8 @@ private redirectByRole(role: UserRole): void {
 
     this.errorMessage.set('Une erreur est survenue lors de la connexion.');
   }
+
+  goHome(){
+    this.router.navigate(['/']);
+  }
 }

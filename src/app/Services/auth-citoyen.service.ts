@@ -1,6 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { catchError, Observable, of, tap } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 import { RegisterRequest } from '../Models/auth/register-request';
@@ -23,6 +23,18 @@ export class AuthService {
   //Etat d'authentification
   readonly isAuthenticated = signal(this.hasAccessToken());
   readonly currentUser = signal<User | null>(null);
+
+  initAuth(): Observable<User | null> {
+  if (!this.hasAccessToken()) {
+    return of(null);
+  }
+  return this.getProfil().pipe(
+    catchError(() => {
+      this.logout(); // token invalide/expiré -> on nettoie
+      return of(null);
+    })
+  );
+}
 
 
   /**

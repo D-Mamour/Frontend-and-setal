@@ -189,10 +189,7 @@
 
     @else {
 
-    @for (
-    incident of filteredIncidents();
-    track incident.id
-    ) {
+    @for (incident of filteredIncidents(); track incident.id) {
 
     <article
       class="bg-white rounded-3xl shadow-sm outline outline-1 outline-offset-[-1px] outline-white p-3 flex gap-3">
@@ -216,6 +213,22 @@
 
           <h2 class="font-extrabold text-gray-900 truncate">
             Signalement #{{ incident.id }}
+
+            Priorite:
+            <span class="shrink-0 text-[11px] font-bold tracking-wide px-2.5 py-1 rounded-full" [ngClass]="{
+                    'bg-red-100 text-red-700':
+                      incident.priorite === 'haute',
+
+                    'bg-amber-100 text-amber-700':
+                      incident.priorite === 'moyenne',
+
+                    'bg-blue-100 text-blue-700':
+                      incident.priorite === 'faible'
+                  }">
+
+              {{ incident.priorite }}
+
+            </span>
           </h2>
 
 
@@ -249,8 +262,6 @@
 
         }
 
-        @else {
-
         <p class="flex items-center gap-1 text-gray-400 text-sm mt-1">
 
           <i class="fa-solid fa-location-dot text-xs"></i>
@@ -260,7 +271,6 @@
 
         </p>
 
-        }
 
 
         <!-- DATE -->

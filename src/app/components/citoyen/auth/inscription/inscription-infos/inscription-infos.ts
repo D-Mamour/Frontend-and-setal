@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-inscription-infos',
@@ -19,4 +19,10 @@ export class InscriptionInfos {
   @Input() errorMessage = '';
 
   @Output() continuer = new EventEmitter<void>();
+  router = inject(Router);
+
+
+  goHome(){
+    this.router.navigate(['/']);
+  }
 }
