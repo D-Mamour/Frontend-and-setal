@@ -1,7 +1,17 @@
 import { AgentService } from './../../../Services/agent.service';
 import { AuthService } from './../../../Services/auth-citoyen.service';
 import { CommonModule } from '@angular/common';
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  computed,
+  ElementRef,
+  inject,
+  OnDestroy,
+  OnInit,
+  signal,
+  ViewChild
+} from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   faArrowTrendUp,
@@ -12,6 +22,17 @@ import {
 import { Navbar } from "../../navbar/navbar";
 import { Router, RouterLink } from '@angular/router';
 import { Incident } from '../../../Models/infos/incident';
+import { IncidentService } from '../../../Services/incident.service';
+import { ListeIntervention } from "../liste-intervention/liste-intervention";
+import { Chart, registerables } from 'chart.js';
+
+Chart.register(...registerables);
+
+interface RepartitionStatut {
+  label: string;
+  valeur: number;
+  couleur: string;
+}
 
 @Component({
   selector: 'app-liste-signalement',
@@ -19,7 +40,7 @@ import { Incident } from '../../../Models/infos/incident';
   imports: [CommonModule, FontAwesomeModule, Navbar, RouterLink],
   templateUrl: 'liste-signalement.html'
 })
-export class ListeSignalement implements OnInit {
+export class ListeSignalement implements OnInit, AfterViewInit, OnDestroy {
 
   faArrowTrendUp = faArrowTrendUp;
   faCircleCheck = faCircleCheck;
@@ -30,22 +51,28 @@ export class ListeSignalement implements OnInit {
   signalements = signal<Incident[]>([]);
   estEnChargement = signal<boolean>(false);
   messageErreur = signal<string>('');
-  titre = signal<string>('le Reciclage des verres sur mermoz - Rue22'); 
 
-  quartiers = [
-    { nom: 'Médina', valeur: 450 },
-    { nom: 'Plateau', valeur: 320 },
-    { nom: 'Yoff', valeur: 210 },
-    { nom: 'Fann', valeur: 180 },
-    { nom: 'Mermoz', valeur: 150 }
-  ];
+
+
+  // ===== Chart.js (donut statuts) =====
+  @ViewChild('donutChart') donutChartRef!: ElementRef<HTMLCanvasElement>;
+  private chart?: Chart;
+
+
+  repartitionStatuts = computed<RepartitionStatut[]>(() => {
+    const liste = this.signalements();
+    const compte = (statut: string) =>
+      liste.filter(s => (s.statut ?? '').toLowerCase() === statut).length;
+
+    return [
+      { label: 'Résolus', valeur: compte('resolu'), couleur: '#16a34a' },      // vert
+      { label: 'En cours', valeur: compte('en_cours'), couleur: '#eab308' },   // jaune
+      { label: 'En attente', valeur: compte('en_attente'), couleur: '#dc2626' }, // rouge
+      { label: 'Annulés', valeur: 0, couleur: '#9ca3af' }                       // gris
+    ];
+  });
 
   // ===== Computed =====
-
-  hauteurMax = computed(() =>
-    Math.max(...this.quartiers.map(q => q.valeur))
-  );
-
   totalSignalements = computed(() => this.signalements().length);
 
   tauxResolution = computed(() => {
@@ -75,12 +102,23 @@ export class ListeSignalement implements OnInit {
   authService = inject(AuthService);
   agentService = inject(AgentService);
   router = inject(Router);
+  incidentService = inject(IncidentService);
 
 
   ngOnInit(): void {
     this.chargerProfil();
     this.chargerSignalements();
-    this.chargerSignalements();
+    this.incidentService.getMyIncidents().subscribe();
+  }
+
+  ngAfterViewInit(): void {
+    // Crée le donut dès que le canvas existe (même vide, il sera mis à jour
+    // dès que les signalements arrivent).
+    this.renderChart();
+  }
+
+  ngOnDestroy(): void {
+    this.chart?.destroy();
   }
 
   chargerProfil(): void {
@@ -107,11 +145,50 @@ export class ListeSignalement implements OnInit {
         console.log('Incidents reçus :', data);
         this.signalements.set(data);
         this.estEnChargement.set(false);
+        this.renderChart();
       },
       error: (err) => {
         console.error('Erreur lors du chargement des incidents:', err);
         this.messageErreur.set('Impossible de charger la liste des signalements.');
         this.estEnChargement.set(false);
+      }
+    });
+  }
+
+  private renderChart(): void {
+    const canvas = this.donutChartRef?.nativeElement;
+    if (!canvas) {
+      return;
+    }
+
+    const data = this.repartitionStatuts();
+
+    if (this.chart) {
+      this.chart.data.labels = data.map(d => d.label);
+      this.chart.data.datasets[0].data = data.map(d => d.valeur);
+      this.chart.data.datasets[0].backgroundColor = data.map(d => d.couleur);
+      this.chart.update();
+      return;
+    }
+
+    this.chart = new Chart(canvas, {
+      type: 'doughnut',
+      data: {
+        labels: data.map(d => d.label),
+        datasets: [{
+          data: data.map(d => d.valeur),
+          backgroundColor: data.map(d => d.couleur),
+          borderWidth: 0,
+          hoverOffset: 4
+        }]
+      },
+      options: {
+        cutout: '72%',
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: { enabled: true }
+        }
       }
     });
   }
@@ -143,9 +220,13 @@ export class ListeSignalement implements OnInit {
     }
     return { bg: 'bg-slate-50', text: 'text-slate-600' };
   }
+  AllSignalements(){
+    this.router.navigateByUrl('agent/interventions')
+  }
 
   deconnexion(): void {
     this.authService.logout();
     this.router.navigate(['/connexion']);
   }
+
 }
