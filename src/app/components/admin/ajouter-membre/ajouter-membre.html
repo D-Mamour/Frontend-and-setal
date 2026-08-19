@@ -1,7 +1,7 @@
 <div
   *ngIf="ouvert"
   class="fixed inset-0 z-50 flex items-center justify-center bg-zinc-900/40 p-4"
-  (click)="fermer.emit()"
+  (click)="fermerModal()"
 >
   <div
     class="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl sm:p-8"
@@ -11,7 +11,7 @@
       <h2 class="text-lg font-extrabold text-zinc-900">Ajouter un nouveau membre</h2>
       <button
         type="button"
-        (click)="fermer.emit()"
+        (click)="fermerModal()"
         aria-label="Fermer"
         class="flex size-9 items-center justify-center rounded-2xl text-slate-400 hover:bg-slate-100"
       >
@@ -19,7 +19,7 @@
       </button>
     </div>
 
-    <form class="mt-6 flex flex-col gap-5">
+    <form class="mt-6 flex flex-col gap-5" [formGroup]="agentForm" (ngSubmit)="creerAgent()">
 
       <div>
         <label for="nom" class="text-sm font-bold text-zinc-900">Nom</label>
@@ -27,8 +27,14 @@
           id="nom"
           type="text"
           placeholder="Sarr"
+          formControlName="nom"
           class="mt-2 w-full rounded-2xl bg-slate-100 px-5 py-4 text-sm text-zinc-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-green-700/30"
         />
+        @if (nom?.invalid && nom?.touched) {
+          <p class="text-red-500 text-sm mt-1">
+            Le nom est obligatoire.
+          </p>
+        }
       </div>
 
       <div>
@@ -37,34 +43,38 @@
           id="prenom"
           type="text"
           placeholder="Sarr"
+          formControlName="prenom"
           class="mt-2 w-full rounded-2xl bg-slate-100 px-5 py-4 text-sm text-zinc-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-green-700/30"
         />
+        @if (prenom?.touched && prenom?.hasError('required')) {
+          <p class="text-red-500 text-sm mt-1">
+            Le prénom est obligatoire.
+          </p>
+        }
       </div>
 
-      <div>
-        <label for="poste" class="text-sm font-bold text-zinc-900">Poste</label>
-        <div class="relative mt-2">
-          <select
-            id="poste"
-            class="w-full appearance-none rounded-2xl bg-slate-100 px-5 py-4 text-sm text-slate-400 focus:outline-none focus:ring-2 focus:ring-green-700/30"
-          >
-            <option value="" disabled selected>Choisir le rôle</option>
-            <option value="agent">Agent</option>
-            <option value="validateur">Validateur</option>
-            <option value="super-admin">Super Admin</option>
-          </select>
-          <i class="fa-solid fa-check pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-zinc-800" aria-hidden="true"></i>
-        </div>
-      </div>
+     
 
       <div>
         <label for="email" class="text-sm font-bold text-zinc-900">Email</label>
         <input
           id="email"
           type="email"
+          formControlName="email"
           placeholder="votre.email@exemple.com"
           class="mt-2 w-full rounded-2xl bg-slate-100 px-5 py-4 text-sm text-zinc-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-green-700/30"
         />
+        @if (email?.touched && email?.hasError('required')) {
+          <p class="text-red-500 text-sm mt-1">
+            L'email est obligatoire.
+          </p>
+        }
+
+        @if (email?.touched && email?.hasError('email')) {
+          <p class="text-red-500 text-sm mt-1">
+            Veuillez saisir une adresse email valide.
+          </p>
+        }
       </div>
 
       <div>
@@ -73,17 +83,31 @@
           id="telephone"
           type="tel"
           placeholder="770000000"
+          formControlName="telephone"
           class="mt-2 w-full rounded-2xl bg-slate-100 px-5 py-4 text-sm text-zinc-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-green-700/30"
         />
-      </div>
-    </form>
+        @if (telephone?.touched && telephone?.hasError('required')) {
+          <p class="text-red-500 text-sm mt-1">
+            Le téléphone est obligatoire.
+          </p>
+        }
 
-    <button
-      type="button"
+        @if (telephone?.touched && telephone?.hasError('pattern')) {
+          <p class="text-red-500 text-sm mt-1">
+            Le numéro doit contenir 9 chiffres et commencer par
+            70, 71, 75, 76, 77 ou 78.
+          </p>
+        }
+      </div>
+      <button
+      type="submit"
       class="mt-8 flex w-full items-center justify-center gap-2 rounded-2xl bg-[#2E7D32] py-4 text-base font-bold text-white shadow-lg shadow-[#2E7D32]/30"
     >
       Créer
       <i class="fa-solid fa-arrow-right text-sm" aria-hidden="true"></i>
     </button>
+    </form>
+
+
   </div>
 </div>

@@ -9,7 +9,7 @@
 
         <div>
           <p class="text-[11px] font-bold tracking-wide text-slate-400 uppercase">Agents</p>
-          <p class="mt-1 text-2xl font-bold text-slate-800">{{nombreAgents}}</p>
+          <p class="mt-1 text-2xl font-bold text-slate-800">{{nombreAgents()}}</p>
         </div>
       </div>
 
@@ -17,8 +17,8 @@
        <div class="w-full lg:w-64 min-h-[94px] px-5 py-5 rounded-3xl border border-slate-100 bg-white shadow-sm flex items-center gap-4">
 
         <div>
-          <p class="text-[11px] font-bold tracking-wide text-slate-400 uppercase">Citoyen</p>
-          <p class="mt-1 text-2xl font-bold text-slate-800">{{nombreCitoyens}}</p>
+          <p class="text-[11px] font-bold tracking-wide text-slate-400 uppercase">Citoyens</p>
+          <p class="mt-1 text-2xl font-bold text-slate-800">{{nombreCitoyens()}}</p>
         </div>
       </div>
 
@@ -42,14 +42,14 @@
       <!-- Header du tableau -->
       <div class="px-6 lg:px-7 py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
         <div>
-          <h2 class="text-xl font-bold text-slate-800">Gestion des Gérants</h2>
-          <p class="mt-1 text-sm text-slate-400">12 gérants configurés dans le système</p>
+          <h2 class="text-xl font-bold text-slate-800">{{nombreUtilisateurs()}} Utilisateurs</h2>
+
         </div>
 
         <!-- Ajouter -->
         <button (click)="afficherModalAjout = true" class="inline-flex items-center justify-center gap-3 px-6 py-3 rounded-2xl bg-green-700 hover:bg-green-800 text-white text-sm font-bold shadow-lg shadow-green-700/20 transition">
           <i class="fa-solid fa-user-plus"></i>
-          Ajouter un nouveau membre
+          Ajouter un nouveau agent
         </button>
       </div>
 
@@ -67,28 +67,44 @@
           </thead>
 
           <tbody class="divide-y divide-slate-100">
+            @for (utilisateur of utilisateurs(); track utilisateur.id) {
+
+
             <!-- Moussa -->
             <tr class="hover:bg-slate-50 transition">
               <td class="px-6 py-5">
                 <div>
-                  <p class="font-bold text-slate-700">Moussa Diouf</p>
-                  <p class="text-xs text-slate-400">m.diouf@andesetal.sn</p>
+                  <p class="font-bold text-slate-700"> {{utilisateur.first_name}} {{utilisateur.last_name}} </p>
+                  <p class="text-xs text-slate-400"> {{utilisateur.email}} </p>
                 </div>
               </td>
 
               <td class="px-6 py-5">
-                <span class="inline-flex px-3 py-1 rounded-2xl bg-purple-50 border border-purple-100 text-xs font-semibold text-purple-600">Agent</span>
+                <span class="inline-flex px-3 py-1 rounded-2xl bg-purple-50 border border-purple-100 text-xs font-semibold text-purple-600"
+                [ngClass]="{
+                              'bg-purple-50 border-purple-100 text-purple-600': utilisateur.role === 'admin',
+                              'bg-blue-50 border-blue-100 text-blue-600': utilisateur.role === 'agent',
+                              'bg-green-50 border-green-100 text-green-600': utilisateur.role === 'citoyen'
+                            }">
+                  {{utilisateur.role}}
+                </span>
               </td>
 
               <td class="px-6 py-5">
-                <p class="text-sm text-slate-600">Aujourd'hui, 14:42</p>
+                <p class="text-sm text-slate-600"> {{utilisateur.last_login | date:'dd/MM/yyyy, HH:mm'}} </p>
                 <p class="text-xs text-slate-400">IP: 197.234.xx.xx</p>
               </td>
 
               <td class="px-6 py-5">
                 <div class="flex items-center gap-3">
-                  <span class="relative w-10 h-6 rounded-full bg-emerald-500"><span class="absolute right-1 top-1 w-4 h-4 rounded-full bg-white"></span></span>
-                  <span class="text-sm font-bold text-emerald-600">ACTIF</span>
+                  <span class="relative w-10 h-6 rounded-full bg-emerald-500"
+                    [class.bg-emerald-500]="utilisateur.is_active"
+                    [class.bg-slate-300]="!utilisateur.is_active">
+                    <span class="absolute right-1 top-1 w-4 h-4 rounded-full bg-white"></span>
+                  </span>
+                  <span class="text-sm font-bold text-emerald-600"[class.text-emerald-600]="utilisateur.is_active" [class.text-slate-400]="!utilisateur.is_active">
+                    {{utilisateur.is_active ? 'ACTIF' : 'INACTIF' }}
+                  </span>
                 </div>
               </td>
 
@@ -98,8 +114,7 @@
                 </div>
               </td>
             </tr>
-
-            <!-- autres lignes du tableau... -->
+            }
           </tbody>
         </table>
       </div>
@@ -113,5 +128,6 @@
 <app-ajouter-membre
   [ouvert]="afficherModalAjout"
   (fermer)="afficherModalAjout = false"
+  (agentCree)="chargerUtilisateurs()"
   />
 
