@@ -122,7 +122,7 @@
                  font-black tracking-tight
                  text-slate-900
                  md:text-4xl">
-          1,284
+          {{totalSignalements()}}
         </p>
 
         <div class="mt-2 flex items-center gap-1
@@ -155,7 +155,7 @@
                  font-black tracking-tight
                  text-slate-900
                  md:text-4xl">
-          86.4%
+          {{tauxResolution()}}%
         </p>
 
         <div class="mt-2 flex items-center gap-1
@@ -181,7 +181,7 @@
                font-black tracking-tight
                text-slate-900
                md:text-2xl">
-        Signalements par Quartier
+        ChartGraphique
       </h2>
 
 
@@ -193,28 +193,32 @@
                shadow-sm
                md:px-8 md:py-8">
 
-        <div class="flex h-[230px]
-                 items-end justify-between
-                 gap-3
-                 md:h-[280px]
-                 md:gap-6">
+        <div class="flex flex-col items-center gap-6
+                 sm:flex-row sm:items-center sm:justify-center sm:gap-10">
 
-          <div *ngFor="let quartier of quartiers" class="flex h-full min-w-0 flex-1 flex-col items-center justify-end">
+          <!-- DONUT -->
+          <div class="relative h-[190px] w-[190px] shrink-0 md:h-[220px] md:w-[220px]">
+            <canvas #donutChart></canvas>
 
-            <!-- VALEUR -->
-            <div class="flex w-full flex-1 items-end justify-center">
-
-              <div class="w-full max-w-[52px] rounded-t-none bg-green-700 transition-all duration-300 md:max-w-[70px]">
-                <!-- bar -->
-              </div>
-
+            <div class="pointer-events-none absolute inset-0
+                     flex flex-col items-center justify-center">
+              <span class="text-2xl font-black text-slate-900 md:text-3xl">
+                {{ totalSignalements() }}
+              </span>
+              <span class="text-[11px] font-medium text-slate-400">
+                signalements
+              </span>
             </div>
+          </div>
 
-            <!-- NOM -->
-            <span class="mt-2 truncate text-[11px] text-slate-500 md:text-xs">
-              {{ quartier.nom }}
-            </span>
-
+          <!-- LEGENDE -->
+          <div class="grid w-full grid-cols-2 gap-x-6 gap-y-3
+                   sm:w-auto sm:grid-cols-1">
+            <div *ngFor="let item of repartitionStatuts()" class="flex items-center gap-2">
+              <span class="h-2.5 w-2.5 shrink-0 rounded-full" [style.background]="item.couleur"></span>
+              <span class="text-xs font-semibold text-slate-600 md:text-sm">{{ item.label }}</span>
+              <span class="ml-auto text-xs font-bold text-slate-900 md:text-sm">{{ item.valeur }}</span>
+            </div>
           </div>
 
         </div>
@@ -243,7 +247,7 @@
 
         <button type="button" class="text-sm font-bold
                  text-green-700
-                 hover:text-green-800">
+                 hover:text-green-800" (click)=" AllSignalements()">
           Voir tout
         </button>
 
@@ -251,13 +255,6 @@
 
 
       <!-- LISTE -->
-
-
-
-
-
-
-
 
       <div class="space-y-4">
 
@@ -287,7 +284,7 @@
             <div class="min-w-0 flex-1">
 
               <h3 class="text-sm font-bold text-slate-900 md:text-base">
-                {{ titre() || ('Signalement #' + signalement.id) }}
+                {{ signalement.type_incident || ('depot_sauvage' + signalement.id) }}
               </h3>
 
               <p class="mt-1 text-xs text-slate-500 md:text-sm">
@@ -309,6 +306,7 @@
     </section>
 
   </div>
+
   <app-navbar></app-navbar>
 
 </div>

@@ -134,7 +134,7 @@
         <h1
           class="text-[38px] font-black leading-[1.05] tracking-[-1.5px] text-white drop-shadow-[0_2px_3px_rgba(0,0,0,0.5)] sm:text-[42px] lg:text-[48px]"
         >
-          {{ titre() || 'Signalement #' + s.id }} 
+          {{ s.type_incident }}
         </h1>
       </div>
 
@@ -142,11 +142,11 @@
       <!-- LOCALISATION -->
       <!-- ======================================================= -->
 
-      <div class="absolute bottom-[20px] left-11 z-10 flex items-center gap-2 text-white lg:left-12">
+      <div class="absolute bottom-[40px] left-11 z-10 flex items-center gap-2 text-white lg:left-12">
         <i class="fa-solid fa-location-dot text-[19px] text-green-600"></i>
 
         <span class="text-[17px] font-medium">
-          {{ s.latitude }} - {{ s.longitude }}
+           {{ s.adresse }}
         </span>
       </div>
     </section>
@@ -294,6 +294,7 @@
           <button
             type="button"
             (click)="confirmResolution()"
+            (dblclick)="Finaly()"
             class="flex h-[80px] w-full items-center justify-center gap-4 rounded-[30px] bg-green-700 text-[18px] font-extrabold text-white shadow-[0_15px_30px_-10px_rgba(46,125,50,0.55)] transition hover:bg-green-800 active:scale-[0.98] lg:flex-1"
           >
             <i class="fa-solid fa-circle-check text-[19px]"></i>

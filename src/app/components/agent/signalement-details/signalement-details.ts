@@ -20,8 +20,11 @@ export class SignalementDetails implements OnInit{
   signalement= signal<Incident | null>(null)
   estEnChargement=signal<boolean>(false);
   messageErreur=signal<string>('');
-  titre = signal<string>('le Reciclage des verres sur mermoz- Rue22');
 
+
+  // état spécifique à l'action "confirmer la résolution"
+  confirmationEnCours = signal<boolean>(false);
+  confirmationErreur = signal<string>('');
 
   //Injection des services
   authService = inject(AuthService);
@@ -60,27 +63,27 @@ export class SignalementDetails implements OnInit{
 
   }
   timeline = computed(() => {
-  const s = this.signalement();
-  const statutActuel = (s?.statut ?? '').toLowerCase();
+    const s = this.signalement();
+    const statutActuel = (s?.statut ?? '').toLowerCase();
 
-  const etapes = [
-    { cle: 'recu', titre: 'Signalement reçu', statut: 'termine', date: s?.dateCreation ?? '' },
-    { cle: 'en_cours', titre: 'Prise en charge', statut: 'attente', date: '', description: '' },
-    { cle: 'resolu', titre: 'Résolu', statut: 'attente', label: '' }
-  ];
+    const etapes = [
+      { cle: 'recu', titre: 'Signalement reçu', statut: 'termine', date: s?.dateCreation ?? '' },
+      { cle: 'en_cours', titre: 'Prise en charge', statut: 'attente', date: '', description: '' },
+      { cle: 'resolu', titre: 'Résolu', statut: 'attente', label: '' }
+    ];
 
-  const ordre = ['recu', 'en_cours', 'resolu'];
-  const indexActuel = statutActuel.includes('resolu') || statutActuel.includes('résolu')
-    ? 2
-    : statutActuel.includes('cours')
-    ? 1
-    : 0;
+    const ordre = ['recu', 'en_cours', 'resolu'];
+    const indexActuel = statutActuel.includes('resolu') || statutActuel.includes('résolu')
+      ? 2
+      : statutActuel.includes('cours')
+      ? 1
+      : 0;
 
-  return etapes.map((e, i) => ({
-    ...e,
-    statut: i < indexActuel ? 'termine' : i === indexActuel ? 'actuel' : 'attente'
-  }));
-});
+    return etapes.map((e, i) => ({
+      ...e,
+      statut: i < indexActuel ? 'termine' : i === indexActuel ? 'actuel' : 'attente'
+    }));
+  });
 
 
   goBack(): void {
@@ -125,8 +128,45 @@ export class SignalementDetails implements OnInit{
   }
 
 
+
   confirmResolution(): void {
-    console.log('Résolution confirmée');
+    const current = this.signalement();
+
+    if (!current) {
+      this.confirmationErreur.set('Signalement introuvable.');
+      return;
+    }
+
+    if (this.confirmationEnCours()) {
+      return; // évite les double-clics pendant l'appel
+    }
+
+    this.confirmationEnCours.set(true);
+    this.confirmationErreur.set('');
+
+    this.agentService.demarrerIntervention(current.id).subscribe({
+      next: (res) => {
+        // Met à jour le statut localement (en-cours) sans refaire un GET
+        this.signalement.set({
+          ...current,
+          statut: res.statut ?? 'en-cours'
+        });
+
+        this.confirmationEnCours.set(false);
+        console.log('Intervention démarrée, statut mis à jour :', res);
+
+        this.router.navigateByUrl('/agent/interventions');
+      },
+      error: (err) => {
+        this.confirmationEnCours.set(false);
+        this.confirmationErreur.set("Impossible de démarrer l'intervention. Réessayez.");
+        console.error('Erreur lors du démarrage de l\'intervention', err);
+      }
+    });
+  }
+
+  Finaly(){
+    this.router.navigateByUrl('agent/interventions');
   }
 
 }
