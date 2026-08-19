@@ -96,7 +96,7 @@ export class Dashboard implements AfterViewInit, OnDestroy {
     });
 
     // Déclenchement de l'appel des signalements
-    this.adminService.incident().subscribe({
+    this.adminService.incidents().subscribe({
       error: (err) => console.error("Erreur de récupération des signalements", err)
     });
   }
