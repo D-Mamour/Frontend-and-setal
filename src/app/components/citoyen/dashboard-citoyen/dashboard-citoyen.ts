@@ -1,7 +1,6 @@
 import { Component, computed, inject, OnInit } from '@angular/core';
 import { Router, RouterLink } from "@angular/router";
 import { Navbar } from '../../navbar/navbar';
-import { IncidentService } from '../../../Services/incident.service';
 import { Incident } from '../../../Models/incident.model';
 import { AuthService } from '../../../Services/auth-citoyen.service';
 import { IncidentService } from '../../../Services/incident.service';

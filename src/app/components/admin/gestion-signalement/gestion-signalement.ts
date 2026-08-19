@@ -9,7 +9,7 @@ type StatutFiltre = 'tous' | 'en_attente' | 'en_cours' | 'resolu';
 
 @Component({
   selector: 'app-gestion-signalement',
-  imports: [RouterLink, DatePipe, NgClass],
+  imports: [RouterLink, DatePipe, NgClass,CommonModule],
   templateUrl: './gestion-signalement.html',
   styleUrl: './gestion-signalement.css',
 })
