@@ -1,7 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { Router, RouterLink } from "@angular/router";
 import { Navbar } from '../../navbar/navbar';
 import { AuthService } from '../../../Services/auth-citoyen.service';
+import { IncidentService } from '../../../Services/incident.service';
 
 @Component({
   selector: 'app-dashboard-citoyen',
@@ -12,6 +13,22 @@ import { AuthService } from '../../../Services/auth-citoyen.service';
 export class DashboardCitoyen implements OnInit{
   authService = inject(AuthService);
   router = inject(Router);
+  incidentService = inject(IncidentService);
+
+
+  // Signal partagé
+  incidents = this.incidentService.incidents;
+
+  // Nombre total
+  nombreSignalements = computed(() => {
+    return this.incidents().length;
+  });
+
+
+  // Nombre de problèmes résolus
+  nombreProblemesResolus = computed(() => {
+    return this.incidents().filter(incident => incident.statut === 'resolu').length;
+  });
 
   ngOnInit(): void {
     this.chargerProfil();

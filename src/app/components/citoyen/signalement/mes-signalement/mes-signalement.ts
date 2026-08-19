@@ -16,7 +16,7 @@ export class MesSignalement {
   router = inject(Router);
 
   // Liste des signalements
-  incidents = signal<Incident[]>([]);
+  incidents = this.incidentService.incidents;
 
   // Chargement
   loading = signal(false);
@@ -48,9 +48,8 @@ export class MesSignalement {
     this.error.set(null);
 
     this.incidentService.getMyIncidents().subscribe({
-        next: (incidents) => {
-          console.log('Mes signalements :',incidents);
-          this.incidents.set(incidents);
+        next: () => {
+          console.log('Mes signalements :');
           this.loading.set(false);
         },
         error: (error) => {

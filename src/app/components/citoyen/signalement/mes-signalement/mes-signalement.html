@@ -4,12 +4,8 @@
 
   <header class="flex items-center justify-between px-4 pt-6 pb-4">
 
-    <button
-      type="button"
-      (click)="goHome()"
-      aria-label="Retour"
-      class="w-10 h-10 flex items-center justify-center rounded-2xl bg-white shadow-sm active:scale-95 transition"
-    >
+    <button type="button" (click)="goHome()" aria-label="Retour"
+      class="w-10 h-10 flex items-center justify-center rounded-2xl bg-white shadow-sm active:scale-95 transition">
       <i class="fa-solid fa-chevron-left text-gray-800"></i>
     </button>
 
@@ -19,11 +15,8 @@
     </h1>
 
 
-    <button
-      type="button"
-      aria-label="Filtrer"
-      class="w-10 h-10 flex items-center justify-center rounded-2xl bg-white shadow-sm active:scale-95 transition"
-    >
+    <button type="button" aria-label="Filtrer"
+      class="w-10 h-10 flex items-center justify-center rounded-2xl bg-white shadow-sm active:scale-95 transition">
       <i class="fa-solid fa-sliders text-gray-800"></i>
     </button>
 
@@ -42,21 +35,15 @@
 
       <li class="relative pb-3">
 
-        <button
-          type="button"
-          (click)="setFilter('tous')"
-          [class.text-green-700]="activeFilter() === 'tous'"
-          [class.text-gray-400]="activeFilter() !== 'tous'"
-        >
+        <button type="button" (click)="setFilter('tous')" [class.text-green-700]="activeFilter() === 'tous'"
+          [class.text-gray-400]="activeFilter() !== 'tous'">
           Tous
         </button>
 
 
         @if (activeFilter() === 'tous') {
 
-          <span
-            class="absolute left-1/2 -translate-x-1/2 -bottom-[1px] w-1.5 h-1.5 rounded-full bg-green-700"
-          ></span>
+        <span class="absolute left-1/2 -translate-x-1/2 -bottom-[1px] w-1.5 h-1.5 rounded-full bg-green-700"></span>
 
         }
 
@@ -67,21 +54,15 @@
 
       <li class="relative pb-3">
 
-        <button
-          type="button"
-          (click)="setFilter('en_attente')"
-          [class.text-green-700]="activeFilter() === 'en_attente'"
-          [class.text-gray-400]="activeFilter() !== 'en_attente'"
-        >
+        <button type="button" (click)="setFilter('en_attente')" [class.text-green-700]="activeFilter() === 'en_attente'"
+          [class.text-gray-400]="activeFilter() !== 'en_attente'">
           En attente
         </button>
 
 
         @if (activeFilter() === 'en_attente') {
 
-          <span
-            class="absolute left-1/2 -translate-x-1/2 -bottom-[1px] w-1.5 h-1.5 rounded-full bg-green-700"
-          ></span>
+        <span class="absolute left-1/2 -translate-x-1/2 -bottom-[1px] w-1.5 h-1.5 rounded-full bg-green-700"></span>
 
         }
 
@@ -92,21 +73,15 @@
 
       <li class="relative pb-3">
 
-        <button
-          type="button"
-          (click)="setFilter('en_cours')"
-          [class.text-green-700]="activeFilter() === 'en_cours'"
-          [class.text-gray-400]="activeFilter() !== 'en_cours'"
-        >
+        <button type="button" (click)="setFilter('en_cours')" [class.text-green-700]="activeFilter() === 'en_cours'"
+          [class.text-gray-400]="activeFilter() !== 'en_cours'">
           En cours
         </button>
 
 
         @if (activeFilter() === 'en_cours') {
 
-          <span
-            class="absolute left-1/2 -translate-x-1/2 -bottom-[1px] w-1.5 h-1.5 rounded-full bg-green-700"
-          ></span>
+        <span class="absolute left-1/2 -translate-x-1/2 -bottom-[1px] w-1.5 h-1.5 rounded-full bg-green-700"></span>
 
         }
 
@@ -117,21 +92,15 @@
 
       <li class="relative pb-3">
 
-        <button
-          type="button"
-          (click)="setFilter('resolu')"
-          [class.text-green-700]="activeFilter() === 'resolu'"
-          [class.text-gray-400]="activeFilter() !== 'resolu'"
-        >
+        <button type="button" (click)="setFilter('resolu')" [class.text-green-700]="activeFilter() === 'resolu'"
+          [class.text-gray-400]="activeFilter() !== 'resolu'">
           Résolus
         </button>
 
 
         @if (activeFilter() === 'resolu') {
 
-          <span
-            class="absolute left-1/2 -translate-x-1/2 -bottom-[1px] w-1.5 h-1.5 rounded-full bg-green-700"
-          ></span>
+        <span class="absolute left-1/2 -translate-x-1/2 -bottom-[1px] w-1.5 h-1.5 rounded-full bg-green-700"></span>
 
         }
 
@@ -153,17 +122,15 @@
 
     @if (loading()) {
 
-      <div class="flex flex-col items-center justify-center py-20">
+    <div class="flex flex-col items-center justify-center py-20">
 
-        <i
-          class="fa-solid fa-spinner fa-spin text-green-700 text-2xl"
-        ></i>
+      <i class="fa-solid fa-spinner fa-spin text-green-700 text-2xl"></i>
 
-        <p class="mt-3 text-sm text-gray-500">
-          Chargement de vos signalements...
-        </p>
+      <p class="mt-3 text-sm text-gray-500">
+        Chargement de vos signalements...
+      </p>
 
-      </div>
+    </div>
 
     }
 
@@ -172,21 +139,19 @@
 
     @else if (error(); as errorMessage) {
 
-      <div
-        class="rounded-2xl bg-red-50 border border-red-100 p-4"
-      >
+    <div class="rounded-2xl bg-red-50 border border-red-100 p-4">
 
-        <div class="flex items-center gap-3 text-red-700">
+      <div class="flex items-center gap-3 text-red-700">
 
-          <i class="fa-solid fa-circle-exclamation"></i>
+        <i class="fa-solid fa-circle-exclamation"></i>
 
-          <p class="text-sm">
-            {{ errorMessage }}
-          </p>
-
-        </div>
+        <p class="text-sm">
+          {{ errorMessage }}
+        </p>
 
       </div>
+
+    </div>
 
     }
 
@@ -195,35 +160,25 @@
 
     @else if (filteredIncidents().length === 0) {
 
-      <div
-        class="flex flex-col items-center justify-center py-20 text-center"
-      >
+    <div class="flex flex-col items-center justify-center py-20 text-center">
 
-        <div
-          class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center"
-        >
+      <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
 
-          <i
-            class="fa-solid fa-clipboard-list text-green-700 text-xl"
-          ></i>
-
-        </div>
-
-
-        <h2
-          class="mt-4 text-lg font-bold text-gray-900"
-        >
-          Aucun signalement
-        </h2>
-
-
-        <p
-          class="mt-2 text-sm text-gray-500"
-        >
-          Aucun signalement ne correspond à ce filtre.
-        </p>
+        <i class="fa-solid fa-clipboard-list text-green-700 text-xl"></i>
 
       </div>
+
+
+      <h2 class="mt-4 text-lg font-bold text-gray-900">
+        Aucun signalement
+      </h2>
+
+
+      <p class="mt-2 text-sm text-gray-500">
+        Aucun signalement ne correspond à ce filtre.
+      </p>
+
+    </div>
 
     }
 
@@ -234,52 +189,52 @@
 
     @else {
 
-      @for (
-        incident of filteredIncidents();
-        track incident.id
-      ) {
+    @for (incident of filteredIncidents(); track incident.id) {
 
-        <article
-          class="bg-white rounded-3xl shadow-sm outline outline-1 outline-offset-[-1px] outline-white p-3 flex gap-3"
-        >
+    <article
+      class="bg-white rounded-3xl shadow-sm outline outline-1 outline-offset-[-1px] outline-white p-3 flex gap-3">
 
-          <!-- IMAGE -->
+      <!-- IMAGE -->
 
-          <img
-            [src]="incident.urlImage"
-            alt="Photo du signalement"
-            class="w-20 h-20 rounded-2xl object-cover shrink-0"
-          />
+      <img [src]="incident.urlImage" alt="Photo du signalement" class="w-20 h-20 rounded-2xl object-cover shrink-0" />
 
 
-          <!-- CONTENU -->
+      <!-- CONTENU -->
 
-          <div
-            class="flex-1 min-w-0 py-0.5"
-          >
+      <div class="flex-1 min-w-0 py-0.5">
 
-            <div
-              class="flex items-center justify-between gap-2"
-            >
+        <div class="flex items-center justify-between gap-2">
 
-              <!--
+          <!--
                 Pour l'instant nous affichons la priorité
                 comme titre puisque l'API fournie ne contient
                 pas de champ "type de déchet".
               -->
 
-              <h2
-                class="font-extrabold text-gray-900 truncate"
-              >
-                Signalement #{{ incident.id }}
-              </h2>
+          <h2 class="font-extrabold text-gray-900 truncate">
+            Signalement #{{ incident.id }}
+
+            Priorite:
+            <span class="shrink-0 text-[11px] font-bold tracking-wide px-2.5 py-1 rounded-full" [ngClass]="{
+                    'bg-red-100 text-red-700':
+                      incident.priorite === 'haute',
+
+                    'bg-amber-100 text-amber-700':
+                      incident.priorite === 'moyenne',
+
+                    'bg-blue-100 text-blue-700':
+                      incident.priorite === 'faible'
+                  }">
+
+              {{ incident.priorite }}
+
+            </span>
+          </h2>
 
 
-              <!-- STATUT -->
+          <!-- STATUT -->
 
-              <span
-                class="shrink-0 text-[11px] font-bold tracking-wide px-2.5 py-1 rounded-full"
-                [ngClass]="{
+          <span class="shrink-0 text-[11px] font-bold tracking-wide px-2.5 py-1 rounded-full" [ngClass]="{
                   'bg-amber-100 text-amber-700':
                     incident.statut === 'en_attente',
 
@@ -288,70 +243,54 @@
 
                   'bg-green-100 text-green-700':
                     incident.statut === 'resolu'
-                }"
-              >
+                }">
 
-                {{ incident.statut }}
+            {{ incident.statut }}
 
-              </span>
+          </span>
 
-            </div>
-
-
-            <!-- DESCRIPTION -->
-
-            @if (incident.description) {
-
-              <p
-                class="text-gray-400 text-sm mt-1 truncate"
-              >
-                {{ incident.description }}
-              </p>
-
-            }
-
-            @else {
-
-              <p
-                class="flex items-center gap-1 text-gray-400 text-sm mt-1"
-              >
-
-                <i
-                  class="fa-solid fa-location-dot text-xs"
-                ></i>
-
-                {{ incident.latitude | number:'1.4-6' }},
-                {{ incident.longitude | number:'1.4-6' }}
-
-              </p>
-
-            }
+        </div>
 
 
-            <!-- DATE -->
+        <!-- DESCRIPTION -->
 
-            <div
-              class="flex items-center justify-between mt-3"
-            >
+        @if (incident.description) {
 
-              <span
-                class="text-gray-400 text-sm"
-              >
-                {{ incident.dateCreation | date:'dd MMM yyyy, HH:mm' }}
-              </span>
+        <p class="text-gray-400 text-sm mt-1 truncate">
+          {{ incident.description }}
+        </p>
+
+        }
+
+        <p class="flex items-center gap-1 text-gray-400 text-sm mt-1">
+
+          <i class="fa-solid fa-location-dot text-xs"></i>
+
+          {{ incident.latitude | number:'1.4-6' }},
+          {{ incident.longitude | number:'1.4-6' }}
+
+        </p>
 
 
-              <i
-                class="fa-solid fa-arrow-right text-green-600 text-sm"
-              ></i>
 
-            </div>
+        <!-- DATE -->
 
-          </div>
+        <div class="flex items-center justify-between mt-3">
 
-        </article>
+          <span class="text-gray-400 text-sm">
+            {{ incident.dateCreation | date:'dd MMM yyyy, HH:mm' }}
+          </span>
 
-      }
+
+          <i class="fa-solid fa-arrow-right text-green-600 text-sm"></i>
+
+        </div>
+
+      </div>
+
+    </article>
+
+    }
 
     }
 
@@ -359,16 +298,14 @@
     <!-- Fin -->
 
     @if (
-      !loading() &&
-      !error() &&
-      filteredIncidents().length > 0
+    !loading() &&
+    !error() &&
+    filteredIncidents().length > 0
     ) {
 
-      <p
-        class="text-center text-gray-300 text-sm pt-4"
-      >
-        Fin de votre historique
-      </p>
+    <p class="text-center text-gray-300 text-sm pt-4">
+      Fin de votre historique
+    </p>
 
     }
 

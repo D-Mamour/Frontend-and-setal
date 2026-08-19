@@ -1,6 +1,6 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 import { Incident } from '../Models/incident.model';
@@ -11,17 +11,22 @@ import { Incident } from '../Models/incident.model';
 export class IncidentService {
 
   private readonly httpClient = inject(HttpClient);
-
   private readonly baseUrl = environment.apiUrl;
 
-  createIncident(formData: FormData): Observable<Incident> {
+  // État partagé des signalements
+  incidents = signal<Incident[]>([]);
 
+  createIncident(formData: FormData): Observable<Incident> {
     return this.httpClient.post<Incident>(`${this.baseUrl}/incidents/`, formData);
   }
 
   getMyIncidents(): Observable<Incident[]> {
 
-    return this.httpClient.get<Incident[]>(`${this.baseUrl}/incidents/`);
-
+    return this.httpClient.get<Incident[]>(`${this.baseUrl}/incidents/`).pipe(
+        tap((incidents) => {
+          // On met à jour le Signal partagé
+          this.incidents.set(incidents);
+        })
+      );
   }
 }

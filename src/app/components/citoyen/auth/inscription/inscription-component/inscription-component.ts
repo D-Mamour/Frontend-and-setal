@@ -103,7 +103,7 @@ export class InscriptionComponent {
 
   //ÉTAPE 3
   terminerInscription(): void {
-    this.router.navigate(['/']);
+    this.router.navigate(['/connexion']);
   }
 
   // Retour
@@ -145,27 +145,6 @@ export class InscriptionComponent {
         this.errorMessage.set(data.message);
         return;
       }
-
-      // Erreurs de validation Django
-      if (data && typeof data === 'object') {
-        const messages: string[] = [];
-
-        Object.entries(data).forEach(([field, value]: [string, any]) => {
-          if (Array.isArray(value)) {
-            value.forEach((message) => {
-              messages.push(`${this.translateField(field)} : ${message}`);
-            });
-          } else if (typeof value === 'string') {
-            messages.push(`${this.translateField(field)} : ${value}`);
-          }
-        });
-
-        if (messages.length > 0) {
-          this.errorMessage.set(messages.join(' '));
-
-          return;
-        }
-      }
     }
 
     // Erreur serveur
@@ -177,28 +156,5 @@ export class InscriptionComponent {
 
     // Message générique
     this.errorMessage.set('Une erreur est survenue. Veuillez réessayer.');
-  }
-
-  /**
-   * Traduction des noms des champs
-   */
-  private translateField(field: string): string {
-    const fields: Record<string, string> = {
-      username: 'Nom d’utilisateur',
-
-      first_name: 'Prénom',
-
-      last_name: 'Nom',
-
-      telephone: 'Téléphone',
-
-      email: 'Email',
-
-      password: 'Mot de passe',
-
-      code: 'Code OTP',
-    };
-
-    return fields[field] ?? field;
   }
 }
