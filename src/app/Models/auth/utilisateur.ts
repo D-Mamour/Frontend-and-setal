@@ -1,5 +1,5 @@
 
-export type UserRole = 'citoyen' | 'agent';
+export type UserRole = 'citoyen' | 'agent' | 'admin';
 
 export interface User {
   id: number;
@@ -9,4 +9,6 @@ export interface User {
   telephone?: string;
   email: string;
   role: UserRole;
+  is_active?: boolean;
+  last_login?: string | null;
 }
