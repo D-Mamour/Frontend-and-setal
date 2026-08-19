@@ -52,6 +52,11 @@ export const routes: Routes = [
   {
     path: 'admin', component: Layout,
     children: [
+      { path: 'dashboard', component: Dashboard },
+      { path: 'signalements', component: GestionSignalement},
+      { path: 'signalements/detail/:id', component: SignalementDetailAdmin},
+      { path: 'statistiques', component: AdminAnalyse},
+      { path: 'parametres', component: AdminSecurite},
       { path: 'dashboard', component: Dashboard,
          canActivate: [authGuardAdmin, roleGuardAdmin], data: { roles: ['admin']}
        },
