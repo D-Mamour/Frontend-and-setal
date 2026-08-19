@@ -95,10 +95,9 @@ export class Dashboard implements AfterViewInit, OnDestroy {
       error: (err) => console.error('Erreur de récupération du profil', err)
     });
 
-    // Récupération des signalements
-    this.adminService.incidents().subscribe({
-      next: (data) => this.adminService.listeSignalements.set(data),
-      error: (err) => console.error('Erreur de récupération des signalements', err)
+    // Déclenchement de l'appel des signalements
+    this.adminService.incident().subscribe({
+      error: (err) => console.error("Erreur de récupération des signalements", err)
     });
   }
 

@@ -105,21 +105,18 @@
   </div>
 
 
+ <!-- Zone basse du sidebar -->
+<div class="mt-auto flex flex-col gap-3">
+
   <!-- MODE SUPERVISION -->
-  <div class="mt-auto rounded-2xl border border-slate-100 bg-slate-50 p-4">
+  <div class="rounded-2xl border border-slate-100 bg-slate-50 p-4">
 
     <div class="mb-2 flex items-center gap-2">
+      <span class="h-2 w-2 rounded-full bg-green-700"></span>
 
-      <span
-        class="h-2 w-2 rounded-full bg-green-700"
-      ></span>
-
-      <span
-        class="text-[11px] font-semibold text-slate-600"
-      >
+      <span class="text-[11px] font-semibold text-slate-600">
         Mode Supervision
       </span>
-
     </div>
 
     <p class="text-[10px] leading-4 text-slate-400">
@@ -128,5 +125,35 @@
     </p>
 
   </div>
+
+  <!-- DÉCONNEXION -->
+  @if (authService.isAuthenticated()) {
+    <button
+      type="button"
+      (click)="deconnexion()"
+      class="flex h-11 w-full shrink-0
+             items-center justify-center gap-2
+             rounded-2xl
+             border border-red-500
+             bg-red-150 text-red-500
+             transition hover:bg-red-100
+             active:scale-95"
+      aria-label="Se déconnecter"
+      title="Se déconnecter"
+    >
+
+      <span class="text-sm font-semibold">
+        Déconnexion
+      </span>
+
+      <i
+        class="fa-solid fa-right-from-bracket text-sm"
+        aria-hidden="true"
+      ></i>
+
+    </button>
+  }
+
+</div>
 
 </aside>

@@ -17,6 +17,8 @@ import { SignalementMap } from './components/agent/signalement-map/signalement-m
 import { SignalementDetailAdmin } from './components/admin/signalement-detail-admin/signalement-detail-admin';
 import { authGuard } from './guards/auth.guard';
 import { roleGuard } from './guards/role.guard';
+import { authGuardAdmin } from './guards/auth.guard';
+import { roleGuardAdmin } from './guards/role.guard';
 
 export const routes: Routes = [
 
@@ -44,14 +46,25 @@ export const routes: Routes = [
 
   // ESPACE ADMIN
   {path: 'admin/login', component: LoginAdmin},
+  
   {
     path: 'admin', component: Layout,
     children: [
-      { path: 'dashboard', component: Dashboard },
-      { path: 'signalements', component: GestionSignalement},
-      { path: 'signalements/detail', component: SignalementDetailAdmin},
-      { path: 'statistiques', component: AdminAnalyse},
-      { path: 'parametres', component: AdminSecurite},
+      { path: 'dashboard', component: Dashboard,
+         canActivate: [authGuardAdmin, roleGuardAdmin], data: { roles: ['admin']}
+       },
+      { path: 'signalements', component: GestionSignalement,
+         canActivate: [authGuardAdmin, roleGuardAdmin], data: { roles: ['admin']}
+      },
+      { path: 'signalements/detail', component: SignalementDetailAdmin, 
+         canActivate: [authGuardAdmin, roleGuardAdmin], data: { roles: ['admin']}
+      },
+      { path: 'statistiques', component: AdminAnalyse,
+         canActivate: [authGuardAdmin, roleGuardAdmin], data: { roles: ['admin']}
+      },
+      { path: 'parametres', component: AdminSecurite,
+         canActivate: [authGuardAdmin, roleGuardAdmin], data: { roles: ['admin']}
+      },
     ],
   },
 
