@@ -37,7 +37,7 @@
         </p>
       </div>
 
-      <!-- Set-Setal actifs -->
+      <!-- Résolus -->
       <div class="rounded-2xl p-5 bg-white shadow-sm">
         <div class="flex items-center justify-between mb-6">
           <span class="w-10 h-10 rounded-xl flex items-center justify-center bg-green-50">
@@ -69,7 +69,7 @@
         </p>
       </div>
 
-      <!-- Taux de vérification (carte mise en avant) -->
+      <!-- Taux de vérification -->
       <div class="rounded-2xl p-5 bg-green-800">
         <div class="flex items-center justify-between mb-6">
           <span class="w-10 h-10 rounded-xl flex items-center justify-center bg-white/15">
@@ -119,196 +119,34 @@
         </div>
       </div>
 
-      <!-- Carte (placeholder iframe, à remplacer par l'intégration Maps réelle avec les marqueurs) -->
-<!-- Bloc de la carte Leaflet -->
-<div class="w-full h-[450px] rounded-2xl border border-slate-100 shadow-sm overflow-hidden mt-6">
-  <div id="map-container" class="w-full h-full z-10"></div>
-</div>
-
+      <!-- Bloc de la carte Leaflet -->
+      <div class="w-full h-[420px] rounded-2xl border border-gray-100 shadow-sm overflow-hidden relative">
+        <div id="map-container" class="w-full h-full z-10"></div>
+      </div>
     </section>
 
-    <!-- Alertes + tendance / Activités récentes -->
+    <!-- Section Graphiques (Grille corrigée) -->
     <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      <!-- Colonne gauche : alertes + graphique -->
-      <div class="lg:col-span-2 space-y-4">
-        <!-- Alerte 1 -->
-        <div class="bg-white rounded-2xl shadow-sm p-4 flex gap-4 border-l-4 border-amber-400">
-          <span class="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 bg-amber-50">
-            <i class="fa-solid fa-droplet text-amber-500"></i>
-          </span>
 
-          <div class="flex-1 min-w-0">
-            <h3 class="font-bold text-gray-900">Blocage de canal en hausse à Médina</h3>
-            <p class="text-gray-400 text-sm mt-1 leading-relaxed">
-              Augmentation de 25% des signalements d'eaux usées dans le secteur 4 au cours des 48h.
-            </p>
-
-            <div class="flex items-center gap-3 mt-3">
-              <span class="text-[11px] font-bold tracking-wide px-2.5 py-1 rounded-2xl bg-amber-100 text-amber-700">
-                ALERTE SYSTÈME
-              </span>
-              <span class="text-gray-400 text-xs">Il y a 2 heures</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Alerte 2 -->
-        <div class="bg-white rounded-2xl shadow-sm p-4 flex gap-4 border-l-4 border-red-400">
-          <span class="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 bg-red-50">
-            <i class="fa-solid fa-circle-exclamation text-red-500"></i>
-          </span>
-
-          <div class="flex-1 min-w-0">
-            <h3 class="font-bold text-gray-900">Signalements répétés au Plateau</h3>
-            <p class="text-gray-400 text-sm mt-1 leading-relaxed">
-              Point noir identifié près du Marché Kermel. Nécessite une intervention de collecte
-              d'urgence.
-            </p>
-
-            <div class="flex items-center gap-3 mt-3">
-              <span class="text-[11px] font-bold tracking-wide px-2.5 py-1 rounded-2xl bg-red-100 text-red-600">
-                INTERVENTION REQUISE
-              </span>
-              <span class="text-gray-400 text-xs">Il y a 5 heures</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Tendance hebdomadaire -->
-        <div class="bg-white rounded-2xl shadow-sm p-5">
-          <h3 class="font-extrabold text-gray-900 mb-4">Tendance Hebdomadaire des Signalements</h3>
-
-          <!-- Graphique statique (SVG), à remplacer par une vraie lib de charts branchée sur les données -->
-          <div class="flex gap-2">
-            <div class="flex flex-col justify-between text-xs text-gray-300 py-1 h-40 shrink-0">
-              <span>200</span>
-              <span>150</span>
-              <span>100</span>
-              <span>50</span>
-              <span>0</span>
-            </div>
-
-            <svg viewBox="0 0 700 160" class="w-full h-40" preserveAspectRatio="none">
-              <defs>
-                <linearGradient id="trendFill" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="#166534" stop-opacity="0.18" />
-                  <stop offset="100%" stop-color="#166534" stop-opacity="0" />
-                </linearGradient>
-              </defs>
-
-              <polyline
-                points="0,40 60,80 120,90 180,60 240,70 300,50 360,30 420,55 480,30 540,20 600,35 660,20"
-                fill="none"
-                stroke="#166534"
-                stroke-width="3"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <polygon
-                points="0,40 60,80 120,90 180,60 240,70 300,50 360,30 420,55 480,30 540,20 600,35 660,20 660,160 0,160"
-                fill="url(#trendFill)"
-                stroke="none"
-              />
-            </svg>
-          </div>
-
-          <div class="flex justify-between text-xs text-gray-400 mt-2 pl-8">
-            <span>Lun</span>
-            <span>Mar</span>
-            <span>Mer</span>
-            <span>Jeu</span>
-            <span>Ven</span>
-            <span>Sam</span>
-            <span>Dim</span>
-          </div>
+      <!-- Graphique 1 : Tendance hebdomadaire (Prend 2 colonnes sur 3) -->
+      <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm p-5">
+        <h3 class="font-extrabold text-gray-900 mb-4">Tendance Hebdomadaire des Signalements</h3>
+        <div class="w-full h-[280px] relative">
+          <canvas #evolutionChart></canvas>
         </div>
       </div>
 
-      <!-- Colonne droite : activités récentes -->
-      <div class="bg-white rounded-2xl shadow-sm p-5">
-        <div class="flex items-center justify-between mb-5">
-          <h3 class="flex items-center gap-2 font-extrabold text-gray-900">
-            <i class="fa-solid fa-bolt text-green-700"></i>
-            Activités Récentes
-          </h3>
-          <button type="button" class="text-green-700 text-sm font-semibold">Filtrer</button>
+      <!-- Graphique 2 : Répartition des Statuts (Prend 1 colonne sur 3) -->
+      <div class="bg-white rounded-2xl shadow-sm p-5 flex flex-col justify-between">
+        <div>
+          <h3 class="font-extrabold text-gray-900">Répartition par Catégorie</h3>
+
         </div>
-
-        <ul class="space-y-5">
-          <!-- Activité 1 -->
-          <li class="flex gap-3">
-            <span class="w-8 h-8 rounded-2xl flex items-center justify-center shrink-0 text-white text-xs bg-green-600">
-              <i class="fa-solid fa-check"></i>
-            </span>
-
-            <div class="flex-1 min-w-0">
-              <div class="flex items-center justify-between gap-2">
-                <h4 class="font-bold text-gray-900 text-sm">Signalement résolu</h4>
-                <span class="text-gray-300 text-xs shrink-0">10:45 AM</span>
-              </div>
-              <p class="text-gray-400 text-sm mt-0.5 leading-relaxed">
-                Dépôt sauvage au Boulevard de la République traité par l'équipe A.
-              </p>
-              <p class="text-gray-400 text-xs italic mt-1">Aminata Fall (Gérante)</p>
-            </div>
-          </li>
-
-          <!-- Activité 2 -->
-          <li class="flex gap-3">
-            <span class="w-8 h-8 rounded-2xl flex items-center justify-center shrink-0 text-white text-xs bg-blue-600">
-              <i class="fa-solid fa-signal"></i>
-            </span>
-
-            <div class="flex-1 min-w-0">
-              <div class="flex items-center justify-between gap-2">
-                <h4 class="font-bold text-gray-900 text-sm">Nouveau signalement citoyen</h4>
-                <span class="text-gray-300 text-xs shrink-0">09:12 AM</span>
-              </div>
-              <p class="text-gray-400 text-sm mt-0.5 leading-relaxed">
-                Fuite d'eau importante près de l'avenue Léopold Sédar Senghor.
-              </p>
-            </div>
-          </li>
-
-          <!-- Activité 3 -->
-          <li class="flex gap-3">
-            <span class="w-8 h-8 rounded-2xl flex items-center justify-center shrink-0 text-white text-xs bg-amber-500">
-              <i class="fa-solid fa-broom"></i>
-            </span>
-
-            <div class="flex-1 min-w-0">
-              <div class="flex items-center justify-between gap-2">
-                <h4 class="font-bold text-gray-900 text-sm">Mission planifiée</h4>
-                <span class="text-gray-300 text-xs shrink-0">Hier, 18:30</span>
-              </div>
-              <p class="text-gray-400 text-sm mt-0.5 leading-relaxed">
-                Grand Set-Setal prévu pour dimanche prochain dans la Zone Nord.
-              </p>
-              <span class="inline-block text-[11px] font-bold tracking-wide px-2.5 py-1 rounded-2xl mt-2 bg-blue-100 text-blue-700">
-                ÉVÉNEMENT COMMUNAUTAIRE
-              </span>
-            </div>
-          </li>
-
-          <!-- Activité 4 -->
-          <li class="flex gap-3">
-            <span class="w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-white text-xs bg-gray-400">
-              <i class="fa-solid fa-user-plus"></i>
-            </span>
-
-            <div class="flex-1 min-w-0">
-              <div class="flex items-center justify-between gap-2">
-                <h4 class="font-bold text-gray-900 text-sm">Nouvelle inscription citoyenne</h4>
-                <span class="text-gray-300 text-xs shrink-0">Hier, 16:15</span>
-              </div>
-              <p class="text-gray-400 text-sm mt-0.5 leading-relaxed">
-                Ousmane Sow a rejoint la communauté de Dakar Plateau.
-              </p>
-            </div>
-          </li>
-        </ul>
+        <div class="w-full h-[280px] relative flex items-center justify-center">
+          <canvas #statistiquesChart></canvas>
+        </div>
       </div>
+
     </section>
   </main>
-
 </div>
