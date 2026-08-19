@@ -16,36 +16,92 @@
 
     <!-- ONGLETS -->
     <div class="border-b border-slate-200 mb-6">
+
       <div class="flex items-center gap-10 overflow-x-auto">
 
-        <button class="relative py-4 text-sm text-slate-500 whitespace-nowrap">
+        <!-- TOUS -->
+        <button type="button" (click)="changerStatut('tous')" class="relative py-4 text-sm whitespace-nowrap"
+          [class.text-green-700]="statutActif() === 'tous'" [class.text-slate-500]="statutActif() !== 'tous'">
+
+          Tous
+
+          <span class="ml-2 inline-flex items-center justify-center min-w-7 h-7 px-2 rounded-full text-xs"
+            [class.bg-green-50]="statutActif() === 'tous'" [class.text-green-700]="statutActif() === 'tous'"
+            [class.bg-slate-100]="statutActif() !== 'tous'" [class.text-slate-500]="statutActif() !== 'tous'">
+            {{ signalements().length }}
+          </span>
+
+          @if (statutActif() === 'tous') {
+          <span class="absolute bottom-0 left-0 w-full h-0.5 bg-green-700">
+          </span>
+          }
+
+        </button>
+
+
+        <!-- EN ATTENTE -->
+        <button type="button" (click)="changerStatut('en_attente')" class="relative py-4 text-sm whitespace-nowrap"
+          [class.text-green-700]="statutActif() === 'en_attente'"
+          [class.text-slate-500]="statutActif() !== 'en_attente'">
+
           En attente
 
-          <span
-            class="ml-2 inline-flex items-center justify-center min-w-7 h-7 px-2 rounded-full bg-slate-100 text-slate-500 text-xs">
-            12
+          <span class="ml-2 inline-flex items-center justify-center min-w-7 h-7 px-2 rounded-full text-xs"
+            [class.bg-green-50]="statutActif() === 'en_attente'" [class.text-green-700]="statutActif() === 'en_attente'"
+            [class.bg-slate-100]="statutActif() !== 'en_attente'"
+            [class.text-slate-500]="statutActif() !== 'en_attente'">
+            {{ nombreEnAttente }}
           </span>
-          <span class="absolute bottom-0 left-0 w-full h-0.5 bg-green-700"> </span>
+
+          @if (statutActif() === 'en_attente') {
+          <span class="absolute bottom-0 left-0 w-full h-0.5 bg-green-700">
+          </span>
+          }
+
         </button>
 
-        <button class="py-4 text-sm text-slate-500 whitespace-nowrap">
+
+        <!-- EN COURS -->
+        <button type="button" (click)="changerStatut('en_cours')" class="relative py-4 text-sm whitespace-nowrap"
+          [class.text-green-700]="statutActif() === 'en_cours'" [class.text-slate-500]="statutActif() !== 'en_cours'">
+
           En cours
 
-          <span
-            class="ml-2 inline-flex items-center justify-center min-w-7 h-7 px-2 rounded-full bg-slate-100 text-slate-500 text-xs">
-            8
+          <span class="ml-2 inline-flex items-center justify-center min-w-7 h-7 px-2 rounded-full text-xs"
+            [class.bg-green-50]="statutActif() === 'en_cours'" [class.text-green-700]="statutActif() === 'en_cours'"
+            [class.bg-slate-100]="statutActif() !== 'en_cours'" [class.text-slate-500]="statutActif() !== 'en_cours'">
+            {{ nombreEnCours }}
           </span>
+
+          @if (statutActif() === 'en_cours') {
+          <span class="absolute bottom-0 left-0 w-full h-0.5 bg-green-700">
+          </span>
+          }
+
         </button>
 
-        <button class="py-4 text-sm text-slate-500 whitespace-nowrap">
+
+        <!-- RESOLUS -->
+        <button type="button" (click)="changerStatut('resolu')" class="relative py-4 text-sm whitespace-nowrap"
+          [class.text-green-700]="statutActif() === 'resolu'" [class.text-slate-500]="statutActif() !== 'resolu'">
+
           Résolus
 
-          <span
-            class="ml-2 inline-flex items-center justify-center min-w-7 h-7 px-2 rounded-full bg-slate-100 text-slate-500 text-xs">
-            142
+          <span class="ml-2 inline-flex items-center justify-center min-w-7 h-7 px-2 rounded-full text-xs"
+            [class.bg-green-50]="statutActif() === 'resolu'" [class.text-green-700]="statutActif() === 'resolu'"
+            [class.bg-slate-100]="statutActif() !== 'resolu'" [class.text-slate-500]="statutActif() !== 'resolu'">
+            {{ nombreResolus }}
           </span>
+
+          @if (statutActif() === 'resolu') {
+          <span class="absolute bottom-0 left-0 w-full h-0.5 bg-green-700">
+          </span>
+          }
+
         </button>
+
       </div>
+
     </div>
 
     <!-- FILTRES -->
@@ -112,7 +168,7 @@
 
           <tbody class="divide-y divide-slate-100">
 
-            @for (incident of signalements(); track incident.id) {
+            @for (incident of signalementsFiltres(); track incident.id) {
 
             <tr class="hover:bg-slate-50">
               <td class="px-6 py-5">
@@ -121,45 +177,85 @@
                     <i class="fa-solid fa-trash-can text-red-500"></i>
                   </div>
 
-                  <span class="text-sm font-semibold text-slate-700"> Dépôt sauvage </span>
+                  <span class="text-sm font-semibold text-slate-700"> {{ incident.type_incident || 'N/A'}} </span>
                 </div>
               </td>
 
               <td class="px-6 py-5">
-                <p class="text-sm font-medium text-slate-700">Rue 12 × 15</p>
-                <p class="text-xs text-slate-400">Médina, Secteur 4</p>
+                <p class="text-xs font-medium text-slate-700">
+                  Latitude :
+                  {{ incident.latitude }}
+                </p>
+                <p class="text-xs font-medium text-slate-700">
+                  Longitude :
+                  {{ incident.longitude }}
+                </p>
               </td>
 
-              <td class="px-6 py-5 text-sm text-slate-600">Fatou Sow</td>
+              <td class="px-6 py-5 text-sm text-slate-600"> {{ incident.citoyen || 'Anonyme' }}</td>
 
               <td class="px-6 py-5">
-                <p class="text-sm text-slate-700">Aujourd'hui</p>
-                <p class="text-xs text-slate-400">10:45 AM</p>
+                <p class="text-sm text-slate-700">{{ incident.dateCreation | date:'dd/MM/yyyy' }}
+                </p>
+                <p class="text-xs text-slate-400"> {{ incident.dateCreation | date:'HH:mm' }}</p>
               </td>
 
               <td class="px-6 py-5">
-                <span
-                  class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-green-50 text-green-600 text-xs font-semibold">
-                  <i class="fa-solid fa-circle-check"></i>
-                  Resolu
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold"
+                  [ngClass]="getStatutClasses(incident.statut)">
+
+                  <i class="fa-solid" [ngClass]="getStatutIcon(incident.statut)"></i>
+
+                  {{ incident.statut }}
                 </span>
               </td>
 
               <td class="px-6 py-5">
-                <span class="px-2.5 py-1 rounded-md bg-red-50 text-red-500 text-xs font-bold">
-                  HAUTE
+                <span class="px-2.5 py-1 rounded-md text-xs font-bold"
+                  [ngClass]="getPrioriteClasses(incident.priorite)">
+
+                  {{ incident.priorite || 'N/A' }}
+
                 </span>
               </td>
 
               <td class="px-6 py-5">
-                <a routerLink="/admin/signalements/detail"
+                <a [routerLink]="['/admin/signalements/detail', incident.id]"
                   class="text-sm font-semibold text-green-700 hover:text-green-800">
                   Voir<br />
                   détails
                 </a>
               </td>
             </tr>
-          }
+            }
+
+            @empty {
+
+            <tr>
+
+              <td colspan="7" class="px-6 py-16 text-center">
+
+                <div class="flex flex-col items-center">
+
+                  <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center">
+                    <i class="fa-solid fa-inbox text-slate-400"></i>
+                  </div>
+
+                  <p class="mt-4 text-sm font-semibold text-slate-600">
+                    Aucun signalement
+                  </p>
+
+                  <p class="mt-1 text-xs text-slate-400">
+                    Aucun signalement ne correspond à ce statut.
+                  </p>
+
+                </div>
+
+              </td>
+
+            </tr>
+
+            }
           </tbody>
         </table>
       </div>
