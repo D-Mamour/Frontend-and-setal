@@ -1,5 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from "@angular/router";
+import { CommonModule } from '@angular/common';
 import { AdminprofilService } from '../../../Services/admin-dashboard-service';
 import { DatePipe, NgClass } from '@angular/common';
 import { Incident } from '../../../Models/incident.model';
@@ -8,7 +9,7 @@ type StatutFiltre = 'tous' | 'en_attente' | 'en_cours' | 'resolu';
 
 @Component({
   selector: 'app-gestion-signalement',
-  imports: [RouterLink, DatePipe, NgClass],
+  imports: [RouterLink, DatePipe, NgClass,CommonModule],
   templateUrl: './gestion-signalement.html',
   styleUrl: './gestion-signalement.css',
 })

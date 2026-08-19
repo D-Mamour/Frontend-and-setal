@@ -17,12 +17,16 @@ import { SignalementMap } from './components/agent/signalement-map/signalement-m
 import { SignalementDetailAdmin } from './components/admin/signalement-detail-admin/signalement-detail-admin';
 import { authGuard } from './guards/auth.guard';
 import { roleGuard } from './guards/role.guard';
+import { authGuardAdmin } from './guards/auth.guard';
+import { roleGuardAdmin } from './guards/role.guard';
+import { Profil } from './components/profil/profil';
 import { DetailSignalement } from './components/citoyen/detail-signalement/detail-signalement';
 
 export const routes: Routes = [
 
   // ESPACE CITOYEN
   {path: '', component: DashboardCitoyen},
+  {path: 'profil', component:Profil},
   {path: 'inscription', component: InscriptionComponent},
   {path: 'connexion', component: Connexion},
   {path: 'signaler-probleme', component: SignalerProbleme},
@@ -38,7 +42,7 @@ export const routes: Routes = [
   {path: 'agent/dashboard', component: ListeSignalement,
     canActivate: [authGuard, roleGuard], data: { roles: ['agent']}
   },
-  {path: 'agent/signalements/detail', component: SignalementDetails,
+  {path: 'agent/signalements/:id', component: SignalementDetails,
     canActivate: [authGuard, roleGuard], data: { roles: ['agent']}
   },
   {path: 'agent/signalements/map', component: SignalementMap,
@@ -47,14 +51,26 @@ export const routes: Routes = [
 
   // ESPACE ADMIN
   {path: 'admin/login', component: LoginAdmin},
+
   {
     path: 'admin', component: Layout,
     children: [
-      { path: 'dashboard', component: Dashboard },
-      { path: 'signalements', component: GestionSignalement},
       { path: 'signalements/detail/:id', component: SignalementDetailAdmin},
-      { path: 'statistiques', component: AdminAnalyse},
-      { path: 'parametres', component: AdminSecurite},
+      { path: 'dashboard', component: Dashboard,
+         canActivate: [authGuardAdmin, roleGuardAdmin], data: { roles: ['admin']}
+       },
+      { path: 'signalements', component: GestionSignalement,
+         canActivate: [authGuardAdmin, roleGuardAdmin], data: { roles: ['admin']}
+      },
+      { path: 'signalements/detail', component: SignalementDetailAdmin,
+         canActivate: [authGuardAdmin, roleGuardAdmin], data: { roles: ['admin']}
+      },
+      { path: 'statistiques', component: AdminAnalyse,
+         canActivate: [authGuardAdmin, roleGuardAdmin], data: { roles: ['admin']}
+      },
+      { path: 'parametres', component: AdminSecurite,
+         canActivate: [authGuardAdmin, roleGuardAdmin], data: { roles: ['admin']}
+      },
     ],
   },
 

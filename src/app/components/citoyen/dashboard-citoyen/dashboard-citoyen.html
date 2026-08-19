@@ -7,15 +7,11 @@
     <img src="images/logo.png" alt="Andë sétal" class="h-30 w-auto" />
 
     <!-- Déconnexion -->
-    @if (authService.isAuthenticated()) {
-
-    <button type="button" (click)="deconnexion()"
-      class="absolute right-5 top-8 flex size-11 items-center justify-center rounded-full bg-red-50 text-red-600 transition hover:bg-red-100 active:scale-95"
-      aria-label="Se déconnecter" title="Se déconnecter">
-      <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
-    </button>
-
-    }
+    <ng-container *ngIf="authService.isAuthenticated()">
+      <button type="button" (click)="deconnexion()" class="absolute right-5 top-8 flex size-11 items-center justify-center rounded-full bg-red-50 text-red-600 transition hover:bg-red-100 active:scale-95" aria-label="Se déconnecter" title="Se déconnecter">
+        <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
+      </button>
+    </ng-container>
 
   </header>
 
@@ -23,48 +19,18 @@
   <main class="mx-auto flex max-w-md flex-col gap-4 px-6">
 
     <!-- VISITEUR CONNECTÉ -->
-    @if (authService.currentUser(); as user) {
-
-    <!-- Salutation -->
-
-    <section class="mt-4 text-center">
-
-      <p class="text-xs font-bold uppercase tracking-widest text-[#A9663D]">
-        Bonjour, {{ user.first_name }} 👋
-      </p>
-
-      <h1 class="mt-2 text-2xl font-extrabold leading-tight text-zinc-900">
-        Améliorons Dakar<br />
-
-        <span class="text-green-700">
-          ensemble aujourd'hui
-        </span>
-      </h1>
-
-    </section>
-
-    }
-
-    <!-- VISITEUR NON CONNECTÉ -->
-    @else {
-
-    <section class="mt-4 text-center">
-
-      <p class="text-xs font-bold uppercase tracking-widest text-[#A9663D]">
-        Bienvenue 👋
-      </p>
-
-      <h1 class="mt-2 text-2xl font-extrabold leading-tight text-zinc-900">
-        Améliorons Dakar<br />
-
-        <span class="text-green-700">
-          ensemble aujourd'hui
-        </span>
-      </h1>
-
-    </section>
-
-    }
+    <ng-container *ngIf="authService.currentUser() as user; else guest">
+      <section class="mt-4 text-center">
+        <p class="text-xs font-bold uppercase tracking-widest text-[#A9663D]">Bonjour, {{ user.first_name }} 👋</p>
+        <h1 class="mt-2 text-2xl font-extrabold leading-tight text-zinc-900">Améliorons Dakar<br /><span class="text-green-700">ensemble aujourd'hui</span></h1>
+      </section>
+    </ng-container>
+    <ng-template #guest>
+      <section class="mt-4 text-center">
+        <p class="text-xs font-bold uppercase tracking-widest text-[#A9663D]">Bienvenue 👋</p>
+        <h1 class="mt-2 text-2xl font-extrabold leading-tight text-zinc-900">Améliorons Dakar<br /><span class="text-green-700">ensemble aujourd'hui</span></h1>
+      </section>
+    </ng-template>
 
     <!-- BANNIÈRE COMMUNAUTÉ -->
     <div class="relative flex items-center justify-between gap-4 overflow-hidden rounded-3xl bg-red-200 p-5 shadow-sm">
@@ -85,17 +51,11 @@
       </div>
 
 
-      @if (!authService.isAuthenticated()) {
-
-      <button type="button" routerLink="/inscription"
-        class="relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full bg-white shadow-sm transition active:scale-95"
-        aria-label="S'inscrire">
-
-        <i class="fa-solid fa-arrow-right text-red-300" aria-hidden="true"></i>
-
-      </button>
-
-      }
+      <ng-container *ngIf="!authService.isAuthenticated()">
+        <button type="button" routerLink="/inscription" class="relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full bg-white shadow-sm transition active:scale-95" aria-label="S'inscrire">
+          <i class="fa-solid fa-arrow-right text-red-300" aria-hidden="true"></i>
+        </button>
+      </ng-container>
 
     </div>
 
@@ -103,9 +63,8 @@
 
     <!-- INFORMATION VISITEUR -->
 
-    @if (!authService.isAuthenticated()) {
-
-    <section class="rounded-3xl border border-slate-100 bg-white p-5 shadow-sm">
+    <ng-container *ngIf="!authService.isAuthenticated()">
+      <section class="rounded-3xl border border-slate-100 bg-white p-5 shadow-sm">
 
       <div class="flex items-start gap-4">
 
@@ -151,7 +110,7 @@
 
     </section>
 
-    }
+    </ng-container>
 
 
     <!-- SIGNALER UN PROBLÈME -->
@@ -187,9 +146,8 @@
 
     <!-- MES SIGNALEMENTS : CONNECTÉ UNIQUEMENT -->
 
-    @if (authService.isAuthenticated()) {
-
-    <a routerLink="/signalements">
+    <ng-container *ngIf="authService.isAuthenticated()">
+      <a routerLink="/signalements">
 
       <div
         class="flex items-center gap-5 rounded-3xl border border-sky-200/50 bg-[#E3F2FD] p-6 shadow-[0px_8px_24px_0px_rgba(0,0,0,0.04)]">
@@ -289,9 +247,9 @@
 
       </div>
 
-    </section>
+      </section>
 
-    }
+    </ng-container>
 
 
   </main>

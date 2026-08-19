@@ -1,10 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { Navbar } from "../../navbar/navbar";
 import { AuthService } from '../../../Services/auth-citoyen.service';
 import { AgentService } from '../../../Services/agent.service';
-import { Incident } from '../../../Models/infos/incident';
+import { Incident, AnalyseAI } from '../../../Models/infos/incident';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -12,71 +12,75 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   templateUrl: 'signalement-details.html',
   imports: [Navbar, FontAwesomeModule, CommonModule]
+
 })
+
 export class SignalementDetails implements OnInit{
 
-  signalement = {
-    titre: 'Dépôt sauvage - Rue 22',
-    statut: 'EN COURS DE TRAITEMENT',
-    localisation: 'Médina, Dakar',
-
-    description:
-      "Important tas d'ordures ménagères bloquant partiellement le trottoir depuis 3 jours. Présence d'odeurs fortes et risques sanitaires pour les commerces adjacents.",
-
-    date: '12 Avril. 2026',
-    auteur: 'Anonyme',
-
-    analyseIA: {
-      score: 98,
-      niveau: 'Urgent'
-    },
-
-    image: 'assets/images/signalements/depot-sauvage.jpg'
-  };
-
-
-  timeline = [
-    {
-      titre: 'demande prise en compte',
-      date: '12 Octobre, 09:15',
-      description: '',
-      statut: 'termine',
-      icon: 'fa-solid fa-check'
-    },
-
-    {
-      titre: 'Équipe en route',
-      date: '',
-      description: "Une équipe de l'UCG a été dépêchée sur les lieux.",
-      statut: 'actuel',
-      label: 'ÉTAPE ACTUELLE',
-      icon: 'fa-solid fa-truck'
-    },
-
-    {
-      titre: 'Résolution confirmée',
-      date: '',
-      description: "En attente de l'intervention terminée.",
-      statut: 'attente',
-      icon: 'fa-solid fa-flag-checkered'
-    }
-  ];
-
-  signalements : Incident[] = [];
-  estEnChargement: boolean = true;
-  messageErreur: string= '';
+  signalement= signal<Incident | null>(null)
+  estEnChargement=signal<boolean>(false);
+  messageErreur=signal<string>('');
+  titre = signal<string>('le Reciclage des verres sur mermoz- Rue22');
 
 
   //Injection des services
   authService = inject(AuthService);
   agentService = inject(AgentService);
   router = inject(Router);
+  route = inject(ActivatedRoute);
 
 
   ngOnInit(): void {
+    const idParam = this.route.snapshot.paramMap.get('id');
+    if(!idParam){
+      this.messageErreur.set('Identifiant de signalement manquand');
+      this.estEnChargement.set(false);
+      return;
+    }
 
-     
+    const id =Number(idParam);
+    if(Number.isNaN(id)){
+      this.messageErreur.set('Identifiant de signalement invalide');
+      this.estEnChargement.set(false);
+      return;
+    }
+
+    this.estEnChargement.set(true);
+    this.agentService.getIncidentById(id).subscribe({
+      next: (incident) =>{
+        this.signalement.set(incident);
+        this.estEnChargement.set(false);
+      },
+      error: ()=>{
+        this.messageErreur.set('Erreur lors du chargement du signalement.');
+        this.estEnChargement.set(false);
+      }
+    });
+
+
   }
+  timeline = computed(() => {
+  const s = this.signalement();
+  const statutActuel = (s?.statut ?? '').toLowerCase();
+
+  const etapes = [
+    { cle: 'recu', titre: 'Signalement reçu', statut: 'termine', date: s?.dateCreation ?? '' },
+    { cle: 'en_cours', titre: 'Prise en charge', statut: 'attente', date: '', description: '' },
+    { cle: 'resolu', titre: 'Résolu', statut: 'attente', label: '' }
+  ];
+
+  const ordre = ['recu', 'en_cours', 'resolu'];
+  const indexActuel = statutActuel.includes('resolu') || statutActuel.includes('résolu')
+    ? 2
+    : statutActuel.includes('cours')
+    ? 1
+    : 0;
+
+  return etapes.map((e, i) => ({
+    ...e,
+    statut: i < indexActuel ? 'termine' : i === indexActuel ? 'actuel' : 'attente'
+  }));
+});
 
 
   goBack(): void {
@@ -85,10 +89,27 @@ export class SignalementDetails implements OnInit{
 
 
   share(): void {
-    if (navigator.share) {
+    const current = this.signalement();
+    if (current && navigator.share) {
+      const ia = current.AnalyseAI as AnalyseAI | undefined;
+
+      const texte = [
+        current.description,
+        `Date : ${current.dateCreation}`,
+        `Priorité : ${current.priorite}`,
+        `Statut : ${current.statut}`,
+        current.urlImage ? `Image : ${current.urlImage}` : '',
+        `latidute : ${current.latitude}`,
+        `longitude : ${current.longitude}`,
+        ia ? `Score IA : ${ia.type_incident}%` : '',
+        ia ? `Niveau IA : ${ia.niveau_urgence}` : ''
+      ]
+        .filter(Boolean)
+        .join('\n');
+
       navigator.share({
-        title: this.signalement.titre,
-        text: this.signalement.description
+        text: texte,
+
       });
     }
   }

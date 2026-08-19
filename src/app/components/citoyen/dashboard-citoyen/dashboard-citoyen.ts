@@ -1,12 +1,15 @@
 import { Component, computed, inject, OnInit } from '@angular/core';
 import { Router, RouterLink } from "@angular/router";
 import { Navbar } from '../../navbar/navbar';
+import { Incident } from '../../../Models/incident.model';
 import { AuthService } from '../../../Services/auth-citoyen.service';
 import { IncidentService } from '../../../Services/incident.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard-citoyen',
-  imports: [RouterLink, Navbar],
+  standalone: true,
+  imports: [RouterLink, Navbar, CommonModule],
   templateUrl: './dashboard-citoyen.html',
   styleUrl: './dashboard-citoyen.css',
 })
@@ -27,7 +30,7 @@ export class DashboardCitoyen implements OnInit{
 
   // Nombre de problèmes résolus
   nombreProblemesResolus = computed(() => {
-    return this.incidents().filter(incident => incident.statut === 'resolu').length;
+    return this.incidents().filter((incident: Incident) => incident.statut === 'resolu').length;
   });
 
   ngOnInit(): void {

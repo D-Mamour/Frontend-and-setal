@@ -8,10 +8,11 @@ import { emailValidator, passwordValidator } from '../../../Services/login-valid
 @Component({
   selector: 'app-login-admin',
   templateUrl: './login-admin.html',
+  standalone: true,
   imports: [FormsModule, ReactiveFormsModule,CommonModule],
 })
 export class LoginAdmin {
-
+  
   loginForm: FormGroup;
   errorMessage = '';
   successMessage = '';
@@ -32,7 +33,7 @@ export class LoginAdmin {
       password: ['', [
         Validators.required,
         Validators.minLength(8),
-
+        passwordValidator()
       ]],
       rememberMe: [false]
     });
@@ -50,9 +51,9 @@ export class LoginAdmin {
         next: (response) => {
           this.isLoading = false;
           this.successMessage = 'Connexion réussie ! Redirection...';
-
+          
           setTimeout(() => {
-            this.router.navigate(['admin/dashboard']);
+            this.router.navigate(['/dashboard']);
           }, 1000);
         },
         error: (error) => {
