@@ -7,11 +7,12 @@ import {
 import { AdminprofilService } from '../../Services/admin-dashboard-service';
 import { inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-nav-sidebar',
   standalone: true,
-  imports: [FontAwesomeModule, CommonModule],
+  imports: [FontAwesomeModule, CommonModule, RouterLink],
   templateUrl: './nav-sidebar.html',
   styleUrl: './nav-sidebar.css',
 })

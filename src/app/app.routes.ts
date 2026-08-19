@@ -19,14 +19,13 @@ import { authGuard } from './guards/auth.guard';
 import { roleGuard } from './guards/role.guard';
 import { authGuardAdmin } from './guards/auth.guard';
 import { roleGuardAdmin } from './guards/role.guard';
-import { Profil } from './components/profil/profil';
+import { Profil } from './components/admin/profil/profil';
 import { DetailSignalement } from './components/citoyen/detail-signalement/detail-signalement';
 
 export const routes: Routes = [
 
   // ESPACE CITOYEN
   {path: '', component: DashboardCitoyen},
-  {path: 'profil', component:Profil},
   {path: 'inscription', component: InscriptionComponent},
   {path: 'connexion', component: Connexion},
   {path: 'signaler-probleme', component: SignalerProbleme},
@@ -70,6 +69,9 @@ export const routes: Routes = [
       },
       { path: 'parametres', component: AdminSecurite,
          canActivate: [authGuardAdmin, roleGuardAdmin], data: { roles: ['admin']}
+      },
+      {path: 'profil', component:Profil,
+        canActivate: [authGuardAdmin, roleGuardAdmin], data: { roles: ['admin']}
       },
     ],
   },

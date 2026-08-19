@@ -78,12 +78,14 @@
       </button>
 
       <!-- UTILISATEUR -->
-      <ng-container *ngIf="userConnecte() as user">
-        <div class="flex flex-col items-center min-w-[150px]">
-          <span class="text-[18px] font-bold text-slate-800">{{ user.first_name }} {{ user.last_name }}</span>
-          <span class="mt-0.5 text-sm font-bold uppercase text-green-600">{{ user.role }}</span>
-        </div>
-      </ng-container>
+      <a routerLink="/admin/profil">
+        <ng-container *ngIf="userConnecte() as user">
+          <div class="flex flex-col items-center min-w-[150px]">
+            <span class="text-[18px] font-bold text-slate-800">{{ user.first_name }} {{ user.last_name }}</span>
+            <span class="mt-0.5 text-sm font-bold uppercase text-green-600">{{ user.role }}</span>
+          </div>
+        </ng-container>
+      </a>
 
     </div> <!-- Fermeture de PARTIE DROITE -->
   </div> <!-- Fermeture du container principal -->

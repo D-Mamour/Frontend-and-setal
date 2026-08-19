@@ -1,0 +1,100 @@
+<div class="min-h-screen bg-slate-50 ml-0 lg:ml-64">
+  <!-- ESPACE HEADER -->
+  <div class="h-20"></div>
+
+  <!-- CONTENU -->
+  <main class="px-4 py-6 sm:px-6 lg:px-10">
+
+    @if (userConnecte()) {
+    <!-- TITRE -->
+    <div class="mb-8">
+      <h1 class="text-2xl font-bold text-slate-800 sm:text-3xl">Mon profil</h1>
+
+      <p class="mt-1 text-sm text-slate-500 sm:text-base">
+        Gérez vos informations personnelles et les paramètres de votre compte.
+      </p>
+    </div>
+
+    <!-- PROFIL -->
+    <section class="mx-auto max-w-5xl overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm">
+      <!-- HEADER PROFIL -->
+      <div class="bg-gradient-to-r from-green-50 to-white px-6 py-8 sm:px-8">
+        <div class="flex flex-col gap-6 sm:flex-row sm:items-center">
+          <!-- PHOTO -->
+          <div
+            class="flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-2xl border-4 border-white bg-green-100 shadow-sm">
+            <i class="fa-solid fa-user text-4xl text-green-600"></i>
+          </div>
+
+          <!-- INFORMATIONS -->
+          <div>
+            <h2 class="text-2xl font-bold text-slate-800">{{ userConnecte()?.first_name }} {{ userConnecte()?.last_name }}</h2>
+
+            <!-- ROLE -->
+            <div class="mt-2 flex items-center gap-2">
+              <span class="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">
+                {{ userConnecte()?.role}}
+              </span>
+
+              <span class="flex items-center gap-1 text-xs text-slate-500">
+                <span class="h-2 w-2 rounded-full bg-green-600"></span>
+                Compte actif
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- INFORMATIONS PERSONNELLES -->
+      <div class="border-t border-slate-100 px-6 py-8 sm:px-8">
+        <div class="mb-6">
+          <h3 class="text-lg font-bold text-slate-800">Informations personnelles</h3>
+
+          <p class="mt-1 text-sm text-slate-400">Les informations associées à votre compte.</p>
+        </div>
+
+        <!-- GRILLE -->
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <!-- NOM -->
+          <div>
+            <label class="mb-2 block text-sm font-semibold text-slate-700"> Nom </label>
+
+            <input type="text"
+              [ngModel]="userConnecte()?.last_name"
+              class="h-14 w-full rounded-xl bg-slate-100 px-4 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-green-700/20" />
+          </div>
+
+          <!-- PRENOM -->
+          <div>
+            <label class="mb-2 block text-sm font-semibold text-slate-700"> Prénom </label>
+
+            <input type="text" [ngModel]="userConnecte()?.first_name"
+              class="h-14 w-full rounded-xl bg-slate-100 px-4 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-green-700/20" />
+          </div>
+
+          <!-- EMAIL -->
+          <div>
+            <label class="mb-2 block text-sm font-semibold text-slate-700"> Adresse email </label>
+
+            <input type="email" [ngModel]="userConnecte()?.email"
+              class="h-14 w-full rounded-xl bg-slate-100 px-4 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-green-700/20" />
+          </div>
+
+          <!-- TELEPHONE -->
+          <div>
+            <label class="mb-2 block text-sm font-semibold text-slate-700"> Téléphone </label>
+
+            <input type="tel" [ngModel]="userConnecte()?.telephone"
+              class="h-14 w-full rounded-2xl bg-slate-100 px-4 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-green-700/20" />
+          </div>
+        </div>
+      </div>
+
+      
+    </section>
+
+    }
+
+  </main>
+
+</div>

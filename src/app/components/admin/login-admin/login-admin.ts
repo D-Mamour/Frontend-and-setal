@@ -12,7 +12,7 @@ import { emailValidator, passwordValidator } from '../../../Services/login-valid
   imports: [FormsModule, ReactiveFormsModule,CommonModule],
 })
 export class LoginAdmin {
-  
+
   loginForm: FormGroup;
   errorMessage = '';
   successMessage = '';
@@ -33,7 +33,6 @@ export class LoginAdmin {
       password: ['', [
         Validators.required,
         Validators.minLength(8),
-        passwordValidator()
       ]],
       rememberMe: [false]
     });
@@ -51,9 +50,9 @@ export class LoginAdmin {
         next: (response) => {
           this.isLoading = false;
           this.successMessage = 'Connexion réussie ! Redirection...';
-          
+
           setTimeout(() => {
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/admin/dashboard']);
           }, 1000);
         },
         error: (error) => {
