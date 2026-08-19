@@ -19,4 +19,6 @@ export interface Incident {
   type_incident: string,
   priorite: string;
   urlImage: string;
+  type_incident: string | null; // Ajout du champ provenant du Serializer Django
+  citoyen?: number; // Optionnel : si vous souhaitez aussi manipuler l'ID du citoyen plus tard
 }
