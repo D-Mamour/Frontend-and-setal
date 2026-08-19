@@ -1,13 +1,12 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Navbar } from '../../../navbar/navbar';
 import { IncidentService } from '../../../../Services/incident.service';
-import { Incident } from '../../../../Models/incident.model';
 import { DatePipe, DecimalPipe, NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-mes-signalement',
-  imports: [Navbar, NgClass, DecimalPipe, DatePipe],
+  imports: [Navbar, RouterLink, NgClass, DecimalPipe, DatePipe],
   templateUrl: './mes-signalement.html',
   styleUrl: './mes-signalement.css',
 })

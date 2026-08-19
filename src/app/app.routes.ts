@@ -17,6 +17,7 @@ import { SignalementMap } from './components/agent/signalement-map/signalement-m
 import { SignalementDetailAdmin } from './components/admin/signalement-detail-admin/signalement-detail-admin';
 import { authGuard } from './guards/auth.guard';
 import { roleGuard } from './guards/role.guard';
+import { DetailSignalement } from './components/citoyen/detail-signalement/detail-signalement';
 
 export const routes: Routes = [
 
@@ -27,6 +28,9 @@ export const routes: Routes = [
   {path: 'signaler-probleme', component: SignalerProbleme},
   {path: 'signalement-success', component: SignalementSuccess},
   {path: 'signalements', component: MesSignalement,
+    canActivate: [authGuard, roleGuard], data: { roles: ['citoyen']
+  }},
+  {path: 'signalements/detail/:id', component: DetailSignalement,
     canActivate: [authGuard, roleGuard], data: { roles: ['citoyen']
   }},
 
@@ -40,7 +44,6 @@ export const routes: Routes = [
   {path: 'agent/signalements/map', component: SignalementMap,
     canActivate: [authGuard, roleGuard], data: { roles: ['agent']}
   },
-
 
   // ESPACE ADMIN
   {path: 'admin/login', component: LoginAdmin},

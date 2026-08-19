@@ -26,6 +26,24 @@ export class SignalerProbleme implements OnInit {
   isSubmitting = signal(false);
   submitError = signal<string | null>(null);
 
+  // Etat de l'enregistrement
+  isRecording = signal(false);
+
+  // Durée de l'enregistrement
+  recordingTime = signal(0);
+
+  // Audio enregistré
+  audioBlob = signal<Blob | null>(null);
+
+  // URL permettant de lire le vocal avant l'envoi
+  audioUrl = signal<string | null>(null);
+
+  private mediaRecorder?: MediaRecorder;
+
+  private audioChunks: Blob[] = [];
+
+  private recordingTimer?: ReturnType<typeof setInterval>;
+
   // INITIALISATION
   ngOnInit(): void {
     // On demande automatiquement la position lors de l'ouverture de la page.
@@ -77,6 +95,85 @@ export class SignalerProbleme implements OnInit {
     };
     reader.readAsDataURL(file);
 
+  }
+
+  //ENREGISTREMENT VOCAL
+  async startRecording(): Promise<void> {
+
+    try {
+
+      const stream = await navigator.mediaDevices.getUserMedia({audio: true});
+      this.audioChunks = [];
+      this.mediaRecorder = new MediaRecorder(stream);
+      this.mediaRecorder.ondataavailable = (event) => {
+
+        if (event.data.size > 0) {
+          this.audioChunks.push(event.data);
+        }
+
+      };
+
+      this.mediaRecorder.onstop = () => {
+        const blob = new Blob(
+          this.audioChunks,
+          {
+            type: this.mediaRecorder?.mimeType || 'audio/webm'
+          }
+        );
+
+        this.audioBlob.set(blob);
+        const url = URL.createObjectURL(blob);
+        this.audioUrl.set(url);
+
+        // Arrêter le microphone
+        stream.getTracks().forEach(track => track.stop());
+        console.log('Audio enregistré :', blob);
+
+      };
+
+      this.mediaRecorder.start();
+      this.isRecording.set(true);
+      this.recordingTime.set(0);
+      this.recordingTimer = setInterval(() => {
+        this.recordingTime.update(time => time + 1);
+      }, 1000);
+
+    } catch (error) {
+
+      console.log('Impossible d’accéder au microphone :', error);
+
+    }
+  }
+
+  stopRecording(): void {
+
+    if (!this.mediaRecorder) {
+      return;
+    }
+
+    this.mediaRecorder.stop();
+    this.isRecording.set(false);
+    if (this.recordingTimer) {
+      clearInterval(this.recordingTimer);
+    }
+  }
+
+  deleteRecording(): void {
+    this.audioBlob.set(null);
+
+    if (this.audioUrl()) {
+      URL.revokeObjectURL(this.audioUrl()!);
+    }
+
+    this.audioUrl.set(null);
+    this.recordingTime.set(0);
+  }
+
+  formatTime(seconds: number): string {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+
+    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
   }
 
 
@@ -207,6 +304,18 @@ export class SignalerProbleme implements OnInit {
     if (description) {
       formData.append('description',description);
     }
+
+    //Vocal facultative
+    if (this.audioBlob()) {
+
+    const audioFile = new File([this.audioBlob()!], 'message-vocal.webm',
+      {
+        type: this.audioBlob()!.type
+      }
+    );
+
+    formData.append('messageVocal', audioFile);
+  }
 
     // Appel API
     this.incidentService.createIncident(formData).subscribe({

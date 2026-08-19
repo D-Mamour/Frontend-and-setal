@@ -29,4 +29,8 @@ export class IncidentService {
         })
       );
   }
+
+  getIncidentById(id: number): Observable<Incident>{
+    return this.httpClient.get<Incident>(`${this.baseUrl}/incidents/${id}/`);
+  }
 }

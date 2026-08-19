@@ -30,7 +30,7 @@ profil(): Observable<User> {
 }
 
 
-incident(): Observable<Incident[]> {
+incidents(): Observable<Incident[]> {
   return this.httpclient.get<Incident[]>(`${this.baseUrl}/incidents/tous`) // Interroge votre incident.urls
     .pipe(
       tap(signalements => this.listeSignalements.set(signalements))

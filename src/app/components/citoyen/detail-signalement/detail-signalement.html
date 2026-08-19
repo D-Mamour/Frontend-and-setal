@@ -1,0 +1,127 @@
+<div class="min-h-screen bg-[#F4F2EC] flex flex-col">
+
+  <!-- Header -->
+  <header class="flex items-center justify-start px-4 pt-6 pb-4">
+    <button type="button" (click)="retour()" aria-label="Retour"
+      class="w-10 h-10 flex items-center justify-center rounded-2xl bg-white shadow-sm active:scale-95 transition">
+      <i class="fa-solid fa-chevron-left text-gray-800"></i>
+    </button>
+
+    <h1 class="text-lg font-extrabold text-gray-900 ml-5">
+      Détail signalement
+    </h1>
+  </header>
+
+  <main class="flex-1 px-4 pt-1 pb-28">
+
+    <!-- État : chargement -->
+    @if (chargement()) {
+      <div class="flex flex-col items-center justify-center py-24 text-gray-400">
+        <i class="fa-solid fa-circle-notch fa-spin text-2xl mb-3"></i>
+        <p class="text-sm">Chargement du dossier…</p>
+      </div>
+    }
+
+    <!-- État : erreur -->
+    @else if (erreur()) {
+      <div class="flex flex-col items-center justify-center py-24 text-center px-6">
+        <div class="w-14 h-14 rounded-2xl bg-rose-100 flex items-center justify-center mb-4">
+          <i class="fa-solid fa-triangle-exclamation text-rose-600 text-xl"></i>
+        </div>
+        <p class="font-bold text-gray-900 mb-1">Dossier introuvable</p>
+        <p class="text-sm text-gray-500 mb-5">Ce signalement n'existe plus ou n'a pas pu être chargé.</p>
+        <button (click)="retour()"
+          class="px-5 py-2.5 rounded-xl bg-[#1F6F5C] text-white text-sm font-semibold active:scale-95 transition">
+          Retour à la liste
+        </button>
+      </div>
+    }
+
+    <!-- Contenu -->
+    @else if (incident(); as inc) {
+
+      <!-- Photo + tampon de statut -->
+      <div class="relative rounded-3xl overflow-hidden shadow-sm mb-5">
+        @if (inc.urlImage) {
+          <img [src]="inc.urlImage" alt="Photo du signalement"
+            class="w-full h-56 object-cover" />
+        } @else {
+          <div class="w-full h-56 bg-gray-200 flex items-center justify-center">
+            <i class="fa-solid fa-image text-gray-400 text-3xl"></i>
+          </div>
+        }
+
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent"></div>
+
+        <!-- Tampon rotatif -->
+        <span
+          [class]="'absolute top-4 right-4  px-3 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wide shadow-sm ' + statutInfo().badge">
+          <span [class]="'inline-block w-1.5 h-1.5 rounded-full mr-1.5 align-middle ' + statutInfo().dot"></span>
+          {{ statutInfo().label }}
+        </span>
+      </div>
+
+      <!-- Titre / type -->
+      <h2 class="text-xl font-extrabold text-gray-900 mb-0.5">{{ typeLabel() }}</h2>
+      <p class="text-xs text-gray-400 mb-5">Signalement citoyen · priorité {{ prioriteLabel().toLowerCase() }}</p>
+
+      <!-- Description -->
+      <section class="bg-white rounded-2xl p-4 shadow-sm mb-4">
+        <p class="text-[11px] font-bold uppercase tracking-widest text-gray-400 mb-2">Description</p>
+        <p class="text-sm text-gray-700 leading-relaxed">
+          {{ inc.description || 'Aucune description fournie.' }}
+        </p>
+      </section>
+
+      <!-- Message vocal -->
+      @if (inc.messageVocal) {
+        <section class="bg-white rounded-2xl p-4 shadow-sm mb-4 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-[#1F6F5C]/10 flex items-center justify-center shrink-0">
+            <i class="fa-solid fa-microphone text-[#1F6F5C]"></i>
+          </div>
+          <audio [src]="inc.messageVocal" controls class="w-full h-9"></audio>
+        </section>
+      }
+
+      <!-- Localisation -->
+      <section class="bg-white rounded-2xl p-4 shadow-sm mb-4">
+        <p class="text-[11px] font-bold uppercase tracking-widest text-gray-400 mb-2">Localisation</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-[#1F6F5C]/10 flex items-center justify-center shrink-0">
+            <i class="fa-solid fa-location-dot text-[#1F6F5C]"></i>
+          </div>
+          <p class="text-sm font-semibold text-gray-900">
+            {{ inc.adresse || 'Adresse non disponible' }}
+          </p>
+          <p class="text-sm text-gray-700 font-mono">
+            {{ inc.latitude }}, {{ inc.longitude }}
+          </p>
+        </div>
+      </section>
+
+      <!-- Frise chronologique -->
+      <section class="bg-white rounded-2xl p-4 shadow-sm">
+        <p class="text-[11px] font-bold uppercase tracking-widest text-gray-400 mb-3">Suivi du dossier</p>
+
+        <div class="relative pl-5">
+          <div class="absolute left-[5px] top-1.5 bottom-1.5 w-px border-l-2 border-dashed border-gray-200"></div>
+
+          <div class="relative mb-4">
+            <span class="absolute -left-5 top-1 w-2.5 h-2.5 rounded-full bg-[#1F6F5C]"></span>
+            <p class="text-sm font-semibold text-gray-900">Signalement créé</p>
+            <p class="text-xs text-gray-400">{{ dateCreationFmt() }}</p>
+          </div>
+
+          <div class="relative">
+            <span class="absolute -left-5 top-1 w-2.5 h-2.5 rounded-full bg-gray-300"></span>
+            <p class="text-sm font-semibold text-gray-900">Dernière mise à jour</p>
+            <p class="text-xs text-gray-400">{{ dateModifFmt() }}</p>
+          </div>
+        </div>
+      </section>
+
+    }
+  </main>
+
+  <app-navbar></app-navbar>
+</div>

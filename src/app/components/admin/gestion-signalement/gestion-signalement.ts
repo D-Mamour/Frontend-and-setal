@@ -31,7 +31,7 @@ export class GestionSignalement implements OnInit{
     this.loading.set(true);
     this.errorMessage.set('');
 
-    this.incidentService.incident().subscribe({
+    this.incidentService.incidents().subscribe({
       next: (signalement) =>{
         console.log("signalements recuperer", signalement);
       },
