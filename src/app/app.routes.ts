@@ -49,7 +49,7 @@ export const routes: Routes = [
     children: [
       { path: 'dashboard', component: Dashboard },
       { path: 'signalements', component: GestionSignalement},
-      { path: 'signalements/detail', component: SignalementDetailAdmin},
+      { path: 'signalements/detail/:id', component: SignalementDetailAdmin},
       { path: 'statistiques', component: AdminAnalyse},
       { path: 'parametres', component: AdminSecurite},
     ],
