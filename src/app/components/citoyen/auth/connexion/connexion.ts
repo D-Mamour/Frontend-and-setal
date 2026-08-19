@@ -1,12 +1,14 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../../Services/auth-citoyen.service';
 import { UserRole } from '../../../../Models/auth/utilisateur';
 
 @Component({
   selector: 'app-connexion',
-  imports: [RouterLink, ReactiveFormsModule],
+  standalone: true,
+  imports: [RouterLink, ReactiveFormsModule, CommonModule],
   templateUrl: './connexion.html',
   styleUrl: './connexion.css',
 })
@@ -20,7 +22,7 @@ export class Connexion {
 
     loginForm= this.fb.nonNullable.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      password: ['', [Validators.required, Validators.minLength(0)]],
    });
 
     seConnecter(){

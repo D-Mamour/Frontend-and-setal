@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { Navbar } from '../../../navbar/navbar';
 import { IncidentService } from '../../../../Services/incident.service';
 import { Incident } from '../../../../Models/incident.model';
-import { DatePipe, DecimalPipe, NgClass } from '@angular/common';
+import { DatePipe, DecimalPipe, NgClass, CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-mes-signalement',
-  imports: [Navbar, NgClass, DecimalPipe, DatePipe],
+  standalone: true,
+  imports: [Navbar, NgClass, DecimalPipe, DatePipe, CommonModule],
   templateUrl: './mes-signalement.html',
   styleUrl: './mes-signalement.css',
 })

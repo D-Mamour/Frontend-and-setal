@@ -168,9 +168,7 @@
 
           <tbody class="divide-y divide-slate-100">
 
-            @for (incident of signalementsFiltres(); track incident.id) {
-
-            <tr class="hover:bg-slate-50">
+            <tr *ngFor="let incident of signalements()" class="hover:bg-slate-50">
               <td class="px-6 py-5">
                 <div class="flex items-center gap-3">
                   <div class="w-9 h-9 rounded-lg bg-red-50 flex items-center justify-center">
@@ -227,35 +225,7 @@
                 </a>
               </td>
             </tr>
-            }
 
-            @empty {
-
-            <tr>
-
-              <td colspan="7" class="px-6 py-16 text-center">
-
-                <div class="flex flex-col items-center">
-
-                  <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center">
-                    <i class="fa-solid fa-inbox text-slate-400"></i>
-                  </div>
-
-                  <p class="mt-4 text-sm font-semibold text-slate-600">
-                    Aucun signalement
-                  </p>
-
-                  <p class="mt-1 text-xs text-slate-400">
-                    Aucun signalement ne correspond à ce statut.
-                  </p>
-
-                </div>
-
-              </td>
-
-            </tr>
-
-            }
           </tbody>
         </table>
       </div>

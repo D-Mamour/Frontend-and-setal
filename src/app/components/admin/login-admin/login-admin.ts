@@ -8,7 +8,8 @@ import { emailValidator, passwordValidator } from '../../../Services/login-valid
 @Component({
   selector: 'app-login-admin',
   templateUrl: './login-admin.html',
-  imports: [FormsModule, ReactiveFormsModule,CommonModule], 
+  standalone: true,
+  imports: [FormsModule, ReactiveFormsModule,CommonModule],
 })
 export class LoginAdmin {
   

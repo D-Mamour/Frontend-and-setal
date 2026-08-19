@@ -199,41 +199,23 @@
                  md:h-[280px]
                  md:gap-6">
 
-          @for (quartier of quartiers; track quartier.nom) {
-
-          <div class="flex h-full
-                     min-w-0 flex-1
-                     flex-col items-center
-                     justify-end">
+          <div *ngFor="let quartier of quartiers" class="flex h-full min-w-0 flex-1 flex-col items-center justify-end">
 
             <!-- VALEUR -->
-            <div class="flex w-full
-                       flex-1 items-end
-                       justify-center">
+            <div class="flex w-full flex-1 items-end justify-center">
 
-              <div class="w-full max-w-[52px]
-                         rounded-t-none
-                         bg-green-700
-                         transition-all
-                         duration-300
-                         md:max-w-[70px]" [style.height.%]="
-                    (quartier.valeur / hauteurMax) * 100
-                  "></div>
+              <div class="w-full max-w-[52px] rounded-t-none bg-green-700 transition-all duration-300 md:max-w-[70px]">
+                <!-- bar -->
+              </div>
 
             </div>
 
-
             <!-- NOM -->
-            <span class="mt-2 truncate
-                       text-[11px]
-                       text-slate-500
-                       md:text-xs">
+            <span class="mt-2 truncate text-[11px] text-slate-500 md:text-xs">
               {{ quartier.nom }}
             </span>
 
           </div>
-
-          }
 
         </div>
 
@@ -273,62 +255,54 @@
 
 
 
+
+
+
+
       <div class="space-y-4">
-        @if (estEnChargement) {
-        <p class="text-sm text-slate-500">Chargement des signalements...</p>
-        } @else if (messageErreur) {
-        <p class="text-sm text-red-600">{{ messageErreur }}</p>
-        } @else if (signalements.length === 0) {
-        <p class="text-sm text-slate-500">Aucun signalement trouvé.</p>
-        } @else {
 
-        @for (signalement of signalements;track signalement.id)
-        {
+        <ng-container *ngIf="estEnChargement(); else notLoading">
+          <p class="text-sm text-slate-500">Chargement des signalements...</p>
+        </ng-container>
 
-        <article class="flex items-center gap-4
-                   rounded-[26px]
-                   border border-slate-100
-                   bg-white p-4
-                   shadow-sm
-                   md:p-5">
+        <ng-template #notLoading>
+          <ng-container *ngIf="messageErreur(); else hasData">
+            <p class="text-sm text-red-600">{{ messageErreur() }}</p>
+          </ng-container>
+        </ng-template>
 
-          <!-- IMAGE -->
-          <img [src]="signalement.urlImage" [alt]="" class="h-16 w-16 shrink-0
-                     rounded-2xl
-                     object-cover
-                     md:h-20 md:w-20" />
+        <ng-template #hasData>
+          <ng-container *ngIf="signalements() && signalements().length === 0; else listSignalements">
+            <p class="text-sm text-slate-500">Aucun signalement trouvé.</p>
+          </ng-container>
+        </ng-template>
 
+        <ng-template #listSignalements>
+          <article *ngFor="let signalement of signalements()" class="flex items-center gap-4 rounded-[26px] border border-slate-100 bg-white p-4 shadow-sm md:p-5 cursor-pointer" [routerLink]="['/agent/signalements', signalement.id]">
 
-          <!-- INFORMATIONS -->
-          <div class="min-w-0 flex-1">
+            <!-- IMAGE -->
+            <img [src]="signalement.urlImage" [alt]="signalement.description || 'Signalement'" class="h-16 w-16 shrink-0 rounded-2xl object-cover md:h-20 md:w-20" />
 
-            <h3 class="text-sm font-bold
-                       text-slate-900
-                       md:text-base">
-              le titre de l'IA ICI....
-            </h3>
+            <!-- INFORMATIONS -->
+            <div class="min-w-0 flex-1">
 
-            <p class="mt-1 text-xs
-                       text-slate-500
-                       md:text-sm">
-              {{ signalement.statut }}
-              • {{ formatTemps(signalement.dateCreation)}}
-            </p>
+              <h3 class="text-sm font-bold text-slate-900 md:text-base">
+                {{ titre() || ('Signalement #' + signalement.id) }}
+              </h3>
 
-          </div>
+              <p class="mt-1 text-xs text-slate-500 md:text-sm">
+                {{ signalement.statut }} • {{ formatTemps(signalement.dateCreation) }}
+              </p>
 
+            </div>
 
-          <!-- PRIORITE -->
-          <span
-            class="shrink-0 rounded-xl px-3 py-2 text-[10px] font-black md:text-xs"
-            [ngClass]="[classePriorite(signalement.priorite).bg, classePriorite(signalement.priorite).text]">
-            {{ signalement.priorite }}
-          </span>
+            <!-- PRIORITE -->
+            <span class="shrink-0 rounded-xl px-3 py-2 text-[10px] font-black md:text-xs" [ngClass]="[classePriorite(signalement.priorite).bg, classePriorite(signalement.priorite).text]">
+              {{ signalement.priorite }}
+            </span>
 
-        </article>
-
-        }
-      }
+          </article>
+        </ng-template>
 
       </div>
 

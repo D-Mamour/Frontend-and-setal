@@ -29,38 +29,20 @@
         (change)="onImageSelected($event)"
       />
 
-      @if (imagePreview(); as preview) {
-        <!-- Image sélectionnée -->
-
-        <button
-          type="button"
-          (click)="imageInput.click()"
-          class="relative w-full h-56 overflow-hidden rounded-3xl"
-        >
+      <ng-container *ngIf="imagePreview() as preview; else noPreview">
+        <button type="button" (click)="imageInput.click()" class="relative w-full h-56 overflow-hidden rounded-3xl">
           <img [src]="preview" alt="Aperçu du signalement" class="w-full h-full object-cover" />
-
           <div class="absolute bottom-0 left-0 right-0 bg-black/50 px-4 py-3 text-left">
             <p class="text-white text-sm font-semibold">Cliquez pour modifier la photo</p>
           </div>
         </button>
-
-      } @else {
-        <!-- Pas encore d'image -->
-
-        <button
-          type="button"
-          (click)="imageInput.click()"
-          class="w-full h-56 rounded-3xl border-2 border-dashed border-gray-300 flex flex-col items-center justify-center gap-3 bg-gray-50 active:scale-[0.99] transition"
-        >
-          <span class="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center">
-            <i class="fa-solid fa-camera text-green-700 text-xl"></i>
-          </span>
-
-          <span class="text-gray-500 font-medium text-sm px-6 text-center">
-            Cliquez pour ajouter une photo du problème
-          </span>
+      </ng-container>
+      <ng-template #noPreview>
+        <button type="button" (click)="imageInput.click()" class="w-full h-56 rounded-3xl border-2 border-dashed border-gray-300 flex flex-col items-center justify-center gap-3 bg-gray-50 active:scale-[0.99] transition">
+          <span class="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center"><i class="fa-solid fa-camera text-green-700 text-xl"></i></span>
+          <span class="text-gray-500 font-medium text-sm px-6 text-center">Cliquez pour ajouter une photo du problème</span>
         </button>
-      }
+      </ng-template>
     </section>
 
     <!-- DESCRIPTION -->
@@ -118,11 +100,8 @@
         >
           <i class="fa-solid fa-arrows-rotate text-xs"></i>
 
-          @if (locationLoading()) {
-            Localisation...
-          } @else {
-            Actualiser
-          }
+          <ng-container *ngIf="locationLoading(); else notLoadingLoc">Localisation...</ng-container>
+          <ng-template #notLoadingLoc>Actualiser</ng-template>
         </button>
       </div>
 
@@ -134,19 +113,14 @@
         </div>
 
         <div class="flex-1 min-w-0">
-          @if (latitude() !== null && longitude() !== null) {
+          <ng-container *ngIf="latitude() !== null && longitude() !== null; else notLocated">
             <p class="font-extrabold text-gray-900">Position récupérée</p>
-
-            <p class="text-gray-400 text-sm">
-              {{ latitude() | number: '1.4-6' }},
-              {{ longitude() | number: '1.4-6' }}
-            </p>
-
-          } @else {
+            <p class="text-gray-400 text-sm">{{ latitude() | number: '1.4-6' }}, {{ longitude() | number: '1.4-6' }}</p>
+          </ng-container>
+          <ng-template #notLocated>
             <p class="font-extrabold text-gray-900">Position non récupérée</p>
-
             <p class="text-gray-400 text-sm">Activez votre localisation</p>
-          }
+          </ng-template>
         </div>
 
         <button
@@ -158,26 +132,19 @@
         </button>
       </div>
 
-      @if (locationError(); as error) {
-        <p class="mt-2 text-xs text-red-600">
-          {{ error }}
-        </p>
-      }
+      <ng-container *ngIf="locationError() as error"><p class="mt-2 text-xs text-red-600">{{ error }}</p></ng-container>
     </section>
 
     <!-- ERREUR ENVOI -->
 
-    @if (submitError(); as error) {
+    <ng-container *ngIf="submitError() as error">
       <div class="rounded-2xl bg-red-50 border border-red-100 p-4 text-sm text-red-700">
         <div class="flex items-start gap-3">
           <i class="fa-solid fa-circle-exclamation mt-0.5"></i>
-
-          <p>
-            {{ error }}
-          </p>
+          <p>{{ error }}</p>
         </div>
       </div>
-    }
+    </ng-container>
   </main>
 
   <!-- BOUTON ENVOI -->
@@ -189,15 +156,14 @@
       [disabled]="!canSubmit()"
       class="w-full rounded-2xl bg-[#2E7D32] text-white font-bold py-4 flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.99] transition"
     >
-      @if (isSubmitting()) {
+      <ng-container *ngIf="isSubmitting(); else notSubmitting">
         <i class="fa-solid fa-spinner fa-spin"></i>
-
         Envoi en cours...
-      } @else {
+      </ng-container>
+      <ng-template #notSubmitting>
         Envoyer le signalement
-
         <i class="fa-solid fa-paper-plane"></i>
-      }
+      </ng-template>
     </button>
   </div>
 </div>

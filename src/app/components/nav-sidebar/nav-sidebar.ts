@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-nav-sidebar',
+  standalone: true,
   imports: [FontAwesomeModule, CommonModule],
   templateUrl: './nav-sidebar.html',
   styleUrl: './nav-sidebar.css',

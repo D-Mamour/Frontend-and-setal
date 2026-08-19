@@ -1,5 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from "@angular/router";
+import { CommonModule } from '@angular/common';
 import { AdminprofilService } from '../../../Services/admin-dashboard-service';
 import { DatePipe, NgClass } from '@angular/common';
 import { Incident } from '../../../Models/incident.model';

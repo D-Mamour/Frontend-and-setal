@@ -1,297 +1,320 @@
 <div class="min-h-screen bg-[#f5f7f7]">
-  <!-- ========================================================= -->
-  <!-- HERO -->
-  <!-- ========================================================= -->
 
-  <section
-    class="relative h-[466px] w-full overflow-hidden sm:h-[500px] lg:h-[500px] lg:w-auto lg:rounded-bl-[32px]"
-  >
-    <!-- ======================================================= -->
-    <!-- IMAGE -->
-    <!-- ======================================================= -->
+  <ng-container *ngIf="estEnChargement(); else notLoading">
 
-    <img
-      [src]="signalement.image"
-      [alt]="signalement.titre"
-      class="absolute inset-0 h-full w-full object-cover object-center"
-    />
+    <!-- ========================================================= -->
+    <!-- CHARGEMENT -->
+    <!-- ========================================================= -->
+    <div class="flex min-h-screen items-center justify-center">
+      <p class="text-sm font-medium text-slate-500">Chargement du signalement...</p>
+    </div>
 
-    <!-- ======================================================= -->
-    <!-- OVERLAY -->
-    <!-- ======================================================= -->
+  </ng-container>
 
-    <div class="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/60"></div>
+  <ng-template #notLoading>
+    <ng-container *ngIf="messageErreur(); else hasSignalement">
+      <!-- ========================================================= -->
+      <!-- ERREUR -->
+      <!-- ========================================================= -->
+      <div class="flex min-h-screen flex-col items-center justify-center gap-4 px-6 text-center">
+        <p class="text-sm font-medium text-red-600">{{ messageErreur() }}</p>
+        <button
+          type="button"
+          (click)="goBack()"
+          class="rounded-full bg-green-700 px-5 py-2 text-sm font-bold text-white transition hover:bg-green-800"
+        >
+          Retour
+        </button>
+      </div>
+    </ng-container>
+  </ng-template>
 
-    <!-- ======================================================= -->
-    <!-- BOUTON RETOUR -->
-    <!-- ======================================================= -->
+  <ng-template #hasSignalement>
+    <ng-container *ngIf="signalement() as s; else notFound">
 
-    <button
-      type="button"
-      (click)="goBack()"
-      class="absolute left-4 top-9 z-20 flex h-[54px] w-[54px] items-center justify-center rounded-[20px] border border-white/20 bg-white/30 text-white backdrop-blur-md transition hover:bg-white/40 active:scale-95 lg:left-8"
+    <!-- ========================================================= -->
+    <!-- HERO -->
+    <!-- ========================================================= -->
+
+    <section
+      class="relative h-[466px] w-full overflow-hidden sm:h-[500px] lg:h-[500px] lg:w-auto lg:rounded-bl-[32px]"
     >
-      <i class="fa-solid fa-chevron-left text-[20px]"></i>
-    </button>
+      <!-- ======================================================= -->
+      <!-- IMAGE -->
+      <!-- ======================================================= -->
 
-    <!-- ======================================================= -->
-    <!-- ACTIONS -->
-    <!-- ======================================================= -->
+      <img
+        [src]="s.urlImage || 'images/telechargement.jpeg'"
+        [alt]="s.description || 'Photo du signalement'"
+        class="absolute inset-0 h-full w-full object-cover object-center"
+      />
 
-    <div class="absolute right-4 top-9 z-20 flex gap-3 lg:right-8">
-      <!-- PARTAGER -->
+      <!-- ======================================================= -->
+      <!-- OVERLAY -->
+      <!-- ======================================================= -->
+
+      <div class="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/60"></div>
+
+      <!-- ======================================================= -->
+      <!-- BOUTON RETOUR -->
+      <!-- ======================================================= -->
 
       <button
         type="button"
-        (click)="share()"
-        class="flex h-[54px] w-[54px] items-center justify-center rounded-[20px] border border-white/20 bg-black/30 text-white backdrop-blur-md transition hover:bg-black/40 active:scale-95"
+        (click)="goBack()"
+        class="absolute left-4 top-9 z-20 flex h-[54px] w-[54px] items-center justify-center rounded-[20px] border border-white/20 bg-white/30 text-white backdrop-blur-md transition hover:bg-white/40 active:scale-95 lg:left-8"
       >
-        <i class="fa-solid fa-share-nodes text-[18px]"></i>
+        <i class="fa-solid fa-chevron-left text-[20px]"></i>
       </button>
 
-      <!-- FAVORI -->
+      <!-- ======================================================= -->
+      <!-- ACTIONS -->
+      <!-- ======================================================= -->
 
-      <button
-        type="button"
-        (click)="toggleFavorite()"
-        class="flex h-[54px] w-[54px] items-center justify-center rounded-[20px] border border-white/20 bg-black/30 text-white backdrop-blur-md transition hover:bg-black/40 active:scale-95"
-      >
-        <i class="fa-solid fa-heart text-[20px]"></i>
-      </button>
-    </div>
+      <div class="absolute right-4 top-9 z-20 flex gap-3 lg:right-8">
+        <!-- PARTAGER -->
 
-    <!-- ======================================================= -->
-    <!-- STATUT -->
-    <!-- ======================================================= -->
+        <button
+          type="button"
+          (click)="share()"
+          class="flex h-[54px] w-[54px] items-center justify-center rounded-[20px] border border-white/20 bg-black/30 text-white backdrop-blur-md transition hover:bg-black/40 active:scale-95"
+        >
+          <i class="fa-solid fa-share-nodes text-[18px]"></i>
+        </button>
 
-    <div
-      class="absolute left-11 top-[248px] z-10 flex h-[36px] items-center gap-2 rounded-full bg-orange-500 px-4 text-[13px] font-extrabold tracking-wide text-white shadow-lg sm:left-12 lg:left-12"
-    >
-      <i class="fa-solid fa-clock text-[13px]"></i>
+        <!-- FAVORI -->
 
-      <span>
-        {{ signalement.statut }}
-      </span>
-    </div>
+        <button
+          type="button"
+          (click)="toggleFavorite()"
+          class="flex h-[54px] w-[54px] items-center justify-center rounded-[20px] border border-white/20 bg-black/30 text-white backdrop-blur-md transition hover:bg-black/40 active:scale-95"
+        >
+          <i class="fa-solid fa-heart text-[20px]"></i>
+        </button>
+      </div>
 
-    <!-- ======================================================= -->
-    <!-- ANALYSE IA -->
-    <!-- ======================================================= -->
-
-    <div class="absolute right-[34px] top-[286px] z-20 flex flex-col items-center lg:right-12">
-      <span class="text-[12px] font-extrabold uppercase tracking-wide text-red-600">
-        ANALYSE IA
-      </span>
+      <!-- ======================================================= -->
+      <!-- STATUT -->
+      <!-- ======================================================= -->
 
       <div
-        class="mt-1 flex h-[48px] w-[84px] flex-col items-center justify-center rounded-[12px] bg-[#c62828] text-white shadow-lg"
+        class="absolute left-11 top-[248px] z-10 flex h-[36px] items-center gap-2 rounded-full bg-orange-500 px-4 text-[13px] font-extrabold tracking-wide text-white shadow-lg sm:left-12 lg:left-12"
       >
-        <span class="text-[12px] font-bold"> {{ signalement.analyseIA.score }}% </span>
+        <i class="fa-solid fa-clock text-[13px]"></i>
 
-        <span class="text-[11px] font-semibold">
-          {{ signalement.analyseIA.niveau }}
+        <span>
+          {{ s.statut }}
         </span>
       </div>
-    </div>
 
-    <!-- ======================================================= -->
-    <!-- TITRE -->
-    <!-- ======================================================= -->
+      <!-- ======================================================= -->
+      <!-- ANALYSE IA -->
+      <!-- ======================================================= -->
 
-    <div
-      class="absolute left-7 top-[299px] z-10 max-w-[310px] sm:max-w-[370px] lg:left-12 lg:max-w-[500px]"
-    >
-      <h1
-        class="text-[38px] font-black leading-[1.05] tracking-[-1.5px] text-white drop-shadow-[0_2px_3px_rgba(0,0,0,0.5)] sm:text-[42px] lg:text-[48px]"
+      <ng-container *ngIf="s.AnalyseAI">
+        <div class="absolute right-[34px] top-[286px] z-20 flex flex-col items-center lg:right-12">
+          <span class="text-[12px] font-extrabold uppercase tracking-wide text-red-600">
+            ANALYSE IA
+          </span>
+
+          <div class="mt-1 flex h-[48px] w-[84px] flex-col items-center justify-center rounded-[12px] bg-[#c62828] text-white shadow-lg">
+            <span class="text-[12px] font-bold">{{ s.AnalyseAI.type_incident }}</span>
+            <span class="text-[11px] font-semibold">{{ s.AnalyseAI.niveau_urgence }}</span>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- ======================================================= -->
+      <!-- TITRE -->
+      <!-- ======================================================= -->
+
+      <div
+        class="absolute left-7 top-[299px] z-10 max-w-[310px] sm:max-w-[370px] lg:left-12 lg:max-w-[500px]"
       >
-        {{ signalement.titre }}
-      </h1>
-    </div>
+        <h1
+          class="text-[38px] font-black leading-[1.05] tracking-[-1.5px] text-white drop-shadow-[0_2px_3px_rgba(0,0,0,0.5)] sm:text-[42px] lg:text-[48px]"
+        >
+          {{ titre() || 'Signalement #' + s.id }} 
+        </h1>
+      </div>
 
-    <!-- ======================================================= -->
-    <!-- LOCALISATION -->
-    <!-- ======================================================= -->
+      <!-- ======================================================= -->
+      <!-- LOCALISATION -->
+      <!-- ======================================================= -->
 
-    <div class="absolute bottom-[20px] left-11 z-10 flex items-center gap-2 text-white lg:left-12">
-      <i class="fa-solid fa-location-dot text-[19px] text-green-600"></i>
+      <div class="absolute bottom-[20px] left-11 z-10 flex items-center gap-2 text-white lg:left-12">
+        <i class="fa-solid fa-location-dot text-[19px] text-green-600"></i>
 
-      <span class="text-[17px] font-medium">
-        {{ signalement.localisation }}
-      </span>
-    </div>
-  </section>
+        <span class="text-[17px] font-medium">
+          {{ s.latitude }} - {{ s.longitude }}
+        </span>
+      </div>
+    </section>
 
-  <!-- ========================================================= -->
-  <!-- CONTENU -->
-  <!-- ========================================================= -->
+    <!-- ========================================================= -->
+    <!-- CONTENU -->
+    <!-- ========================================================= -->
 
-  <main
-    class="relative z-30 mx-auto -mt-[31px] min-h-[850px] rounded-t-[38px] bg-[#f8faf9] px-7 pb-10 pt-[43px] sm:px-8 lg:-mt-[45px] lg:min-h-0 lg:rounded-t-[40px] lg:px-12 lg:pb-14 lg:pt-12"
-  >
-    <div class="mx-auto w-full lg:max-w-6xl">
-      <!-- ===================================================== -->
-      <!-- DESCRIPTION + INFORMATIONS -->
-      <!-- ===================================================== -->
+    <main
+      class="relative z-30 mx-auto -mt-[31px] min-h-[850px] rounded-t-[38px] bg-[#f8faf9] px-7 pb-10 pt-[43px] sm:px-8 lg:-mt-[45px] lg:min-h-0 lg:rounded-t-[40px] lg:px-12 lg:pb-14 lg:pt-12"
+    >
+      <div class="mx-auto w-full lg:max-w-6xl">
+        <!-- ===================================================== -->
+        <!-- DESCRIPTION + INFORMATIONS -->
+        <!-- ===================================================== -->
 
-      <section class="lg:grid lg:grid-cols-[1fr_auto] lg:items-start lg:gap-14">
-        <!-- DESCRIPTION -->
+        <section class="lg:grid lg:grid-cols-[1fr_auto] lg:items-start lg:gap-14">
+          <!-- DESCRIPTION -->
 
-        <div>
+          <div>
+            <h2
+              class="text-[23px] font-black leading-7 tracking-[-0.5px] text-[#101827] lg:text-[26px]"
+            >
+              Description
+            </h2>
+
+            <p
+              class="mt-3 text-[17px] leading-[1.7] text-[#53647d] lg:max-w-3xl lg:text-[16px] lg:leading-7"
+            >
+              {{ s.description || 'Aucune description fournie.' }}
+            </p>
+          </div>
+
+          <!-- INFORMATIONS -->
+
+          <div class="mt-4 flex gap-5 lg:mt-0 lg:flex-col lg:gap-3">
+            <!-- DATE -->
+
+            <div
+              class="flex h-[42px] min-w-[146px] items-center gap-3 rounded-[18px] bg-[#f0f4f8] px-4"
+            >
+              <i class="fa-solid fa-calendar text-[15px] text-[#64748b]"></i>
+
+              <span class="text-[14px] font-bold leading-5 text-[#64748b]">
+                {{ s.dateCreation | date: 'dd/MM/yyyy à HH:mm' }}
+              </span>
+            </div>
+
+            <!-- AUTEUR -->
+
+            <div
+              class="flex h-[42px] min-w-[124px] items-center gap-3 rounded-[18px] bg-[#f0f4f8] px-4"
+            >
+              <i class="fa-solid fa-user text-[15px] text-[#64748b]"></i>
+
+              <span class="text-[14px] font-bold text-[#64748b]">
+                Signalement #{{ s.id }}
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================== -->
+        <!-- SUIVI -->
+        <!-- ===================================================== -->
+
+        <section class="mt-[42px] lg:mt-12 lg:max-w-3xl">
           <h2
             class="text-[23px] font-black leading-7 tracking-[-0.5px] text-[#101827] lg:text-[26px]"
           >
-            Description
+            Suivi du signalement
           </h2>
 
-          <p
-            class="mt-3 text-[17px] leading-[1.7] text-[#53647d] lg:max-w-3xl lg:text-[16px] lg:leading-7"
-          >
-            {{ signalement.description }}
-          </p>
-        </div>
+          <!-- TIMELINE -->
 
-        <!-- INFORMATIONS -->
+          <div class="relative mt-7">
+            <!-- LIGNE -->
 
-        <div class="mt-4 flex gap-5 lg:mt-0 lg:flex-col lg:gap-3">
-          <!-- DATE -->
+            <div class="absolute left-[19px] top-[39px] h-[207px] w-[2px] bg-[#dce4ec]"></div>
 
-          <div
-            class="flex h-[42px] min-w-[146px] items-center gap-3 rounded-[18px] bg-[#f0f4f8] px-4"
-          >
-            <i class="fa-solid fa-calendar text-[15px] text-[#64748b]"></i>
+            <!-- ETAPES -->
 
-            <span class="text-[14px] font-bold leading-5 text-[#64748b]">
-              {{ signalement.date }}
-            </span>
-          </div>
-
-          <!-- AUTEUR -->
-
-          <div
-            class="flex h-[42px] min-w-[124px] items-center gap-3 rounded-[18px] bg-[#f0f4f8] px-4"
-          >
-            <i class="fa-solid fa-user text-[15px] text-[#64748b]"></i>
-
-            <span class="text-[14px] font-bold text-[#64748b]">
-              {{ signalement.auteur }}
-            </span>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===================================================== -->
-      <!-- SUIVI -->
-      <!-- ===================================================== -->
-
-      <section class="mt-[42px] lg:mt-12 lg:max-w-3xl">
-        <h2
-          class="text-[23px] font-black leading-7 tracking-[-0.5px] text-[#101827] lg:text-[26px]"
-        >
-          Suivi du signalement
-        </h2>
-
-        <!-- TIMELINE -->
-
-        <div class="relative mt-7">
-          <!-- LIGNE -->
-
-          <div class="absolute left-[19px] top-[39px] h-[207px] w-[2px] bg-[#dce4ec]"></div>
-
-          <!-- ETAPES -->
-
-          @for (step of timeline; track step.titre) {
-            <div class="relative flex gap-5 [&+div]:mt-[38px]">
+            <div *ngFor="let step of timeline()" class="relative flex gap-5 [&+div]:mt-[38px]">
               <!-- ICONE -->
 
-              @if (step.statut === 'termine') {
-                <div
-                  class="relative z-10 flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full border-[5px] border-[#dff1e1] bg-green-700 text-white"
-                >
+              <ng-container *ngIf="step.statut === 'termine'">
+                <div class="relative z-10 flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full border-[5px] border-[#dff1e1] bg-green-700 text-white">
                   <i class="fa-solid fa-check text-[13px]"></i>
                 </div>
-              }
+              </ng-container>
 
-              @if (step.statut === 'actuel') {
-                <div
-                  class="relative z-10 flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full bg-orange-500 text-white shadow-[0_0_0_6px_rgba(249,115,22,0.10)]"
-                >
+              <ng-container *ngIf="step.statut === 'actuel'">
+                <div class="relative z-10 flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full bg-orange-500 text-white shadow-[0_0_0_6px_rgba(249,115,22,0.10)]">
                   <i class="fa-solid fa-truck text-[13px]"></i>
                 </div>
-              }
+              </ng-container>
 
-              @if (step.statut === 'attente') {
-                <div
-                  class="relative z-10 flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full bg-[#e5edf6] text-[#9aaac0]"
-                >
+              <ng-container *ngIf="step.statut === 'attente'">
+                <div class="relative z-10 flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full bg-[#e5edf6] text-[#9aaac0]">
                   <i class="fa-solid fa-flag-checkered text-[13px]"></i>
                 </div>
-              }
+              </ng-container>
 
               <!-- CONTENU -->
-
               <div class="pt-[3px]">
-                <h3
-                  class="text-[17px] font-extrabold leading-5 lg:text-[18px]"
-                  [class.text-[#111827]]="step.statut !== 'attente'"
-                  [class.text-[#9aaac0]]="step.statut === 'attente'"
-                >
+                <h3 class="text-[17px] font-extrabold leading-5 lg:text-[18px]" [class.text-[#111827]]="step.statut !== 'attente'" [class.text-[#9aaac0]]="step.statut === 'attente'">
                   {{ step.titre }}
                 </h3>
 
-                @if (step.date) {
-                  <p class="mt-1 text-[14px] text-[#718096]">
-                    {{ step.date }}
-                  </p>
-                }
+                <ng-container *ngIf="step.date">
+                  <p class="mt-1 text-[14px] text-[#718096]">{{ step.date | date: 'dd/MM/yyyy à HH:mm' }}</p>
+                </ng-container>
 
-                @if (step.description) {
-                  <p class="mt-1 max-w-[300px] text-[14px] leading-5 text-[#718096]">
-                    {{ step.description }}
-                  </p>
-                }
+                <ng-container *ngIf="step.description">
+                  <p class="mt-1 max-w-[300px] text-[14px] leading-5 text-[#718096]">{{ step.description }}</p>
+                </ng-container>
 
-                @if (step.label) {
-                  <span class="mt-1 block text-[12px] font-extrabold tracking-wide text-orange-500">
-                    {{ step.label }}
-                  </span>
-                }
+                <ng-container *ngIf="step.label">
+                  <span class="mt-1 block text-[12px] font-extrabold tracking-wide text-orange-500">{{ step.label }}</span>
+                </ng-container>
               </div>
             </div>
-          }
-        </div>
-      </section>
+          </div>
+        </section>
 
-      <!-- ===================================================== -->
-      <!-- ACTIONS -->
-      <!-- ===================================================== -->
+        <!-- ===================================================== -->
+        <!-- ACTIONS -->
+        <!-- ===================================================== -->
 
-      <section class="mt-[60px] flex flex-col gap-5 lg:flex-row lg:items-center lg:gap-5">
-        <!-- COMMENTER -->
+        <section class="mt-[60px] flex flex-col gap-5 lg:flex-row lg:items-center lg:gap-5">
+          <!-- COMMENTER -->
 
-        <button
-          type="button"
-          (click)="comment()"
-          class="flex h-[69px] w-full items-center justify-center gap-3 rounded-[30px] border border-[#edf1f4] bg-white text-[17px] font-extrabold text-[#39465a] shadow-[0_2px_5px_rgba(0,0,0,0.04)] transition hover:bg-slate-50 active:scale-[0.99] lg:w-[280px]"
-        >
-          <i class="fa-solid fa-comment-dots text-green-700"></i>
+          <button
+            type="button"
+            (click)="comment()"
+            class="flex h-[69px] w-full items-center justify-center gap-3 rounded-[30px] border border-[#edf1f4] bg-white text-[17px] font-extrabold text-[#39465a] shadow-[0_2px_5px_rgba(0,0,0,0.04)] transition hover:bg-slate-50 active:scale-[0.99] lg:w-[280px]"
+          >
+            <i class="fa-solid fa-comment-dots text-green-700"></i>
 
-          <span> Commenter </span>
-        </button>
+            <span> Commenter </span>
+          </button>
 
-        <!-- CONFIRMER -->
+          <!-- CONFIRMER -->
 
-        <button
-          type="button"
-          (click)="confirmResolution()"
-          class="flex h-[80px] w-full items-center justify-center gap-4 rounded-[30px] bg-green-700 text-[18px] font-extrabold text-white shadow-[0_15px_30px_-10px_rgba(46,125,50,0.55)] transition hover:bg-green-800 active:scale-[0.98] lg:flex-1"
-        >
-          <i class="fa-solid fa-circle-check text-[19px]"></i>
+          <button
+            type="button"
+            (click)="confirmResolution()"
+            class="flex h-[80px] w-full items-center justify-center gap-4 rounded-[30px] bg-green-700 text-[18px] font-extrabold text-white shadow-[0_15px_30px_-10px_rgba(46,125,50,0.55)] transition hover:bg-green-800 active:scale-[0.98] lg:flex-1"
+          >
+            <i class="fa-solid fa-circle-check text-[19px]"></i>
 
-          <span> Confirmer la résolution </span>
-        </button>
-      </section>
-    </div>
-  </main>
+            <span> Confirmer la résolution </span>
+          </button>
+        </section>
+      </div>
+    </main>
+
+      </ng-container>
+    </ng-template>
+
+    <ng-template #notFound>
+      <!-- ========================================================= -->
+      <!-- INTROUVABLE -->
+      <!-- ========================================================= -->
+      <div class="flex min-h-screen items-center justify-center">
+        <p class="text-sm font-medium text-slate-500">Signalement introuvable.</p>
+      </div>
+    </ng-template>
 
   <app-navbar></app-navbar>
 </div>
