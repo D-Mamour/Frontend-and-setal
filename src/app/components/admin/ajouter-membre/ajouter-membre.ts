@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AgentService } from '../../../Services/creation-agent.service';
 
@@ -20,6 +20,8 @@ export class AjouterMembre {
 
   private fb = inject(FormBuilder);
   private agentService = inject(AgentService)
+  // état de chargement pendant l'appel API
+  enCours = signal(false);
 
   agentForm = this.fb.group({
     nom: ['', Validators.required],
@@ -72,12 +74,13 @@ export class AjouterMembre {
       telephone: this.agentForm.value.telephone ?? '',
 
     };
-    console.log('AGENT:', agent);
+
+    this.enCours.set(true); // démarre le loader juste avant l'appel
 
     this.agentService.addAgent(agent).subscribe({
       next: (response) => {
         console.log('Agent créé avec succès', response);
-
+        this.enCours.set(false); // arrête le loader en cas de succès
         this.agentCree.emit(); // Émettre l'événement pour informer le parent que l'agent a été créé
         this.agentForm.reset();
 
@@ -85,6 +88,7 @@ export class AjouterMembre {
       },
 
       error: (error) => {
+        this.enCours.set(false); //  arrête le loader aussi en cas d'échec
         console.error('Erreur lors de la création de l’agent', error);
       }
     })

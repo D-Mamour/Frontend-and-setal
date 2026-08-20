@@ -53,7 +53,7 @@
         }
       </div>
 
-     
+
 
       <div>
         <label for="email" class="text-sm font-bold text-zinc-900">Email</label>
@@ -100,12 +100,20 @@
         }
       </div>
       <button
-      type="submit"
-      class="mt-8 flex w-full items-center justify-center gap-2 rounded-2xl bg-[#2E7D32] py-4 text-base font-bold text-white shadow-lg shadow-[#2E7D32]/30"
-    >
-      Créer
-      <i class="fa-solid fa-arrow-right text-sm" aria-hidden="true"></i>
-    </button>
+        type="submit"
+        [disabled]="agentForm.invalid || enCours()"
+        class="mt-8 flex w-full items-center justify-center gap-2 rounded-2xl py-4 text-base font-bold text-white shadow-lg transition
+              bg-[#2E7D32] shadow-[#2E7D32]/30
+              disabled:bg-slate-300 disabled:shadow-none disabled:cursor-not-allowed"
+      >
+        @if (enCours()) {
+          <i class="fa-solid fa-spinner fa-spin text-sm" aria-hidden="true"></i>
+          <span>Création en cours...</span>
+        } @else {
+          <span>Créer</span>
+          <i class="fa-solid fa-arrow-right text-sm" aria-hidden="true"></i>
+        }
+      </button>
     </form>
 
 

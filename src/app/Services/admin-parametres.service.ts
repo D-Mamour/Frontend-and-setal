@@ -23,4 +23,13 @@ export class UtilisateurService {
   getUtilisateurs(): Observable<User[]> {
     return this.httpClient.get<User[]>(`${this.baseUrl}/comptes/utilisateur/`);
   }
+
+    /**
+   * Active ou désactive un compte utilisateur.
+   */
+  toggleActif(id: number, nouveauStatut: boolean): Observable<User> {
+    return this.httpClient.patch<User>(`${this.baseUrl}/comptes/utilisateur/${id}/`, {
+      is_active: nouveauStatut
+    });
+  }
 }

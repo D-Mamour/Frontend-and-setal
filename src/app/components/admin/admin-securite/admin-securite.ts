@@ -42,6 +42,28 @@ export class AdminSecurite implements OnInit {
         console.error('Erreur lors du chargement des utilisateurs', err);
       }
     });
+
+
+}
+
+  basculerStatut(utilisateur: User): void {
+    const nouveauStatut = !utilisateur.is_active; // inverse le booléen actuel
+
+    this.utilisateurService.toggleActif(utilisateur.id, nouveauStatut).subscribe({
+      next: (utilisateurMisAJour) => {
+        // Met à jour uniquement l'utilisateur concerné dans le signal,
+        // sans refaire un appel API complet
+        this.utilisateurs.update((liste) =>
+          liste.map((u) => (u.id === utilisateur.id ? utilisateurMisAJour : u))
+
+        );
+        console.log('Clic détecté sur :', utilisateur.id)
+      },
+      error: (err) => {
+        console.error('Erreur lors du changement de statut', err);
+      }
+    });
+
   }
 
   // Getters pour les compteurs (calculés à partir de la liste, pas d'appel API séparé)
