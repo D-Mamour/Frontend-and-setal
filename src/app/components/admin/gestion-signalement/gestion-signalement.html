@@ -1,324 +1,340 @@
-<!-- Page principale -->
+
 <div class="min-h-screen bg-gray-50">
-  <!-- Espace réservé au Header -->
-  <div class="h-[76px]"></div>
+ <!-- Espace réservé au Header -->
+ <div class="h-[76px]"></div>
+
+
+ <!-- Contenu avec espace pour le Sidebar -->
+ <main class="ml-64 px-6 lg:px-8 py-8">
+
+
+   <!-- HEADER DE PAGE -->
+   <div class="mb-10">
+<app-admin-intervention
+  (filtre)="statutActif()"
+  (changerFiltre)="changerStatut($event)"
+  [statutDuParent]="statutActif()"
+  >
+</app-admin-intervention>
+
+     <h1 class="text-2xl lg:text-3xl font-bold text-slate-800">Gestion des Signalements</h1>
+     <p class="text-sm lg:text-base text-slate-500 mt-1">
+       Supervision et assignation des interventions citoyennes
+     </p>
+   </div>
+
+
+   <!-- ONGLETS DE SÉLECTION DU STATUT -->
+   <div class="border-b border-slate-200 mb-6">
+     <div class="flex items-center gap-10 overflow-x-auto">
+
+
+       <!-- TOUS -->
+       <button type="button" (click)="changerStatut('tous')" class="relative py-4 text-sm whitespace-nowrap font-semibold transition-all"
+         [class.text-green-700]="statutActif() === 'tous'" [class.text-slate-500]="statutActif() !== 'tous'">
+         Tous
+         <span class="ml-2 inline-flex items-center justify-center min-w-7 h-7 px-2 rounded-full text-xs font-bold"
+           [class.bg-green-50]="statutActif() === 'tous'" [class.text-green-700]="statutActif() === 'tous'"
+           [class.bg-slate-100]="statutActif() !== 'tous'" [class.text-slate-500]="statutActif() !== 'tous'">
+           {{ signalements().length }}
+         </span>
+         @if (statutActif() === 'tous') {
+           <span class="absolute bottom-0 left-0 w-full h-0.5 bg-green-700"></span>
+         }
+       </button>
+
+
+       <!-- EN ATTENTE -->
+       <button type="button" (click)="changerStatut('en_attente')" class="relative py-4 text-sm whitespace-nowrap font-semibold transition-all"
+         [class.text-green-700]="statutActif() === 'en_attente'" [class.text-slate-500]="statutActif() !== 'en_attente'">
+         En attente
+         <span class="ml-2 inline-flex items-center justify-center min-w-7 h-7 px-2 rounded-full text-xs font-bold"
+           [class.bg-green-50]="statutActif() === 'en_attente'" [class.text-green-700]="statutActif() === 'en_attente'"
+           [class.bg-slate-100]="statutActif() !== 'en_attente'" [class.text-slate-500]="statutActif() !== 'en_attente'">
+           {{ nombreEnAttente }}
+         </span>
+         @if (statutActif() === 'en_attente') {
+           <span class="absolute bottom-0 left-0 w-full h-0.5 bg-green-700"></span>
+         }
+       </button>
+
+
+       <!-- EN COURS -->
+       <button type="button" (click)="changerStatut('en_cours')" class="relative py-4 text-sm whitespace-nowrap font-semibold transition-all"
+         [class.text-green-700]="statutActif() === 'en_cours'" [class.text-slate-500]="statutActif() !== 'en_cours'">
+         En cours
+         <span class="ml-2 inline-flex items-center justify-center min-w-7 h-7 px-2 rounded-full text-xs font-bold"
+           [class.bg-green-50]="statutActif() === 'en_cours'" [class.text-green-700]="statutActif() === 'en_cours'"
+           [class.bg-slate-100]="statutActif() !== 'en_cours'" [class.text-slate-500]="statutActif() !== 'en_cours'">
+           {{ nombreEnCours }}
+         </span>
+         @if (statutActif() === 'en_cours') {
+           <span class="absolute bottom-0 left-0 w-full h-0.5 bg-green-700"></span>
+         }
+       </button>
+
+
+       <!-- RESOLUS -->
+       <button type="button" (click)="changerStatut('resolu')" class="relative py-4 text-sm whitespace-nowrap font-semibold transition-all"
+         [class.text-green-700]="statutActif() === 'resolu'" [class.text-slate-500]="statutActif() !== 'resolu'">
+         Résolus
+         <span class="ml-2 inline-flex items-center justify-center min-w-7 h-7 px-2 rounded-full text-xs font-bold"
+           [class.bg-green-50]="statutActif() === 'resolu'" [class.text-green-700]="statutActif() === 'resolu'"
+           [class.bg-slate-100]="statutActif() !== 'resolu'" [class.text-slate-500]="statutActif() !== 'resolu'">
+           {{ nombreResolus }}
+         </span>
+         @if (statutActif() === 'resolu') {
+           <span class="absolute bottom-0 left-0 w-full h-0.5 bg-green-700"></span>
+         }
+       </button>
+
+
+     </div>
+   </div>
+
+
+   <!-- ZONE DE BARRE DE RECHERCHE ET SELECTEURS DE FILTRES -->
+   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-7">
+
+
+     <!-- Recherche par saisie clavier -->
+     <div class="h-11 px-4 bg-white border border-slate-200 rounded-lg flex items-center gap-3 shadow-sm">
+       <i class="fa-solid fa-magnifying-glass text-slate-400"></i>
+       <input
+         #txtRecherche
+         (input)="onRecherche(txtRecherche.value)"
+         type="text"
+         placeholder="Rechercher un signalement..."
+         class="w-full outline-none text-sm text-slate-600 placeholder:text-slate-400 bg-transparent" />
+     </div>
+
+
+     <!-- Filtre Catégorie dynamique -->
+     <select (change)="selectionneCategorie($any($event.target).value)" class="h-11 px-4 bg-white border border-slate-200 rounded-lg text-sm text-slate-600 outline-none shadow-sm cursor-pointer">
+       @for(cat of categorie(); track cat){
+         <option [value]="cat">{{ cat === 'tous' ? 'Toutes les catégories' : cat }}</option>
+       }
+     </select>
+
+
+     <!-- Filtre Priorité dynamique connecté au bon filtre -->
+     <select (change)="selectionnePriorite($any($event.target).value)" class="h-11 px-4 bg-white border border-slate-200 rounded-lg text-sm text-slate-600 outline-none shadow-sm cursor-pointer">
+       @for(prio of priorite(); track prio){
+         <option [value]="prio">{{ prio === 'tous' ? 'Toutes les priorités' : prio }}</option>
+       }
+     </select>
+
+
+     <!-- Bouton filtrer décoratif graphique -->
+     <button class="h-11 rounded-lg bg-slate-100 text-slate-600 text-sm font-semibold flex items-center justify-center gap-2 hover:bg-slate-200 transition-colors shadow-sm">
+       <i class="fa-solid fa-filter"></i>
+       Filtrer
+     </button>
+   </div>
+
+
+   <!-- GRILLE DU TABLEAU DE BORD CONTENEUR BLANC -->
+   <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
+
 
-  <!-- Contenu avec espace pour le Sidebar -->
-  <main class="ml-64 px-6 lg:px-8 py-8">
-    <!-- HEADER DE PAGE -->
-    <div class="mb-10">
-      <h1 class="text-2xl lg:text-3xl font-bold text-slate-800">Gestion des Signalements</h1>
+     <div class="overflow-x-auto">
 
-      <p class="text-sm lg:text-base text-slate-500 mt-1">
-        Supervision et assignation des interventions citoyennes
-      </p>
-    </div>
 
-    <!-- ONGLETS -->
-    <div class="border-b border-slate-200 mb-6">
+       @if (loading()) {
+         <!-- Écran de chargement API dynamique -->
+         <div class="flex flex-col items-center justify-center py-20 text-slate-400">
+           <i class="fa-solid fa-spinner animate-spin text-3xl text-green-700"></i>
+           <p class="mt-3 text-sm font-medium">Téléchargement des signalements depuis la base...</p>
+         </div>
+       } @else {
+         <table class="w-full min-w-[950px]">
+           <thead>
+             <tr class="border-b border-slate-100 bg-slate-50/50">
+               <th class="px-6 py-5 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider">Type</th>
+               <th class="px-6 py-5 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider">Localisation</th>
+               <th class="px-6 py-5 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider">Citoyen</th>
+               <th class="px-6 py-5 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider">Date / Heure</th>
+               <th class="px-6 py-5 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider">Statut</th>
+               <th class="px-6 py-5 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider">Priorité</th>
+               <th class="px-6 py-5 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider">Actions</th>
+             </tr>
+           </thead>
 
-      <div class="flex items-center gap-10 overflow-x-auto">
 
-        <!-- TOUS -->
-        <button type="button" (click)="changerStatut('tous')" class="relative py-4 text-sm whitespace-nowrap"
-          [class.text-green-700]="statutActif() === 'tous'" [class.text-slate-500]="statutActif() !== 'tous'">
+           <tbody class="divide-y divide-slate-100">
+             <!-- Boucle de rendu obligatoire sur la liste paginée finale -->
+             @for (incident of signalementsPagine(); track incident.id) {
+               <tr class="hover:bg-slate-50/40 transition-colors">
+                 <td class="px-6 py-5">
+                   <div class="flex items-center gap-3">
+                     <div class="w-9 h-9 rounded-lg bg-red-50 flex items-center justify-center">
+                       <i class="fa-solid fa-trash-can text-red-500"></i>
+                     </div>
+                     <span class="text-sm font-semibold text-slate-700"> {{ incident.type_incident || 'N/A' }} </span>
+                   </div>
+                 </td>
 
-          Tous
 
-          <span class="ml-2 inline-flex items-center justify-center min-w-7 h-7 px-2 rounded-full text-xs"
-            [class.bg-green-50]="statutActif() === 'tous'" [class.text-green-700]="statutActif() === 'tous'"
-            [class.bg-slate-100]="statutActif() !== 'tous'" [class.text-slate-500]="statutActif() !== 'tous'">
-            {{ signalements().length }}
-          </span>
+         <td class="px-6 py-5">
+           <div class="flex flex-col max-w-[250px]">
+             <!-- Si l'adresse est calculée, on l'affiche, sinon on montre les coordonnées brutes -->
+             @if (incident.adresse) {
+               <span class="text-sm font-medium text-slate-700" [title]="incident.adresse">
+                 {{ incident.adresse }}
+               </span>
+             } @else {
+               <span class="text-xs text-slate-400">Lat: {{ incident.latitude }}</span>
+               <span class="text-xs text-slate-400">Long: {{ incident.longitude }}</span>
+             }
+           </div>
+         </td>
 
-          @if (statutActif() === 'tous') {
-          <span class="absolute bottom-0 left-0 w-full h-0.5 bg-green-700">
-          </span>
-          }
+     <td class="px-6 py-5 text-sm text-slate-600">
+       @if (incident.citoyen && incident.citoyen.prenom) {
+         <!-- Affichage du prénom et du nom s'ils existent, sinon fallback -->
+         {{ incident.citoyen.prenom }} {{ incident.citoyen.nom || '' }}
+       } @else if (incident.citoyen && incident.citoyen.id) {
+         <!-- Si l'objet existe mais que les noms sont vides en base de données -->
+         Citoyen #{{ incident.citoyen.id }}
+       } @else {
+         <!-- Si l'incident n'a pas de compte citoyen lié (anonyme) -->
+         Anonyme
+       }
+     </td>
 
-        </button>
 
 
-        <!-- EN ATTENTE -->
-        <button type="button" (click)="changerStatut('en_attente')" class="relative py-4 text-sm whitespace-nowrap"
-          [class.text-green-700]="statutActif() === 'en_attente'"
-          [class.text-slate-500]="statutActif() !== 'en_attente'">
 
-          En attente
+             <td class="px-6 py-5">
+               <p class="text-sm text-slate-700">{{ incident.dateCreation | date:'dd/MM/yyyy' }}
+               </p>
+               <p class="text-xs text-slate-400"> {{ incident.dateCreation | date:'HH:mm' }}</p>
+             </td>
 
-          <span class="ml-2 inline-flex items-center justify-center min-w-7 h-7 px-2 rounded-full text-xs"
-            [class.bg-green-50]="statutActif() === 'en_attente'" [class.text-green-700]="statutActif() === 'en_attente'"
-            [class.bg-slate-100]="statutActif() !== 'en_attente'"
-            [class.text-slate-500]="statutActif() !== 'en_attente'">
-            {{ nombreEnAttente }}
-          </span>
 
-          @if (statutActif() === 'en_attente') {
-          <span class="absolute bottom-0 left-0 w-full h-0.5 bg-green-700">
-          </span>
-          }
+             <td class="px-6 py-5">
+               <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold"
+                 [ngClass]="getStatutClasses(incident.statut)">
 
-        </button>
 
+                 <i class="fa-solid" [ngClass]="getStatutIcon(incident.statut)"></i>
 
-        <!-- EN COURS -->
-        <button type="button" (click)="changerStatut('en_cours')" class="relative py-4 text-sm whitespace-nowrap"
-          [class.text-green-700]="statutActif() === 'en_cours'" [class.text-slate-500]="statutActif() !== 'en_cours'">
 
-          En cours
+                 {{ incident.statut }}
+               </span>
+             </td>
 
-          <span class="ml-2 inline-flex items-center justify-center min-w-7 h-7 px-2 rounded-full text-xs"
-            [class.bg-green-50]="statutActif() === 'en_cours'" [class.text-green-700]="statutActif() === 'en_cours'"
-            [class.bg-slate-100]="statutActif() !== 'en_cours'" [class.text-slate-500]="statutActif() !== 'en_cours'">
-            {{ nombreEnCours }}
-          </span>
 
-          @if (statutActif() === 'en_cours') {
-          <span class="absolute bottom-0 left-0 w-full h-0.5 bg-green-700">
-          </span>
-          }
+             <td class="px-6 py-5">
+               <span class="px-2.5 py-1 rounded-md text-xs font-bold"
+                 [ngClass]="getPrioriteClasses(incident.priorite)">
 
-        </button>
 
+                 {{ incident.priorite || 'N/A' }}
 
-        <!-- RESOLUS -->
-        <button type="button" (click)="changerStatut('resolu')" class="relative py-4 text-sm whitespace-nowrap"
-          [class.text-green-700]="statutActif() === 'resolu'" [class.text-slate-500]="statutActif() !== 'resolu'">
 
-          Résolus
+               </span>
+             </td>
 
-          <span class="ml-2 inline-flex items-center justify-center min-w-7 h-7 px-2 rounded-full text-xs"
-            [class.bg-green-50]="statutActif() === 'resolu'" [class.text-green-700]="statutActif() === 'resolu'"
-            [class.bg-slate-100]="statutActif() !== 'resolu'" [class.text-slate-500]="statutActif() !== 'resolu'">
-            {{ nombreResolus }}
-          </span>
-
-          @if (statutActif() === 'resolu') {
-          <span class="absolute bottom-0 left-0 w-full h-0.5 bg-green-700">
-          </span>
-          }
-
-        </button>
-
-      </div>
-
-    </div>
-
-    <!-- FILTRES -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-7">
-      <div class="h-11 px-4 bg-white border border-slate-200 rounded-lg flex items-center gap-3">
-        <i class="fa-solid fa-magnifying-glass text-slate-400"></i>
-
-        <input type="text" placeholder="Rechercher..." (input)="onRecherche($any($event.target).value)"
-          class="w-full outline-none text-sm text-slate-600 placeholder:text-slate-400 bg-transparent" />
-      </div>
-
-      <select (change)="selectionneCategorie($any($event.target).value)" class="h-11 px-4 bg-white border border-slate-200 rounded-lg text-sm text-slate-600 outline-none">
-        @for(cat of categorie(); track cat){
-        <option [value]="cat">{{cat === 'tous' ? 'Toutes les catégories' : cat}} </option>
-        }
-      </select>
-
-      <select (change)="selectionnePriorite($any($event.target).value)" class="h-11 px-4 bg-white border border-slate-200 rounded-lg text-sm text-slate-600 outline-none">
-        @for(pri of priorite(); track pri){
-        <option [value]="pri">{{pri === 'tous' ? 'Toutes les Priorités ' : pri}}</option>
-        }
-      </select>
-
-      <button
-        class="h-11 rounded-lg bg-slate-100 text-slate-600 text-sm font-semibold flex items-center justify-center gap-2">
-        <i class="fa-solid fa-filter"></i>
-
-        Filtrer
-      </button>
-    </div>
-
-    <!-- TABLE -->
-    <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
-      <!-- Table desktop -->
-      <div class="overflow-x-auto">
-        <table class="w-full min-w-[950px]">
-          <thead>
-            <tr class="border-b border-slate-100">
-              <th class="px-6 py-5 text-left text-xs font-semibold text-slate-400 uppercase">
-                Type
-              </th>
-
-              <th class="px-6 py-5 text-left text-xs font-semibold text-slate-400 uppercase">
-                Localisation
-              </th>
-
-              <th class="px-6 py-5 text-left text-xs font-semibold text-slate-400 uppercase">
-                Citoyen
-              </th>
-
-              <th class="px-6 py-5 text-left text-xs font-semibold text-slate-400 uppercase">
-                Date / Heure
-              </th>
-
-              <th class="px-6 py-5 text-left text-xs font-semibold text-slate-400 uppercase">
-                Statut
-              </th>
-
-              <th class="px-6 py-5 text-left text-xs font-semibold text-slate-400 uppercase">
-                Priorité
-              </th>
-
-              <th class="px-6 py-5 text-left text-xs font-semibold text-slate-400 uppercase">
-                Actions
-              </th>
-            </tr>
-          </thead>
-
-          <tbody class="divide-y divide-slate-100">
-
-            @for (incident of signalementsPagine(); track incident.id) {
-
-            <tr class="hover:bg-slate-50">
-              <td class="px-6 py-5">
-                <div class="flex items-center gap-3">
-                  <div class="w-9 h-9 rounded-lg bg-red-50 flex items-center justify-center">
-                    <i class="fa-solid fa-trash-can text-red-500"></i>
-                  </div>
-
-                  <span class="text-sm font-semibold text-slate-700"> {{ incident.type_incident || 'N/A'}} </span>
-                </div>
-              </td>
-
-          <td class="px-6 py-5">
-            <div class="flex flex-col max-w-[250px]">
-              <!-- Si l'adresse est calculée, on l'affiche, sinon on montre les coordonnées brutes -->
-              @if (incident.adresse) {
-                <span class="text-sm font-medium text-slate-700" [title]="incident.adresse">
-                  {{ incident.adresse }}
-                </span>
-              } @else {
-                <span class="text-xs text-slate-400">Lat: {{ incident.latitude }}</span>
-                <span class="text-xs text-slate-400">Long: {{ incident.longitude }}</span>
-              }
-            </div>
-          </td>
-
-      <td class="px-6 py-5 text-sm text-slate-600">
-        @if (incident.citoyen && incident.citoyen.prenom) {
-          <!-- Affichage du prénom et du nom s'ils existent, sinon fallback -->
-          {{ incident.citoyen.prenom }} {{ incident.citoyen.nom || '' }}
-        } @else if (incident.citoyen && incident.citoyen.id) {
-          <!-- Si l'objet existe mais que les noms sont vides en base de données -->
-          Citoyen #{{ incident.citoyen.id }}
-        } @else {
-          <!-- Si l'incident n'a pas de compte citoyen lié (anonyme) -->
-          Anonyme
-        }
-      </td>
-
-
-              <td class="px-6 py-5">
-                <p class="text-sm text-slate-700">{{ incident.dateCreation | date:'dd/MM/yyyy' }}
-                </p>
-                <p class="text-xs text-slate-400"> {{ incident.dateCreation | date:'HH:mm' }}</p>
-              </td>
-
-              <td class="px-6 py-5">
-                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold"
-                  [ngClass]="getStatutClasses(incident.statut)">
-
-                  <i class="fa-solid" [ngClass]="getStatutIcon(incident.statut)"></i>
-
-                  {{ incident.statut }}
-                </span>
-              </td>
-
-              <td class="px-6 py-5">
-                <span class="px-2.5 py-1 rounded-md text-xs font-bold"
-                  [ngClass]="getPrioriteClasses(incident.priorite)">
-
-                  {{ incident.priorite || 'N/A' }}
-
-                </span>
-              </td>
-
-              <td class="px-6 py-5">
-                <a [routerLink]="['/admin/signalements/detail', incident.id]"
-                  class="text-sm font-semibold text-green-700 hover:text-green-800">
-                  Voir<br />
-                  détails
-                </a>
-              </td>
-            </tr>
-            }
-
-            @empty {
-
-            <tr>
-
-              <td colspan="7" class="px-6 py-16 text-center">
-
-                <div class="flex flex-col items-center">
-
-                  <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center">
-                    <i class="fa-solid fa-inbox text-slate-400"></i>
-                  </div>
-
-                  <p class="mt-4 text-sm font-semibold text-slate-600">
-                    Aucun signalement
-                  </p>
-
-                  <p class="mt-1 text-xs text-slate-400">
-                    Aucun signalement ne correspond à ce statut.
-                  </p>
-
-                </div>
-
-              </td>
-
-            </tr>
-
-            }
-
-          </tbody>
-        </table>
-      </div>
-
-      <!-- FOOTER TABLE -->
+
+             <td class="px-6 py-5">
+               <a [routerLink]="['/admin/signalements/detail', incident.id]"
+                 class="text-sm font-semibold text-green-700 hover:text-green-800">
+                 Voir<br />
+                 détails
+               </a>
+             </td>
+           </tr>
+           }
+
+
+           @empty {
+
+
+           <tr>
+
+
+             <td colspan="7" class="px-6 py-16 text-center">
+
+
+               <div class="flex flex-col items-center">
+
+
+                 <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center">
+                   <i class="fa-solid fa-inbox text-slate-400"></i>
+                 </div>
+
+
+                 <p class="mt-4 text-sm font-semibold text-slate-600">
+                   Aucun signalement
+                 </p>
+
+
+                 <p class="mt-1 text-xs text-slate-400">
+                   Aucun signalement ne correspond à ce statut.
+                 </p>
+
+
+               </div>
+
+
+             </td>
+
+
+           </tr>
+
+
+           }
+
+
+         </tbody>
+       </table>
+       }
+     </div>
+
+
+     <!-- FOOTER TABLE -->
 <div class="px-6 py-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
-  <p class="text-sm text-slate-500">
-    Affichage de {{ signalementsPagine().length }} sur {{ listeTotaleFiltree().length }} signalement(s)
-  </p>
+ <p class="text-sm text-slate-500">
+   Affichage de {{ signalementsPagine().length }} sur {{ listeTotaleFiltree().length }} signalement(s)
+ </p>
 
-  <div class="flex items-center gap-2">
-    <button
-      (click)="pagePrecedente()"
-      [disabled]="pageActuelle() === 1"
-      class="w-9 h-9 rounded-lg border border-slate-200 text-slate-400 disabled:opacity-40"
-    >
-      <i class="fa-solid fa-chevron-left text-xs"></i>
-    </button>
 
-    @for (p of [].constructor(totalPages()); let i = $index; track i) {
-      <button
-        type="button"
-        (click)="pageActuelle.set(i + 1)"
-        class="w-9 h-9 rounded-lg font-semibold"
-        [class.bg-green-700]="pageActuelle() === i + 1"
-        [class.text-white]="pageActuelle() === i + 1"
-        [class.border]="pageActuelle() !== i + 1"
-        [class.border-slate-200]="pageActuelle() !== i + 1"
-        [class.text-slate-600]="pageActuelle() !== i + 1"
-      >
-        {{ i + 1 }}
-      </button>
-    }
+ <div class="flex items-center gap-2">
+   <button
+     (click)="pagePrecedente()"
+     [disabled]="pageActuelle() === 1"
+     class="w-9 h-9 rounded-lg border border-slate-200 text-slate-400 disabled:opacity-40"
+   >
+     <i class="fa-solid fa-chevron-left text-xs"></i>
+   </button>
 
-    <button
-      (click)="pageSuivante()"
-      [disabled]="pageActuelle() === totalPages()"
-      class="w-9 h-9 rounded-lg border border-slate-200 text-slate-400 disabled:opacity-40"
-    >
-      <i class="fa-solid fa-chevron-right text-xs"></i>
-    </button>
-  </div>
+
+   @for (p of [].constructor(totalPages()); let i = $index; track i) {
+     <button
+       type="button"
+       (click)="pageActuelle.set(i + 1)"
+       class="w-9 h-9 rounded-lg font-semibold"
+       [class.bg-green-700]="pageActuelle() === i + 1"
+       [class.text-white]="pageActuelle() === i + 1"
+       [class.border]="pageActuelle() !== i + 1"
+       [class.border-slate-200]="pageActuelle() !== i + 1"
+       [class.text-slate-600]="pageActuelle() !== i + 1"
+     >
+       {{ i + 1 }}
+     </button>
+   }
+
+
+   <button
+     (click)="pageSuivante()"
+     [disabled]="pageActuelle() === totalPages()"
+     class="w-9 h-9 rounded-lg border border-slate-200 text-slate-400 disabled:opacity-40"
+   >
+     <i class="fa-solid fa-chevron-right text-xs"></i>
+   </button>
+ </div>
 </div>
-    </div>
-  </main>
+   </div>
+ </main>
 </div>

@@ -1,3 +1,4 @@
+import { AdminIntervention } from './components/admin/admin-intervention/admin-intervention';
 import { Routes } from '@angular/router';
 import { AdminSecurite } from './components/admin/admin-securite/admin-securite';
 import { AdminAnalyse } from './components/admin/admin-analyse/admin-analyse';
@@ -20,6 +21,7 @@ import { roleGuard, roleGuardAdmin } from './guards/role.guard';
 import { ListeIntervention } from './components/agent/liste-intervention/liste-intervention';
 import { DetailSignalement } from './components/citoyen/detail-signalement/detail-signalement';
 import { Profil } from './components/admin/profil/profil';
+import { ProfilUtilisateur } from './components/profil-utilisateur/profil-utilisateur';
 
 export const routes: Routes = [
 
@@ -36,6 +38,9 @@ export const routes: Routes = [
     canActivate: [authGuard, roleGuard], data: { roles: ['citoyen']
   }},
 
+  {path: 'profil', component: ProfilUtilisateur,
+    canActivate: [authGuard, roleGuard], data: { roles: ['citoyen', 'agent']}
+  },
   //ESPACE AGENT
   {path: 'agent/dashboard', component: ListeSignalement,
     canActivate: [authGuard, roleGuard], data: { roles: ['agent']}
@@ -62,6 +67,9 @@ export const routes: Routes = [
        },
       { path: 'signalements', component: GestionSignalement,
          canActivate: [authGuardAdmin, roleGuardAdmin], data: { roles: ['admin']}
+      },
+      { path: 'admin-intervention', component: AdminIntervention,
+        canActivate: [authGuardAdmin, roleGuardAdmin], data: { roles: ['admin']}
       },
       { path: 'signalements/detail', component: SignalementDetailAdmin,
          canActivate: [authGuardAdmin, roleGuardAdmin], data: { roles: ['admin']}

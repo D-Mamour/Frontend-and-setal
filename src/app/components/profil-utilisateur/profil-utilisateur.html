@@ -1,0 +1,76 @@
+<div class="min-h-screen bg-gray-50 lg:ml-64">
+  <div class="h-[76px]"></div>
+
+  <main class="mx-auto w-full max-w-3xl px-4 py-6 sm:px-7 sm:py-8 lg:px-8">
+
+    <div class="rounded-2xl border border-slate-100 bg-white shadow-sm overflow-hidden">
+
+      <!-- En-tête profil -->
+      <div class="bg-gradient-to-r from-green-50 to-white p-5 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-5">
+            <button
+      type="button"
+      (click)="retour()"
+      class="flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 shadow-sm transition hover:bg-slate-50"
+    >
+      <i class="fa-solid fa-arrow-left text-base sm:text-lg"></i>
+    </button>
+        <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-green-100 flex items-center justify-center shrink-0">
+          <i class="fa-solid fa-user text-xl sm:text-2xl text-green-700"></i>
+        </div>
+
+        <div class="min-w-0">
+          <h1 class="text-lg sm:text-xl font-extrabold text-slate-800 truncate">{{userConnecte()?.first_name}} {{userConnecte()?.last_name}}</h1>
+
+          <div class="mt-1.5 flex flex-wrap items-center gap-2 sm:gap-3">
+            <span class="rounded-full bg-blue-50 text-blue-700 text-xs font-bold px-3 py-1">
+              {{userConnecte()?.role}}
+            </span>
+
+            <span class="flex items-center gap-1.5 text-xs sm:text-sm text-slate-500">
+              <span class="w-2 h-2 rounded-full bg-green-500 shrink-0"></span>
+              Compte actif
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Informations personnelles -->
+      <div class="p-5 sm:p-8 border-t border-slate-100">
+        <h2 class="text-sm sm:text-base font-extrabold text-slate-800">Informations personnelles</h2>
+        <p class="text-xs sm:text-sm text-slate-400 mt-1">Les informations associées à votre compte.</p>
+
+        <div class="mt-5 sm:mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+          <div>
+            <label class="text-sm font-bold text-slate-700">Nom</label>
+            <div class="mt-2 h-11 px-4 rounded-lg bg-slate-50 flex items-center text-sm text-slate-700">
+              {{userConnecte()?.last_name}}
+            </div>
+          </div>
+
+          <div>
+            <label class="text-sm font-bold text-slate-700">Prénom</label>
+            <div class="mt-2 h-11 px-4 rounded-lg bg-slate-50 flex items-center text-sm text-slate-700 truncate">
+             {{userConnecte()?.first_name}}
+            </div>
+          </div>
+
+          <div>
+            <label class="text-sm font-bold text-slate-700">Adresse email</label>
+            <div class="mt-2 h-11 px-4 rounded-lg bg-slate-50 flex items-center text-sm text-slate-700 truncate">
+              {{userConnecte()?.email}}
+            </div>
+          </div>
+
+          <div>
+            <label class="text-sm font-bold text-slate-700">Téléphone</label>
+            <div class="mt-2 h-11 px-4 rounded-lg bg-slate-50 flex items-center text-sm text-slate-700 truncate">
+              {{userConnecte()?.telephone}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+</div>
