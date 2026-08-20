@@ -46,7 +46,7 @@ export const routes: Routes = [
   {path: 'agent/interventions', component: ListeIntervention,
     canActivate: [authGuard, roleGuard], data: { roles: ['agent']}
   },
-  {path: 'agent/signalements/map', component: SignalementMap,
+  {path: 'agent/carte/signalement', component: SignalementMap,
     canActivate: [authGuard, roleGuard], data: { roles: ['agent']}
   },
 
