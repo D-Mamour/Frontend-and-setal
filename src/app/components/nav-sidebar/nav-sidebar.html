@@ -1,64 +1,77 @@
-<header class="fixed left-64 right-0 top-0 z-30
-         h-[100px] border-b border-slate-100
-         bg-white px-5">
-
+<header class="fixed left-64 right-0 top-0 z-30 h-[100px] border-b border-slate-100 bg-white px-5">
   <div class="flex h-full items-center justify-between">
 
     <!-- RECHERCHE -->
     <div class="relative w-[492px]">
-
-      <i class="fa-solid fa-magnifying-glass absolute left-5 top-1/2
-               -translate-y-1/2
-               text-[20px] text-slate-400"></i>
-
-      <input type="text" placeholder="Rechercher un signalement, une zone..." class="h-12 w-full rounded-2xl
-               bg-slate-50
-               pl-16 pr-5
-               text-sm text-slate-600
-               outline-none
-               placeholder:text-slate-400
-               focus:ring-2 focus:ring-green-100" />
-
+      <i class="fa-solid fa-magnifying-glass absolute left-5 top-1/2 -translate-y-1/2 text-[20px] text-slate-400"></i>
+      <input
+        type="text"
+        placeholder="Rechercher un signalement, une zone..."
+        class="h-12 w-full rounded-2xl bg-slate-50 pl-16 pr-5 text-sm text-slate-600 outline-none placeholder:text-slate-400 focus:ring-2 focus:ring-green-100"
+      />
     </div>
 
-
-    <!-- PARTIE DROITE -->
-    <div class="flex h-full items-center">
+    <!-- 👇 GROUPE : tout ce qui doit être à droite, collé ensemble -->
+    <div class="flex items-center">
 
       <!-- DATE -->
-      <div class="flex flex-col items-end
-               border-r border-slate-200
-               pr-7">
-
-        <span class="text-sm font-medium
-                 uppercase text-slate-400">
-          AUJOURD'HUI
-        </span>
-
-        <span class="mt-1 text-[17px]
-                 font-bold text-slate-700">
-          {{ currentDate }}
-        </span>
-
+      <div class="flex flex-col items-end border-r border-slate-200 pr-7">
+        <span class="text-sm font-medium uppercase text-slate-400">AUJOURD'HUI</span>
+        <span class="mt-1 text-[17px] font-bold text-slate-700">{{ currentDate }}</span>
       </div>
 
-
       <!-- NOTIFICATION -->
-      <button type="button" class="relative mx-7
-               flex h-12 w-12
-               items-center justify-center
-               rounded-2xl bg-slate-50
-               text-slate-500">
+      <div class="relative mx-7">
+        <button
+          (click)="toggleCloche()"
+          class="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center relative"
+        >
+          <fa-icon [icon]="faBell" class="text-gray-600"></fa-icon>
+          @if (nombreNonLues() > 0) {
+            <span class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-white"></span>
+          }
+        </button>
 
-        <i class="fa-regular fa-bell text-[19px]"></i>
+        @if (popupOvert()) {
+          <div class="fixed inset-0 z-40" (click)="fermerPopup()"></div>
 
-        <!-- POINT ROUGE -->
-        <span class="absolute right-[11px] top-[9px]
-                 h-2 w-2 rounded-2xl
-                 bg-red-500
-                 ring-2 ring-white"></span>
+          <div class="absolute right-0 mt-2 w-80 bg-white rounded-2xl shadow-lg z-50 overflow-hidden">
+            <div class="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+              <h3 class="font-bold text-gray-900 text-sm">Notifications</h3>
+              <button (click)="toutMarquerLu()" class="text-xs text-green-600 font-semibold">
+                Tout marquer comme lu
+              </button>
+            </div>
 
-      </button>
+            <div class="max-h-96 overflow-y-auto">
+              @if (chargement()) {
+                <p class="text-center text-gray-400 text-sm py-6">Chargement...</p>
+              }
+
+              @for (notif of notification(); track notif.id) {
+                <div
+                  (click)="clicNotification(notif)"
+                  class="px-4 py-3 border-b border-gray-50 cursor-pointer hover:bg-gray-50"
+                  [class.bg-green-50]="!notif.lu"
+                >
+                  <div class="flex items-start justify-between gap-2">
+                    <p class="text-sm font-semibold text-gray-900">{{ notif.titre }}</p>
+                    @if (!notif.lu) {
+                      <span class="w-2 h-2 bg-green-600 rounded-full mt-1.5 flex-shrink-0"></span>
+                    }
+                  </div>
+                  <p class="text-xs text-gray-500 mt-1">{{ notif.message }}</p>
+                  <p class="text-[11px] text-gray-400 mt-1">{{ formatTemps(notif.date_creation) }}</p>
+                </div>
+              } @empty {
+                @if (!chargement()) {
+                  <p class="text-center text-gray-400 text-sm py-6">Aucune notification.</p>
+                }
+              }
+            </div>
+          </div>
+        }
+      </div>
 
       <!-- UTILISATEUR -->
       <a routerLink="/admin/profil">
@@ -70,7 +83,7 @@
         </ng-container>
       </a>
 
-    </div> <!-- Fermeture de PARTIE DROITE -->
-  </div> <!-- Fermeture du container principal -->
+    </div> <!-- Fermeture du groupe droite -->
 
+  </div>
 </header>
