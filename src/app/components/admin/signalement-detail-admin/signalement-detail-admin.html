@@ -81,31 +81,25 @@
                   </div>
                 </div>
 
-                <div>
-                  <p class="text-xs font-bold uppercase tracking-wide text-[#98a4b5]">Sous-catégorie</p>
-                  <p class="mt-4 text-base font-semibold text-[#3f4c61]">Encombrants ménagers</p>
-                </div>
+                
               </div>
 
-              <div class="mt-10">
-                <p class="text-xs font-bold uppercase tracking-wide text-[#98a4b5]">Description citoyenne</p>
-                <div class="mt-3 rounded-2xl border border-[#edf0f3] bg-[#f8fafb] px-5 py-4 text-base leading-7 text-[#5c697d]">
-                  {{ incident()?.description }}
+              @if (incident()?.description) {
+                <div class="mt-10">
+                  <p class="text-xs font-bold uppercase tracking-wide text-[#98a4b5]">Description citoyenne</p>
+                  <div class="mt-3 rounded-2xl border border-[#edf0f3] bg-[#f8fafb] px-5 py-4 text-base leading-7 text-[#5c697d]">
+                    {{ incident()?.description }}
+                  </div>
                 </div>
-              </div>
+              }
 
               @if (incident()?.messageVocal) {
                 <div class="mt-10">
                   <p class="text-xs font-bold uppercase tracking-wide text-[#98a4b5]">Message vocal</p>
-                  <div class="mt-3 flex items-center gap-4 rounded-2xl border border-green-100 bg-[#f4faf5] px-4 py-4 sm:px-5">
-                    <button type="button" class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-green-700 text-white transition hover:bg-green-800">
-                      <i class="fa-solid fa-play ml-0.5"></i>
-                    </button>
-                    <div class="h-1.5 flex-1 overflow-hidden rounded-full bg-[#dce4e6]">
-                      <div class="h-full w-[34%] bg-green-700"></div>
-                    </div>
-                    <span class="shrink-0 text-xs font-bold text-green-700">0:12 / 0:45</span>
-                  </div>
+                  <audio
+                    [src]="incident()?.messageVocal"
+                    controls
+                    class="w-full"></audio>
                 </div>
               }
             </section>

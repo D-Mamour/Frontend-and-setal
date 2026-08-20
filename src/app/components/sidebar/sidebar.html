@@ -1,15 +1,9 @@
-<aside
-  class="fixed left-0 top-0 z-40 flex h-screen w-64 flex-col
-         border-r border-slate-100 bg-white px-5 py-8 items-start"
->
+<aside class="fixed left-0 top-0 z-40 flex h-screen w-64 flex-col
+         border-r border-slate-100 bg-white px-5 py-8 items-start">
 
   <!-- LOGO -->
   <div class="relative -ml-14">
-    <img
-      src="images/logo.png"
-      alt="Andè sétal"
-      class="h-20 w-80 object-contain"
-    />
+    <img src="images/logo.png" alt="Andè sétal" class="h-20 w-80 object-contain" />
   </div>
 
 
@@ -17,60 +11,39 @@
   <nav class="flex flex-col gap-2">
 
     <!-- Tableau de bord -->
-    <a
-      routerLink="/admin/dashboard"
-      routerLinkActive="bg-green-700 text-white shadow-md"
-      [routerLinkActiveOptions]="{ exact: true }"
-      class="flex h-11 items-center gap-4 rounded-2xl px-4
+    <a routerLink="/admin/dashboard" routerLinkActive="bg-green-700 text-white shadow-md"
+      [routerLinkActiveOptions]="{ exact: true }" class="flex h-11 items-center gap-4 rounded-2xl px-4
              text-sm font-medium text-slate-500
              transition-all duration-200
-             hover:bg-green-50 hover:text-green-700"
-    >
-      <fa-icon
-        [icon]="faChartPie"
-        class="w-5 text-center text-base"
-      ></fa-icon>
+             hover:bg-green-50 hover:text-green-700">
+      <fa-icon [icon]="faChartPie" class="w-5 text-center text-base"></fa-icon>
 
       <span>Tableau de bord</span>
     </a>
 
 
     <!-- Signalements -->
-    <a
-      routerLink="/admin/signalements"
-      routerLinkActive="bg-green-700 text-white shadow-md"
-      [routerLinkActiveOptions]="{ exact: true }"
-      class="flex h-11 items-center gap-4 rounded-2xl px-4
+    <a routerLink="/admin/signalements" routerLinkActive="bg-green-700 text-white shadow-md"
+      [routerLinkActiveOptions]="{ exact: true }" class="flex h-11 items-center gap-4 rounded-2xl px-4
              text-sm font-medium text-slate-500
              transition-all duration-200
-             hover:bg-green-50 hover:text-green-700"
-    >
-      <fa-icon
-        [icon]="faBullhorn"
-        class="w-5 text-center text-base"
-      ></fa-icon>
+             hover:bg-green-50 hover:text-green-700">
+      <fa-icon [icon]="faBullhorn" class="w-5 text-center text-base"></fa-icon>
 
       <span>Signalements</span>
     </a>
 
 
-    <!-- Statistiques -->
-    <a
-      routerLink="/admin/statistiques"
-      routerLinkActive="bg-green-700 text-white shadow-md"
-      [routerLinkActiveOptions]="{ exact: true }"
-      class="flex h-11 items-center gap-4 rounded-2xl px-4
+    <!-- Statistiques
+    <a routerLink="/admin/statistiques" routerLinkActive="bg-green-700 text-white shadow-md"
+      [routerLinkActiveOptions]="{ exact: true }" class="flex h-11 items-center gap-4 rounded-2xl px-4
              text-sm font-medium text-slate-500
              transition-all duration-200
-             hover:bg-green-50 hover:text-green-700"
-    >
-      <fa-icon
-        [icon]="faChartLine"
-        class="w-5 text-center text-base"
-      ></fa-icon>
+             hover:bg-green-50 hover:text-green-700">
+      <fa-icon [icon]="faChartLine" class="w-5 text-center text-base"></fa-icon>
 
       <span>Statistiques</span>
-    </a>
+    </a> -->
 
   </nav>
 
@@ -78,26 +51,17 @@
   <!-- ADMINISTRATION -->
   <div class="mt-6">
 
-    <p
-      class="mb-3 px-4 text-[9px] font-semibold uppercase
-             tracking-[0.2em] text-slate-400"
-    >
+    <p class="mb-3 px-4 text-[9px] font-semibold uppercase
+             tracking-[0.2em] text-slate-400">
       Administration
     </p>
 
-    <a
-      routerLink="/admin/parametres"
-      routerLinkActive="bg-green-700 text-white shadow-md"
-      [routerLinkActiveOptions]="{ exact: true }"
-      class="flex h-11 items-center gap-4 rounded-2xl px-4
+    <a routerLink="/admin/parametres" routerLinkActive="bg-green-700 text-white shadow-md"
+      [routerLinkActiveOptions]="{ exact: true }" class="flex h-11 items-center gap-4 rounded-2xl px-4
              text-sm font-medium text-slate-500
              transition-all duration-200
-             hover:bg-green-50 hover:text-green-700"
-    >
-      <fa-icon
-        [icon]="faGear"
-        class="w-5 text-center text-base"
-      ></fa-icon>
+             hover:bg-green-50 hover:text-green-700">
+      <fa-icon [icon]="faGear" class="w-5 text-center text-base"></fa-icon>
 
       <span>Paramètre</span>
     </a>
@@ -105,55 +69,46 @@
   </div>
 
 
- <!-- Zone basse du sidebar -->
-<div class="mt-auto flex flex-col gap-3">
+  <!-- Zone basse du sidebar -->
+  <div class="mt-auto flex flex-col gap-3">
 
-  <!-- MODE SUPERVISION -->
-  <div class="rounded-2xl border border-slate-100 bg-slate-50 p-4">
+    <!-- MODE SUPERVISION -->
+    <div class="rounded-2xl border border-slate-100 bg-slate-50 p-4">
 
-    <div class="mb-2 flex items-center gap-2">
-      <span class="h-2 w-2 rounded-full bg-green-700"></span>
+      <div class="mb-2 flex items-center gap-2">
+        <span class="h-2 w-2 rounded-full bg-green-700"></span>
 
-      <span class="text-[11px] font-semibold text-slate-600">
-        Mode Supervision
-      </span>
+        <span class="text-[11px] font-semibold text-slate-600">
+          Mode Supervision
+        </span>
+      </div>
+
+      <p class="text-[10px] leading-4 text-slate-400">
+        Connecté au réseau municipal du Plateau.
+        Mise à jour en temps réel activée.
+      </p>
+
     </div>
 
-    <p class="text-[10px] leading-4 text-slate-400">
-      Connecté au réseau municipal du Plateau.
-      Mise à jour en temps réel activée.
-    </p>
-
-  </div>
-
-  <!-- DÉCONNEXION -->
-  @if (authService.isAuthenticated()) {
-    <button
-      type="button"
-      (click)="deconnexion()"
-      class="flex h-11 w-full shrink-0
+    <!-- DÉCONNEXION -->
+    @if (authService.isAuthenticated()) {
+    <button type="button" (click)="deconnexion()" class="flex h-11 w-full shrink-0
              items-center justify-center gap-2
              rounded-2xl
              border border-red-500
              bg-red-150 text-red-500
              transition hover:bg-red-100
-             active:scale-95"
-      aria-label="Se déconnecter"
-      title="Se déconnecter"
-    >
+             active:scale-95" aria-label="Se déconnecter" title="Se déconnecter">
 
       <span class="text-sm font-semibold">
         Déconnexion
       </span>
 
-      <i
-        class="fa-solid fa-right-from-bracket text-sm"
-        aria-hidden="true"
-      ></i>
+      <i class="fa-solid fa-right-from-bracket text-sm" aria-hidden="true"></i>
 
     </button>
-  }
+    }
 
-</div>
+  </div>
 
 </aside>

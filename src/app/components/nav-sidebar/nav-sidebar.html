@@ -1,8 +1,6 @@
-<header
-  class="fixed left-64 right-0 top-0 z-30
+<header class="fixed left-64 right-0 top-0 z-30
          h-[100px] border-b border-slate-100
-         bg-white px-5"
->
+         bg-white px-5">
 
   <div class="flex h-full items-center justify-between">
 
@@ -13,17 +11,13 @@
                -translate-y-1/2
                text-[20px] text-slate-400"></i>
 
-      <input
-        type="text"
-        placeholder="Rechercher un signalement, une zone..."
-        class="h-12 w-full rounded-2xl
+      <input type="text" placeholder="Rechercher un signalement, une zone..." class="h-12 w-full rounded-2xl
                bg-slate-50
                pl-16 pr-5
                text-sm text-slate-600
                outline-none
                placeholder:text-slate-400
-               focus:ring-2 focus:ring-green-100"
-      />
+               focus:ring-2 focus:ring-green-100" />
 
     </div>
 
@@ -32,48 +26,37 @@
     <div class="flex h-full items-center">
 
       <!-- DATE -->
-      <div
-        class="flex flex-col items-end
+      <div class="flex flex-col items-end
                border-r border-slate-200
-               pr-7"
-      >
+               pr-7">
 
-        <span
-          class="text-sm font-medium
-                 uppercase text-slate-400"
-        >
+        <span class="text-sm font-medium
+                 uppercase text-slate-400">
           AUJOURD'HUI
         </span>
 
-        <span
-          class="mt-1 text-[17px]
-                 font-bold text-slate-700"
-        >
-         {{ currentDate }}
+        <span class="mt-1 text-[17px]
+                 font-bold text-slate-700">
+          {{ currentDate }}
         </span>
 
       </div>
 
 
       <!-- NOTIFICATION -->
-      <button
-        type="button"
-        class="relative mx-7
+      <button type="button" class="relative mx-7
                flex h-12 w-12
                items-center justify-center
                rounded-2xl bg-slate-50
-               text-slate-500"
-      >
+               text-slate-500">
 
-      <i class="fa-regular fa-bell text-[19px]"></i>
+        <i class="fa-regular fa-bell text-[19px]"></i>
 
         <!-- POINT ROUGE -->
-        <span
-          class="absolute right-[11px] top-[9px]
+        <span class="absolute right-[11px] top-[9px]
                  h-2 w-2 rounded-2xl
                  bg-red-500
-                 ring-2 ring-white"
-        ></span>
+                 ring-2 ring-white"></span>
 
       </button>
 
