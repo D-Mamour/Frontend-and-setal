@@ -17,6 +17,7 @@ import { SignalementMap } from './components/agent/signalement-map/signalement-m
 import { SignalementDetailAdmin } from './components/admin/signalement-detail-admin/signalement-detail-admin';
 import { authGuard } from './guards/auth.guard';
 import { roleGuard } from './guards/role.guard';
+import { ListeIntervention } from './components/agent/liste-intervention/liste-intervention';
 
 export const routes: Routes = [
 
@@ -35,6 +36,9 @@ export const routes: Routes = [
     canActivate: [authGuard, roleGuard], data: { roles: ['agent']}
   },
   {path: 'agent/signalements/:id', component: SignalementDetails,
+    canActivate: [authGuard, roleGuard], data: { roles: ['agent']}
+  },
+  {path: 'agent/interventions', component: ListeIntervention,
     canActivate: [authGuard, roleGuard], data: { roles: ['agent']}
   },
   {path: 'agent/signalements/map', component: SignalementMap,

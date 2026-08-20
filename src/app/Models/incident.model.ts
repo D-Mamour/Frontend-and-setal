@@ -18,3 +18,5 @@ export interface Incident {
   priorite: string;
   urlImage: string;
 }
+
+
