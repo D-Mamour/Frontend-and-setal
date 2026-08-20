@@ -2,10 +2,11 @@ import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { Navbar } from "../../navbar/navbar";
 import { AuthService } from '../../../Services/auth-citoyen.service';
 import { AgentService } from '../../../Services/agent.service';
-import { Incident, AnalyseAI } from '../../../Models/infos/incident';
+
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AnalyseAI, Incident } from '../../../Models/incident.model';
 
 @Component({
   selector: 'app-signalement-details',

@@ -4,7 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 
 import { environment } from '../../environments/environment';
-import { Incident, Intervention } from '../Models/infos/incident';
+import { Intervention } from '../Models/infos/incident';
+import { Incident } from '../Models/incident.model';
 
 // Réponse renvoyée par le backend au démarrage d'une intervention.
 // Ajuste les champs selon ce que ta vue Django renvoie réellement.

@@ -288,14 +288,22 @@
               </h3>
 
               <p class="mt-1 text-xs text-slate-500 md:text-sm">
-                {{ signalement.statut }} • {{ formatTemps(signalement.dateCreation) }}
+                <span class="inline-flex px-3 py-1 rounded-2xl bg-secondary-50 border border-secondary-100 text-xs font-semibold text-secondary-600"
+                [ngClass]="{
+                              'bg-orange-50 border-orange-100 text-orange-600': signalement.statut === 'en_cours',
+                              'bg-red-50 border-red-100 text-red-600': signalement.statut === 'en_attente',
+                              'bg-green-50 border-green-100 text-green-600': signalement.statut === 'resolu'
+                            }">
+                  {{signalement.statut}}
+                </span>
+                • {{ formatTemps(signalement.dateCreation) }}
               </p>
 
             </div>
 
             <!-- PRIORITE -->
             <span class="shrink-0 rounded-xl px-3 py-2 text-[10px] font-black md:text-xs" [ngClass]="[classePriorite(signalement.priorite).bg, classePriorite(signalement.priorite).text]">
-              {{ signalement.statut }}
+              {{ signalement.priorite }}
             </span>
 
           </article>

@@ -1,3 +1,7 @@
+export interface AnalyseAI {
+    type_incident: string
+    niveau_urgence: string
+}
 export interface CreateIncident {
   description?: string;
   messageVocal?: string;
@@ -7,6 +11,7 @@ export interface CreateIncident {
 }
 
 export interface Incident {
+  AnalyseAI: AnalyseAI | undefined
   id: number;
   statut: string;
   description?: string;

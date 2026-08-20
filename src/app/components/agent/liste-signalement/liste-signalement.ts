@@ -21,10 +21,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Navbar } from "../../navbar/navbar";
 import { Router, RouterLink } from '@angular/router';
-import { Incident } from '../../../Models/infos/incident';
+
 import { IncidentService } from '../../../Services/incident.service';
 import { ListeIntervention } from "../liste-intervention/liste-intervention";
 import { Chart, registerables } from 'chart.js';
+import { Incident } from '../../../Models/incident.model';
 
 Chart.register(...registerables);
 
