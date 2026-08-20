@@ -1,11 +1,12 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal, input  } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminprofilService } from '../../../Services/admin-dashboard-service';
 import { Incident } from '../../../Models/incident.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-signalement-detail-admin',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './signalement-detail-admin.html',
   styleUrl: './signalement-detail-admin.css',
 })
@@ -14,9 +15,19 @@ export class SignalementDetailAdmin implements OnInit {
   router = inject(Router);
   incidentService = inject(AdminprofilService);
 
-  incident: Incident | null = null;
+
+  incident = signal<Incident | null>(null);
+  // On injecte le service pour récupérer directement son Signal
+  private readonly adminService = inject(AdminprofilService);
+
+  // On crée un raccourci public pour le fichier HTML
+  readonly userConnecte = this.adminService.adminuser;
 
   ngOnInit(): void {
+    this.adminService.profil().subscribe({
+      next: (data) => console.log("Profil chargé avec succès dans le Header :", data),
+      error: (err) => console.error("Le Header n'a pas pu récupérer l'utilisateur", err)
+    });
 
     const id = Number(this.route.snapshot.paramMap.get('id'));
     console.log('ID du signalement :', id);
@@ -35,7 +46,7 @@ export class SignalementDetailAdmin implements OnInit {
       next: (incident) => {
         console.log('detail charge', incident);
 
-        this.incident = incident;
+        this.incident.set(incident);
       },
 
       error: (error) => {
@@ -49,4 +60,8 @@ export class SignalementDetailAdmin implements OnInit {
   retour(): void {
     this.router.navigate(['/admin/signalements']);
   }
+
+
+
+
 }

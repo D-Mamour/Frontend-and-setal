@@ -109,16 +109,20 @@
       <div class="h-11 px-4 bg-white border border-slate-200 rounded-lg flex items-center gap-3">
         <i class="fa-solid fa-magnifying-glass text-slate-400"></i>
 
-        <input type="text" placeholder="Rechercher..."
+        <input type="text" placeholder="Rechercher..." (input)="onRecherche($any($event.target).value)"
           class="w-full outline-none text-sm text-slate-600 placeholder:text-slate-400 bg-transparent" />
       </div>
 
-      <select class="h-11 px-4 bg-white border border-slate-200 rounded-lg text-sm text-slate-600 outline-none">
-        <option>Toutes les catégories</option>
+      <select (change)="selectionneCategorie($any($event.target).value)" class="h-11 px-4 bg-white border border-slate-200 rounded-lg text-sm text-slate-600 outline-none">
+        @for(cat of categorie(); track cat){
+        <option [value]="cat">{{cat === 'tous' ? 'Toutes les catégories' : cat}} </option>
+        }
       </select>
 
-      <select class="h-11 px-4 bg-white border border-slate-200 rounded-lg text-sm text-slate-600 outline-none">
-        <option>Priorité</option>
+      <select (change)="selectionnePriorite($any($event.target).value)" class="h-11 px-4 bg-white border border-slate-200 rounded-lg text-sm text-slate-600 outline-none">
+        @for(pri of priorite(); track pri){
+        <option [value]="pri">{{pri === 'tous' ? 'Toutes les Priorités ' : pri}}</option>
+        }
       </select>
 
       <button
@@ -168,7 +172,7 @@
 
           <tbody class="divide-y divide-slate-100">
 
-            @for (incident of signalementsFiltres(); track incident.id) {
+            @for (incident of signalementsPagine(); track incident.id) {
 
             <tr class="hover:bg-slate-50">
               <td class="px-6 py-5">
@@ -181,18 +185,33 @@
                 </div>
               </td>
 
-              <td class="px-6 py-5">
-                <p class="text-xs font-medium text-slate-700">
-                  Latitude :
-                  {{ incident.latitude }}
-                </p>
-                <p class="text-xs font-medium text-slate-700">
-                  Longitude :
-                  {{ incident.longitude }}
-                </p>
-              </td>
+          <td class="px-6 py-5">
+            <div class="flex flex-col max-w-[250px]">
+              <!-- Si l'adresse est calculée, on l'affiche, sinon on montre les coordonnées brutes -->
+              @if (incident.adresse) {
+                <span class="text-sm font-medium text-slate-700" [title]="incident.adresse">
+                  {{ incident.adresse }}
+                </span>
+              } @else {
+                <span class="text-xs text-slate-400">Lat: {{ incident.latitude }}</span>
+                <span class="text-xs text-slate-400">Long: {{ incident.longitude }}</span>
+              }
+            </div>
+          </td>
 
-              <td class="px-6 py-5 text-sm text-slate-600"> {{ incident.citoyen || 'Anonyme' }}</td>
+      <td class="px-6 py-5 text-sm text-slate-600">
+        @if (incident.citoyen && incident.citoyen.prenom) {
+          <!-- Affichage du prénom et du nom s'ils existent, sinon fallback -->
+          {{ incident.citoyen.prenom }} {{ incident.citoyen.nom || '' }}
+        } @else if (incident.citoyen && incident.citoyen.id) {
+          <!-- Si l'objet existe mais que les noms sont vides en base de données -->
+          Citoyen #{{ incident.citoyen.id }}
+        } @else {
+          <!-- Si l'incident n'a pas de compte citoyen lié (anonyme) -->
+          Anonyme
+        }
+      </td>
+
 
               <td class="px-6 py-5">
                 <p class="text-sm text-slate-700">{{ incident.dateCreation | date:'dd/MM/yyyy' }}
@@ -256,26 +275,50 @@
             </tr>
 
             }
+
           </tbody>
         </table>
       </div>
 
       <!-- FOOTER TABLE -->
-      <div class="px-6 py-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p class="text-sm text-slate-500">Affichage de 8 sur 24 signalements non pris en charge</p>
+<div class="px-6 py-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+  <p class="text-sm text-slate-500">
+    Affichage de {{ signalementsPagine().length }} sur {{ listeTotaleFiltree().length }} signalement(s)
+  </p>
 
-        <div class="flex items-center gap-2">
-          <button class="w-9 h-9 rounded-lg border border-slate-200 text-slate-400">‹</button>
+  <div class="flex items-center gap-2">
+    <button
+      (click)="pagePrecedente()"
+      [disabled]="pageActuelle() === 1"
+      class="w-9 h-9 rounded-lg border border-slate-200 text-slate-400 disabled:opacity-40"
+    >
+      <i class="fa-solid fa-chevron-left text-xs"></i>
+    </button>
 
-          <button class="w-9 h-9 rounded-lg bg-green-700 text-white font-semibold">1</button>
+    @for (p of [].constructor(totalPages()); let i = $index; track i) {
+      <button
+        type="button"
+        (click)="pageActuelle.set(i + 1)"
+        class="w-9 h-9 rounded-lg font-semibold"
+        [class.bg-green-700]="pageActuelle() === i + 1"
+        [class.text-white]="pageActuelle() === i + 1"
+        [class.border]="pageActuelle() !== i + 1"
+        [class.border-slate-200]="pageActuelle() !== i + 1"
+        [class.text-slate-600]="pageActuelle() !== i + 1"
+      >
+        {{ i + 1 }}
+      </button>
+    }
 
-          <button class="w-9 h-9 rounded-lg border border-slate-200 text-slate-600">2</button>
-
-          <button class="w-9 h-9 rounded-lg border border-slate-200 text-slate-600">3</button>
-
-          <button class="w-9 h-9 rounded-lg border border-slate-200 text-slate-400">›</button>
-        </div>
-      </div>
+    <button
+      (click)="pageSuivante()"
+      [disabled]="pageActuelle() === totalPages()"
+      class="w-9 h-9 rounded-lg border border-slate-200 text-slate-400 disabled:opacity-40"
+    >
+      <i class="fa-solid fa-chevron-right text-xs"></i>
+    </button>
+  </div>
+</div>
     </div>
   </main>
 </div>

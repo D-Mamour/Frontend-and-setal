@@ -120,10 +120,27 @@ export class Dashboard implements AfterViewInit, OnDestroy {
     // Permet à Leaflet de recalculer la taille
     const container = document.getElementById('map-container');
     if (container) {
-      const resizeObserver = new ResizeObserver(() => this.map.invalidateSize());
-      resizeObserver.observe(container);
+        const resizeObserver = new ResizeObserver(() => {
+        if (this.map && (this.map as any)._loaded) {
+          this.map.invalidateSize();
+        }
+      });
     }
   }
+
+  //  Calcule automatiquement le taux de résolution en %
+readonly tauxResolution = computed(() => {
+  const total = this.signalements().length;
+
+  // Évite la division par zéro si l'API n'a pas encore chargé les données
+  if (total === 0) return 0;
+
+  const resolus = this.signalements().filter(i => i.statut === 'resolu').length;
+
+  // Calcule le pourcentage et l'arrondit à un chiffre après la virgule
+  return Math.round((resolus / total) * 100);
+});
+
 
   // ============================================================
   // GRAPHIQUES CHART.JS

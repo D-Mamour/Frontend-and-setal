@@ -9,16 +9,20 @@ export interface CreateIncident {
 export interface Incident {
   id: number;
   statut: string;
-  citoyen?: string,
   description?: string;
   messageVocal?: string;
   latitude: number;
   longitude: number;
   dateCreation: string;
   dateModification: string;
-  type_incident: string,
   priorite: string;
   urlImage: string;
   type_incident: string | null; // Ajout du champ provenant du Serializer Django
-  citoyen?: number; // Optionnel : si vous souhaitez aussi manipuler l'ID du citoyen plus tard
+    citoyen?: {
+    id: number;
+    prenom?: string;
+    nom?: string;
+    email?: string;
+  };
+  adresse?: string;
 }
