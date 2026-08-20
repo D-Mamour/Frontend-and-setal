@@ -2,10 +2,11 @@ import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
-import { Incident, Intervention } from '../../../Models/infos/incident';
+import { Intervention } from '../../../Models/infos/incident';
 import { AgentService } from '../../../Services/agent.service';
 import { environment } from '../../../../environments/environment';
 import { Navbar } from "../../navbar/navbar";
+import { Incident } from '../../../Models/incident.model';
 
 type StatutFiltre = 'tous' | 'en_attente' | 'en_cours' | 'resolu';
 

@@ -1,3 +1,7 @@
+export interface AnalyseAI {
+    type_incident: string
+    niveau_urgence: string
+}
 export interface CreateIncident {
   description?: string;
   messageVocal?: string;
@@ -7,6 +11,7 @@ export interface CreateIncident {
 }
 
 export interface Incident {
+  AnalyseAI: AnalyseAI | undefined
   id: number;
   statut: string;
   description?: string;
@@ -18,6 +23,13 @@ export interface Incident {
   priorite: string;
   urlImage: string;
   type_incident: string | null; // Ajout du champ provenant du Serializer Django
-  citoyen?: number; // Optionnel : si vous souhaitez aussi manipuler l'ID du citoyen plus tard
+    citoyen?: {
+    id: number;
+    prenom?: string;
+    nom?: string;
+    email?: string;
+  };
   adresse?: string;
 }
+
+
