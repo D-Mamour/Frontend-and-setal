@@ -17,8 +17,20 @@ export interface Incident {
     dateModification?: string,
     priorite:string,
     urlImage? :string,
+    type_incident?:string,
+    adresse?:string,
 
 }
 
+export interface Intervention {
 
+    id: number;
+    signalement?: string;
+    agent?: string
+    statut?: string;
+    photo?: string;
+    commentaire?: string;
+    date_creation?: string;
+    date_fin?: string;
+}
 

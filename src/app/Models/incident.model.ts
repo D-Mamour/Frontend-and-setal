@@ -21,3 +21,5 @@ export interface Incident {
   citoyen?: number; // Optionnel : si vous souhaitez aussi manipuler l'ID du citoyen plus tard
   adresse?: string;
 }
+
+
