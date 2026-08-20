@@ -38,7 +38,7 @@ export class NavSidebar {
   // On crée un raccourci public pour le fichier HTML
   readonly userConnecte = this.adminService.adminuser;
     ngOnInit(): void {
-    // 🚀 ON CHARGE LE PROFIL ICI ! Dès que l'application s'ouvre, le Header appelle Django
+    // ON CHARGE LE PROFIL ICI ! Dès que l'application s'ouvre, le Header appelle Django
     this.adminService.profil().subscribe({
       next: (data) => console.log("Profil chargé avec succès dans le Header :", data),
       error: (err) => console.error("Le Header n'a pas pu récupérer l'utilisateur", err)

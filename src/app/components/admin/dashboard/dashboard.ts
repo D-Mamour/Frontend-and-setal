@@ -18,6 +18,7 @@ Chart.register(...registerables);
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
+
 export class Dashboard implements AfterViewInit, OnDestroy {
 
   // ============================================================
