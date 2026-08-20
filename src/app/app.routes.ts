@@ -15,9 +15,11 @@ import { ListeSignalement } from './components/agent/liste-signalement/liste-sig
 import { SignalementDetails } from './components/agent/signalement-details/signalement-details';
 import { SignalementMap } from './components/agent/signalement-map/signalement-map';
 import { SignalementDetailAdmin } from './components/admin/signalement-detail-admin/signalement-detail-admin';
-import { authGuard } from './guards/auth.guard';
-import { roleGuard } from './guards/role.guard';
+import { authGuard, authGuardAdmin } from './guards/auth.guard';
+import { roleGuard, roleGuardAdmin } from './guards/role.guard';
 import { ListeIntervention } from './components/agent/liste-intervention/liste-intervention';
+import { DetailSignalement } from './components/citoyen/detail-signalement/detail-signalement';
+import { Profil } from './components/admin/profil/profil';
 
 export const routes: Routes = [
 
@@ -70,7 +72,7 @@ export const routes: Routes = [
       { path: 'parametres', component: AdminSecurite,
          canActivate: [authGuardAdmin, roleGuardAdmin], data: { roles: ['admin']}
       },
-      {path: 'profil', component:Profil,
+      {path: 'profil', component: Profil,
         canActivate: [authGuardAdmin, roleGuardAdmin], data: { roles: ['admin']}
       },
     ],
