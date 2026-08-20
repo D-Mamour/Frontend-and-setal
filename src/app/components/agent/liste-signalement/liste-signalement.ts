@@ -193,6 +193,9 @@ export class ListeSignalement implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
+
+
+
   // Formate la date de création en "Il y a Xh" / "Il y a X jours"
   formatTemps(dateCreation: string): string {
     const date = new Date(dateCreation);
