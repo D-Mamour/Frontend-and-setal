@@ -152,7 +152,7 @@
                      <div class="w-9 h-9 rounded-lg bg-red-50 flex items-center justify-center">
                        <i class="fa-solid fa-trash-can text-red-500"></i>
                      </div>
-                     <span class="text-sm font-semibold text-slate-700"> {{ incident.signalement?.type_incident }} </span>
+                     <span class="text-sm font-semibold text-slate-700"> {{ incident.signalement }} </span>
                    </div>
                  </td>
 
@@ -201,8 +201,7 @@
              <td class="px-6 py-5" >
                <a [routerLink]="['/admin/profil-agent/', incident.agent?.prenom]"
                  class="text-sm font-semibold text-green-700 hover:text-green-800">
-                 Voir<br />
-                 détails
+                 <i class="fa-solid fa-eye"></i><br />
                </a>
              </td>
            </tr>
