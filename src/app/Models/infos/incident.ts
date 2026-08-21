@@ -25,8 +25,13 @@ export interface Incident {
 export interface Intervention {
 
     id: number;
-    signalement?: string;
-    agent?: string
+    signalement?:{
+      type_incident: string;
+    }
+    agent?: {
+      prenom?: string;
+      nom?: string;
+    }
     statut?: string;
     photo?: string;
     commentaire?: string;

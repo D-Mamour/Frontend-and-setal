@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { Incident } from '../Models/incident.model';
+import { Intervention } from '../Models/infos/incident';
 
 
 @Injectable ({
@@ -15,6 +16,8 @@ export class AdminprofilService {
   private baseUrl = environment.apiUrl;
 
   readonly adminuser = signal<User |null>(null)
+
+  readonly interventions = signal<Intervention[]>([])
 
   readonly nombreSignalement = signal(0);
 
@@ -38,6 +41,11 @@ incidents(): Observable<Incident[]> {
 }
   getIncident(id: number): Observable<Incident>{
     return this.httpclient.get<Incident>(`${this.baseUrl}/incidents/${id}`)
+  }
+
+  intervention(): Observable<Intervention[]> {
+    return this.httpclient.get<Intervention[]>(`${this.baseUrl}/interventions/toutes/`)
+    .pipe(tap(donnee => this.interventions.set(donnee)));
   }
 
 }
