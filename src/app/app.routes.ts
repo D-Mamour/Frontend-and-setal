@@ -22,6 +22,7 @@ import { ListeIntervention } from './components/agent/liste-intervention/liste-i
 import { DetailSignalement } from './components/citoyen/detail-signalement/detail-signalement';
 import { Profil } from './components/admin/profil/profil';
 import { ProfilUtilisateur } from './components/profil-utilisateur/profil-utilisateur';
+import { AdminAgentProfil } from './components/admin/admin-agent-profil/admin-agent-profil';
 
 export const routes: Routes = [
 
@@ -69,7 +70,7 @@ export const routes: Routes = [
          canActivate: [authGuardAdmin, roleGuardAdmin], data: { roles: ['admin']}
       },
       { path: 'admin-intervention', component: AdminIntervention,
-        canActivate: [authGuardAdmin, roleGuardAdmin], data: { roles: ['admin']}
+        // canActivate: [authGuardAdmin, roleGuardAdmin], data: { roles: ['admin']}
       },
       { path: 'signalements/detail', component: SignalementDetailAdmin,
          canActivate: [authGuardAdmin, roleGuardAdmin], data: { roles: ['admin']}
@@ -83,6 +84,9 @@ export const routes: Routes = [
       {path: 'profil', component: Profil,
         canActivate: [authGuardAdmin, roleGuardAdmin], data: { roles: ['admin']}
       },
+      {path: 'profil-agent', component: AdminAgentProfil,
+        canActivate: [authGuardAdmin, roleGuardAdmin], data: { roles: ['admin']}
+      }
     ],
   },
 
