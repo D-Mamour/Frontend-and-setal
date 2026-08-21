@@ -183,13 +183,20 @@
         }
 
         <p class="flex items-center gap-1 text-gray-400 text-sm mt-1">
+            @if (incident.adresse) {
 
-          <i class="fa-solid fa-location-dot text-xs"></i>
+              <i class="fa-solid fa-location-dot text-xs"></i>
 
-          {{ incident.latitude | number:'1.4-6' }},
-          {{ incident.longitude | number:'1.4-6' }}
+              {{ incident.adresse}}
 
+
+            }
+            @else {
+              {{ incident.latitude | number:'1.4-6' }},
+              {{ incident.longitude | number:'1.4-6' }}
+            }
         </p>
+
 
         <!-- DATE -->
 

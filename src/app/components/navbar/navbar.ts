@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
-=======
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
->>>>>>> 1506128e49c9bbe3b86783c4ac04c2cf4f915834
+import { Router, RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   faHouse,

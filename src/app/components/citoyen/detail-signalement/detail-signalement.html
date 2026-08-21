@@ -90,12 +90,16 @@
           <div class="w-10 h-10 rounded-xl bg-[#1F6F5C]/10 flex items-center justify-center shrink-0">
             <i class="fa-solid fa-location-dot text-[#1F6F5C]"></i>
           </div>
+          @if (inc.adresse) {
           <p class="text-sm font-semibold text-gray-900">
             {{ inc.adresse || 'Adresse non disponible' }}
           </p>
+        }
+        @else{
           <p class="text-sm text-gray-700 font-mono">
             {{ inc.latitude }}, {{ inc.longitude }}
           </p>
+        }
         </div>
       </section>
 
